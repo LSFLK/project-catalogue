@@ -1,0 +1,64 @@
+::-webkit-scrollbar {
+    width: 10px;
+    background: #0d141f;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #363d47;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    background-color: #4d4d4d;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+.filters-container {
+    margin-top: 20px;
+}
+
+.filter {
+    margin: 10px;
+}
+
+.title {
+    background-color: #4d4d4d;
+    color: #ffffff;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.form-control {
+    background-color: #4d4d4d;
+}
+
+.container::-webkit-scrollbar {
+    width: 8px;
+    background: #0d141f;
+    border-radius: 8px 8px 8px 8px;
+}
+  
+.container::-webkit-scrollbar-thumb {
+    background: #525861;
+    border-radius: 8px 8px 8px 8px;
+}
+
+.container .btn-text {
+    font-family: 'Montserrat';
+    font-size: 14px;
+    color: #0066ff;
+    font-weight: bold;
+    margin: 100px;
+    text-align: center;
+}
+
+.footer {
+    position: relative;
+    width: 100%;
+    background-color: #4d4d4d;
+    padding: 30px;
+}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Projects Catalogue{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/projects/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/projects/dropdown.css') }}" rel="stylesheet"/>
+
+  <!-- Page Heading -->
+  <div class="header">
+    <h1 class="title">Open Source Projects</h1>
+
+    <div class="d-flex filters-container row">
+      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'domain', 'name': 'Domain Expertise', 'options': domain_options} %}</div>
+      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'technical', 'name': 'Technical Expertise', 'options': technical_options} %}</div>
+      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'language', 'name': 'Programming Language', 'options': programming_languages} %}</div>
+      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'name', 'name': 'Project Name', 'options': project_names} %}</div>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <div class="row">
+      {{ include('projects/card.html.twig', { projectTitle: 'Project One' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Two' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Three' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Four' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Five' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Six' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Seven' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Eight' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Nine' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Ten' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Eleven' }) }}
+      {{ include('projects/card.html.twig', { projectTitle: 'Project Twelve' }) }}
+    </div>
+
+    <div class="btn-text">LOAD MORE</div>
+
+  </div>
+
+  <div class="footer"></div>
+
+  {% block javascripts %}
+    <script src="{{ asset('js/projects/dropdown.js') }}"></script>
+  {% endblock %}
+
+  <script>
+    setupDropdowns(['domain', 'technical', 'language', 'name'])
+  </script>
+
+{% endblock %}

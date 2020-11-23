@@ -1,0 +1,64 @@
+.project-card-container {
+  margin-bottom: 30px;
+}
+
+.project-card {
+  transition: box-shadow .5s;
+}
+
+.project-card:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.project-card-top {
+  height: 120px;
+  margin-bottom: 0px;
+  overflow: hidden;
+}
+
+.project-card-image {
+  height: 250px;
+  object-fit: contain;
+  transition: transform .4s ease-in-out;
+  margin-left: 150px;
+  margin-top: -20px;
+}
+
+.project-card:hover .project-card-image {
+  transform: scale(2) rotate(25deg);
+}
+
+.project-icon {
+  height: 80px;
+  position: absolute;
+  object-fit: contain;
+  top: 25px;
+  margin-left: 115px;
+  transition: transform .2s ease-in-out;
+}
+
+.project-card:hover .project-icon {
+  transform: scale(1.1);
+}
+
+.card-title {
+  position: absolute;
+  top: 50px;
+  margin-left: 20px;
+  font-family: 'Montserrat';
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.card-text {
+  font-family: 'Montserrat';
+}
+
+.card-btn-text {
+  font-family: 'Montserrat';
+  font-size: 14px;
+  color: #0066ff;
+  font-weight: bold;
+  margin-top: 30px;
+}

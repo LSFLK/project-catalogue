@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ project_name }} - Open Source{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/viewProject/index.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="container">
+        <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
+        <img class="card-img-top project-icon" src="{{ asset('icons/project-icon-default.jpg') }}" alt="">
+        <h1 class="title">{{ project_name }}</h1>
+        <a class="project-site" href="https://{{ project_site }}" target="_blank">{{ project_site }}</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="body-container">
+        <div class="main-info">
+            <div class="section-title">{{ objective }}</div>
+            <div class="description">{{ description }}</div>
+
+            <div class="section-title">Source Code</div>
+            <table>
+              <tr>
+                <th class="table-header">Repo</th>
+                <th class="table-header">License</th>
+              </tr>
+              <tr>
+                <td class="link"><a href="{{ repository }}" target="_blank">{{ project_name }}</a></td>
+                <td>Apache 2.0</td>
+                <td>2645 Stars</td>
+                <td>577 Forks</td>
+              </tr>
+            </table>
+
+            <div class="section-title">More Info</div>
+            <div class="description">
+              <ul>
+                <li class="link"><a href="https://medium.com/ballerina-techblog" target="_blank">{{ more_info }}</a></li>
+              </ul>  
+            </div>
+        </div>
+
+        <div style="margin-top: -35px; width: 100%">
+            <div class="sub-container">
+                <div class="title">CATEGORIES</div>
+                {% for category in categories %}
+                  <div class="info"><a>{{ category }}</a><div>
+                {% endfor %}
+
+                <div class="title">LANGUAGES</div>
+                {% for language in languages %}
+                  <div class="info"><a>{{ language }}</a><div>
+                {% endfor %}
+
+                <div class="title">TAGS</div>
+                {% for tag in tags %}
+                  <div class="info"><a>{{ tag }}</a><div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}

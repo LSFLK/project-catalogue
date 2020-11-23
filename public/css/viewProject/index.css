@@ -1,0 +1,144 @@
+::-webkit-scrollbar {
+    width: 10px;
+    background: #0d141f;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #363d47;
+  border-radius: 8px 8px 8px 8px;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    background-image: linear-gradient(to right, #e6e6e640, #cccccc65);
+    margin-bottom: 50px;
+    padding: 80px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    overflow: hidden;
+}
+
+.project-image {
+    position: absolute;
+    height: 500px;
+    object-fit: contain;
+    left: 35%;
+    top: -40%;
+}
+
+.project-icon {
+    height: 120px;
+    position: absolute;
+    object-fit: contain;
+    left: 35%;
+    top: 20%
+}
+
+.title {
+    color: #1a1a1a;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.project-site {
+    font-family: 'Montserrat';
+    font-size: 16px;
+    color: #0066ff;
+    font-weight: 600;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    margin-left: 3px;
+}
+
+.container {
+    font-family: 'Montserrat Regular';
+    color: #404040;
+    font-weight: 400;
+}
+
+.body-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.section-title {
+    font-family: 'Montserrat Medium';
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+.description {
+    font-size: 16px;
+    margin-bottom: 45px;
+}
+
+table {
+    font-family: 'Roboto';
+    border-collapse: collapse;
+    width: 70%;
+    margin-left: -3px;
+    margin-bottom: 45px;
+}
+  
+td, th {
+    text-align: left;
+    padding: 5px;
+}
+
+.table-header {
+    font-weight: bold;
+}
+
+.link {
+    color: #0066ff;
+    font-weight: 500;
+}
+
+ul {
+    font-family: 'Montserrat Medium';
+    list-style: none;
+    margin-top: -10px;
+}
+  
+ul li::before {
+    content: "\2022";
+    color: #404040;
+    font-weight: bold;
+    font-size: 25px;
+    display: inline-block; 
+    width: 0.8em;
+    margin-left: -1em;
+}
+
+.sub-container {
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 4px solid  #e6e6e690;
+    height: 100%;
+}
+
+.sub-container .title {
+    font-family: 'Roboto';
+    color: #404040;
+    margin-top: 35px;
+    margin-bottom: 6px;
+}
+
+.sub-container .info {
+    font-family: 'Roboto';
+    color: #808080;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.sub-container .info a {
+    text-decoration: underline;
+}
+
+.sub-container .info a:hover {
+    text-decoration: underline;
+}
