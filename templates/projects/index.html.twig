@@ -48,7 +48,10 @@
   {% endblock %}
 
   <script>
-    setupDropdowns(['domain', 'technical', 'language', 'name'])
+    initiallizeDropdown('domain')
+    initiallizeDropdown('technical')
+    initiallizeDropdown('language')
+    initiallizeDropdown('name')
   </script>
 
 {% endblock %}

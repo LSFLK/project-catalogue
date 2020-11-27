@@ -1,9 +1,4 @@
-function setupDropdowns (elementIDs) {
-  elementIDs.forEach((elementID) => setupEventListeners(elementID))
-}
-
-
-function setupEventListeners (elementID) {
+function initiallizeDropdown (elementID) {
     const element = document.getElementById(elementID);
 
     const selected = element.querySelector(".selected");
@@ -34,15 +29,19 @@ function setupEventListeners (elementID) {
         optionsContainer.classList.remove("active");
       });
     });
-
-    searchBox.addEventListener("click", () => {
-      searchBox.focus();
-      optionsContainer.scrollTop = 0;
-    })
     
     searchBox.addEventListener("keyup", (event) => {
       filterList(event.target.value);
     });
+
+    optionsContainer.addEventListener("click", () => {
+      searchBox.focus();
+      optionsContainer.scrollTop = 0;
+    })
+
+    optionsContainer.addEventListener("blur", () => {
+      console.log("CLOSE")
+    })
     
     const filterList = (searchTerm) => {
       searchTerm = searchTerm.toLowerCase();

@@ -117,9 +117,8 @@
   border-radius: 8px 8px 0 0;
   z-index: 100;
   border: 8px solid #2f3640;
-  pointer-events: none;
   transition: all 0.4s;
-  cursor: text;
+  cursor: auto;
 }
 
 .search-box input:focus {
