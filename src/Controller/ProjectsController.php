@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\DomainExpertise;
+use App\Entity\TechnicalExpertise;
+use App\Entity\ProgrammingLanguage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class ProjectsController extends AbstractController
 {
@@ -13,61 +17,9 @@ class ProjectsController extends AbstractController
      */
     public function index(): Response
     {
-        $domain_options = array(
-            'Agriculture & Farming',
-            'Arts & Heritage Crafts',
-            'Banking, Finance and Insurance',
-            'Charity & Philanthropy',
-            'Disaster Relief',
-            'Economy',
-            'Education',
-            'Elections & Governance',
-            'Emergency Response',
-            'Environment, Forestry & Wildlife Conservation',
-            'Fisheries & Aquatic Resources',
-            'Foreign Affairs'
-        );
-
-        $technical_options = array(
-            'Cloud',
-            'Data Analytics & Visualization',
-            'Database',
-            'Developer Tools',
-            'Enterprise',
-            'Entertainment',
-            'Games',
-            'Graphics, Video, Audio',
-            'Internationalization or Localization',
-            'Internet of Things (IoT)',
-            'Location & Maps',
-            'Machine Learning, Neural Networks & AI'
-        );
-
-        $programming_languages = array(
-            'Ballerina',
-            'C',
-            'C#',
-            'C++',
-            'CSS',
-            'Dart',
-            'Go',
-            'Haskell',
-            'HTML',
-            'Java',
-            'Javascript',
-            'Lua',
-            'Objective-C',
-            'Perl',
-            'PHP',
-            'Python',
-            'R',
-            'Ruby',
-            'Rust',
-            'Shell',
-            'SQL',
-            'Swift',
-            'Typescript'
-        );
+        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAll();
+        $technical_expertise = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAll();
+        $programming_language = $this->getDoctrine()->getRepository(ProgrammingLanguage::class)->findAll();
 
         $project_names = array(
             'Project One',
@@ -85,9 +37,9 @@ class ProjectsController extends AbstractController
         );
 
         return $this->render('projects/index.html.twig', [
-            'domain_options' => $domain_options,
-            'technical_options' => $technical_options,
-            'programming_languages' => $programming_languages,
+            'domain_expertise' => $domain_expertise,
+            'technical_expertise' => $technical_expertise,
+            'programming_language' => $programming_language,
             'project_names' => $project_names,
         ]);
     }
