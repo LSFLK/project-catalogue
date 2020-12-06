@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div class="md-form form-sm">
+    <i class="{{ icon }} prefix"></i>
+
+    {% if rows is defined %}
+      <textarea id="{{ id }}" class="md-textarea form-control" rows="{{ rows }}" style="margin-top: 40px"></textarea>
+    {% else %}
+      <input type="text" id="{{ id }}" class="form-control form-control-sm" style="margin-top: 20px">
+    {% endif %}
+
+    <label for="{{ id }}">{{ label }}</label>
+  </div>
+
+{% endblock %}

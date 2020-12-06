@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register Project{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/registerProject/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/registerProject/dropdown.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="container">
+        <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
+        <img class="card-img-top project-icon" src="{{ asset('icons/register-project.png') }}" alt="">
+        <h1 class="title">Register Project</h1>
+        <dev class="page-description">Add your open source project to our catalogue!</dev>
+    </div>
+  </div>
+
+  <div class="container">
+    <form class="form">
+      <h6 class="form-section-title">Project Data</h6>
+
+      {% include 'register_project/input.html.twig' with {
+        'id': 'name',
+        'icon': 'fas fa-registered',
+        'label': 'Project Name'
+      } %}
+
+      {% include 'register_project/input.html.twig' with {
+        'id': 'objective',
+        'icon': 'fas fa-check-square',
+        'label': 'Project Objective'
+      } %}
+
+      {% include 'register_project/input.html.twig' with {
+        'id': 'description',
+        'icon': 'fas fa-registered',
+        'label': 'Description (500 characters)',
+        'rows': '5'
+      } %}
+
+    </form>
+
+    <form class="form">
+      <h6 class="form-section-title">Organization Data</h6>
+
+      <div class="row input-group">
+        <div class="col">
+          {% include 'register_project/input.html.twig' with {
+            'id': 'organization',
+            'icon': 'fas fa-building',
+            'label': 'Organization Name'
+          } %}
+        </div>
+        
+        <div class="col">
+          {% include 'register_project/input.html.twig' with {
+            'id': 'website',
+            'icon': 'fas fa-globe',
+            'label': 'Website'
+          } %}
+        </div>
+      </div>
+    </form>
+
+    <form class="form">
+      <h6 class="form-section-title">Technical Data</h6>
+
+      <div class="row input-group">
+        <div class="col">
+          <div class="flex-fill filter">
+            {% include 'register_project/dropdown.html.twig' with {
+              'id': 'domain',
+              'icon': 'fa-star',
+              'name': 'Domain Expertise',
+              'options': domain_expertise
+            } %}
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="flex-fill filter">
+            {% include 'register_project/dropdown.html.twig' with {
+              'id': 'technical',
+              'icon': 'fa-cog',
+              'name': 'Technical Expertise',
+              'options': technical_expertise
+            } %}
+          </div>
+        </div>
+      </div>
+
+      <div class="row input-group">
+        <div class="col">
+          {% include 'register_project/input.html.twig' with {
+            'id': 'bug_tracking',
+            'icon': 'fas fa-exclamation-circle',
+            'label': 'Bug Tracking'
+          } %}
+        </div>
+        
+        <div class="col">
+          {% include 'register_project/input.html.twig' with {
+            'id': 'mailing_list',
+            'icon': 'fas fa-mail-bulk',
+            'label': 'Mailing List'
+          } %}
+        </div>
+      </div>
+
+      <div class="row input-group">
+        <div class="col">
+          {% include 'register_project/input.html.twig' with {
+            'id': 'git_repository',
+            'icon': 'fab fa-github',
+            'label': 'Git Repository'
+          } %}
+        </div>
+
+        <div class="col">
+          {% include 'register_project/input.html.twig' with {
+            'id': 'documentation',
+            'icon': 'fas fa-file-code',
+            'label': 'Documentation (Link)'
+          } %}
+        </div>
+      </div>
+    </form>
+
+    <form class="form">
+      <h6 class="form-section-title">File Upload</h6>
+
+      <div class="row">
+        <div class="col">
+          <label for="form10" class="form-control-sm">Project Data File</label>
+          <div class="custom-file">
+            <input id="form10" type="file" class="custom-file-input" accept=".pdf">
+            <label class="custom-file-label form-control-sm" for="form10">Choose file</label>
+          </div>
+        </div>
+        
+        <div class="col">
+          <label for="form11" class="form-control-sm">Project Logo</label>
+          <div class="custom-file">
+            <input id="form11" type="file" class="custom-file-input" accept=".png">
+            <label class="custom-file-label form-control-sm" for="form11">Choose file</label>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="btn-container">
+      <button class="btn btn-primary btn-md float-right" type="submit">Review Project</button>
+    </div>
+  </div>
+
+  {% block javascripts %}
+    <script src="{{ asset('js/registerProject/dropdown.js') }}"></script>
+  {% endblock %}
+
+  <script>
+    initiallizeDropdown('domain')
+    initiallizeDropdown('technical')
+  </script>
+{% endblock %}

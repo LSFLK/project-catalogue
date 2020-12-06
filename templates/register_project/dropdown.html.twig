@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div class="select-box" id="{{ id }}">
+    <div class="md-form input-with-post-icon form-sm">
+      <i class="fas {{ icon }} prefix"></i>
+      <i class="fas fa-angle-down input-prefix"></i>
+      <input type="text" id="{{ id }}" class="form-control form-control-sm" readonly>
+      <label for="{{ id }}">{{ name }}</label>
+    </div>
+
+    <div class="options-container">
+      <div class="search-box">
+        <input type="text" placeholder="Search {{ name }}..." />
+      </div>
+      
+      {% for option in options %}
+        <div class="option">
+          <input type="radio" class="radio" id="{{ option }}" name="category" />
+          <label>{{ option }}</label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
