@@ -3,7 +3,9 @@
 {% block body %}
 
   <div class="md-form form-sm">
-    <i class="{{ icon }} prefix"></i>
+    {% if icon is defined %}
+      <i class="{{ icon }} prefix"></i>
+    {% endif %}
 
     {% if rows is defined %}
       <textarea id="{{ id }}" class="md-textarea form-control" rows="{{ rows }}" style="margin-top: 40px"></textarea>

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <div id="git_repo_data">
+    <div class="row input-group">
+      <div class="col-sm-4" id="repo_name">
+        {% include 'register_project/input.html.twig' with {
+          'id': 'repo_name',
+          'icon': 'fab fa-github',
+          'label': 'Repo Name'
+        } %}
+      </div>
+          
+      <div class="col-sm-7" id="repo_url">
+        {% include 'register_project/input.html.twig' with {
+          'id': 'repo_url',
+          'label': 'Repo URL'
+        } %}
+      </div>
+
+      <div class="col-sm-1 md-form form-sm button">
+        <i class="fas fa-plus-circle prefix"></i>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
