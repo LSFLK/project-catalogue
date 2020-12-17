@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ project_name }} - Open Source{% endblock %}
+{% block title %}{{ name }} - Open Source{% endblock %}
 
 {% block body %}
   <!-- Custom styles for this template -->
@@ -10,8 +10,8 @@
     <div class="container">
         <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
         <img class="card-img-top project-icon" src="{{ asset('icons/project-icon-default.jpg') }}" alt="">
-        <h1 class="title">{{ project_name }}</h1>
-        <a class="project-site" href="https://{{ project_site }}" target="_blank">{{ project_site }}</a>
+        <h1 class="title">{{ name }}</h1>
+        <a class="project-site" href="https://{{ website }}" target="_blank">{{ website }}</a>
     </div>
   </div>
 
@@ -28,7 +28,7 @@
                 <th class="table-header">License</th>
               </tr>
               <tr>
-                <td class="link"><a href="{{ repository }}" target="_blank">{{ project_name }}</a></td>
+                <td class="link"><a href="{{ repository }}" target="_blank">{{ name }}</a></td>
                 <td>Apache 2.0</td>
                 <td>2645 Stars</td>
                 <td>577 Forks</td>

@@ -63,6 +63,12 @@
     flex-direction: row;
 }
 
+.main-info {
+    display: flex;
+    flex-basis: 400%;
+    flex-direction: column;
+}
+
 .section-title {
     font-family: 'Montserrat Medium';
     font-size: 22px;

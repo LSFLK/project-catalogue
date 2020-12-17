@@ -14,8 +14,8 @@ class ViewProjectController extends AbstractController
     public function index(): Response
     {
         return $this->render('view_project/index.html.twig', [
-            'project_name' => 'Ballerina',
-            'project_site' => 'ballerina.io',
+            'name' => 'Ballerina',
+            'website' => 'ballerina.io',
             'objective' => 'An open source programming language and platform for cloud-era application programmers to easily write software that just works.',
             'description' => 'For decades, programming languages have treated networks simply as I/O sources. Ballerina introduces fundamental, new abstractions of client objects, services, resource functions, and listeners to bring networking into the language so that programmers can directly address the Fallacies of Distributed Computing as part of their application logic. This facilitates resilient, secure, performant network applications to be within every programmer’s reach.',
             'more_info' => 'Find blogs on Ballerina in community-driven Tech Blog.',

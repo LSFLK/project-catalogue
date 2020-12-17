@@ -8,9 +8,9 @@
     {% endif %}
 
     {% if rows is defined %}
-      <textarea id="{{ id }}" class="md-textarea form-control" rows="{{ rows }}" style="margin-top: 40px"></textarea>
+      <textarea id="{{ id }}" name="{{ id }}" class="md-textarea form-control" rows="{{ rows }}" style="margin-top: 40px"></textarea>
     {% else %}
-      <input type="text" id="{{ id }}" class="form-control form-control-sm" style="margin-top: 20px">
+      <input type="text" id="{{ id }}" name="{{ id }}" class="form-control form-control-sm" style="margin-top: 20px">
     {% endif %}
 
     <label for="{{ id }}">{{ label }}</label>

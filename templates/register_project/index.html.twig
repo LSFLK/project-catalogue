@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <form class="container">
+  <form class="container" action="register/review" method="POST">
     <div class="form form-single-col">
       <h6 class="form-section-title">Project Data</h6>
 
@@ -141,17 +141,17 @@
 
       <div class="row">
         <div class="col">
-          <label for="form10" class="form-control-sm">Project Data File</label>
+          <label for="project_data_file" class="form-control-sm">Project Data File</label>
           <div class="custom-file">
-            <input id="form10" type="file" class="custom-file-input" accept=".pdf">
+            <input id="project_data_file" name="project_data_file" type="file" class="custom-file-input" accept=".pdf">
             <label class="custom-file-label form-control-sm" for="form10">Choose file</label>
           </div>
         </div>
         
         <div class="col">
-          <label for="form11" class="form-control-sm">Project Logo</label>
+          <label for="project_logo" class="form-control-sm">Project Logo</label>
           <div class="custom-file">
-            <input id="form11" type="file" class="custom-file-input" accept=".png">
+            <input id="project_logo" name="project_logo" type="file" class="custom-file-input" accept=".png">
             <label class="custom-file-label form-control-sm" for="form11">Choose file</label>
           </div>
         </div>
