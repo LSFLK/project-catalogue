@@ -28,7 +28,7 @@
                 <th class="table-header">License</th>
               </tr>
               <tr>
-                <td class="link"><a href="{{ repository }}" target="_blank">{{ name }}</a></td>
+                <td class="link"><a href="{{ git_repositories }}" target="_blank">{{ name }}</a></td>
                 <td>Apache 2.0</td>
                 <td>2645 Stars</td>
                 <td>577 Forks</td>
@@ -46,9 +46,8 @@
         <div style="margin-top: -35px; width: 100%">
             <div class="sub-container">
                 <div class="title">CATEGORIES</div>
-                {% for category in categories %}
-                  <div class="info"><a>{{ category }}</a><div>
-                {% endfor %}
+                <div class="info"><a>{{ domain_expertise }}</a><div>
+                <div class="info"><a>{{ technical_expertise }}</a><div>
 
                 <div class="title">LANGUAGES</div>
                 {% for language in languages %}
