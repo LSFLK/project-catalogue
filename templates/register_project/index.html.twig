@@ -71,7 +71,7 @@
         <div class="col">
           <div class="flex-fill filter">
             {% include 'register_project/dropdown.html.twig' with {
-              'id': 'domain',
+              'id': 'domain_expertise',
               'icon': 'fa-star',
               'name': 'Domain Expertise',
               'options': domain_expertise
@@ -82,7 +82,7 @@
         <div class="col">
           <div class="flex-fill filter">
             {% include 'register_project/dropdown.html.twig' with {
-              'id': 'technical',
+              'id': 'technical_expertise',
               'icon': 'fa-cog',
               'name': 'Technical Expertise',
               'options': technical_expertise
@@ -169,8 +169,8 @@
   {% endblock %}
 
   <script>
-    initiallizeDropdown('domain')
-    initiallizeDropdown('technical')
+    initiallizeDropdown('domain_expertise')
+    initiallizeDropdown('technical_expertise')
 
     initiallizeDynamicInput('git_repo_data')
     initiallizeDynamicInput('mailing_lists_data')

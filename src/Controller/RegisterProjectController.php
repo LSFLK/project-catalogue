@@ -35,8 +35,8 @@ class RegisterProjectController extends AbstractController
      */
     public function index(): Response
     {
-        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAll();
-        $technical_expertise = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAll();
+        $domain_expertise = include('options/domain_expertise.php');
+        $technical_expertise = include('options/domain_expertise.php');
 
         return $this->render('register_project/index.html.twig', [
             'domain_expertise' => $domain_expertise,
