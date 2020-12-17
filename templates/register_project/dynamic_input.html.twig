@@ -2,20 +2,20 @@
 
 {% block body %}
 
-  <div id="git_repo_data">
+  <div id="{{ id }}">
     <div class="row input-group">
-      <div class="col-sm-4" id="repo_name">
+      <div class="col-sm-4" id="{{ key_id }}">
         {% include 'register_project/input.html.twig' with {
-          'id': 'repo_name',
-          'icon': 'fab fa-github',
-          'label': 'Repo Name'
+          'id': key_id,
+          'icon': key_icon,
+          'label': key_label
         } %}
       </div>
           
-      <div class="col-sm-7" id="repo_url">
+      <div class="col-sm-7" id="{{ value_id }}">
         {% include 'register_project/input.html.twig' with {
-          'id': 'repo_url',
-          'label': 'Repo URL'
+          'id': value_id,
+          'label': value_label
         } %}
       </div>
 

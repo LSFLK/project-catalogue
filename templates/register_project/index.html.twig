@@ -17,8 +17,8 @@
     </div>
   </div>
 
-  <div class="container">
-    <form class="form form-single-col">
+  <form class="container">
+    <div class="form form-single-col">
       <h6 class="form-section-title">Project Data</h6>
 
       {% include 'register_project/input.html.twig' with {
@@ -40,9 +40,9 @@
         'rows': '5'
       } %}
 
-    </form>
+    </div>
 
-    <form class="form form-multi-col">
+    <div class="form form-multi-col">
       <h6 class="form-section-title">Organization Data</h6>
 
       <div class="row input-group">
@@ -62,9 +62,9 @@
           } %}
         </div>
       </div>
-    </form>
+    </div>
 
-    <form class="form form-multi-col">
+    <div class="form form-multi-col">
       <h6 class="form-section-title">Technical Data</h6>
 
       <div class="row input-group">
@@ -102,39 +102,41 @@
         
         <div class="col">
           {% include 'register_project/input.html.twig' with {
-            'id': 'mailing_list',
-            'icon': 'fas fa-mail-bulk',
-            'label': 'Mailing List'
-          } %}
-        </div>
-      </div>
-
-      <div class="row input-group">
-        <div class="col">
-          {% include 'register_project/input.html.twig' with {
-            'id': 'git_repository',
-            'icon': 'fab fa-github',
-            'label': 'Git Repository'
-          } %}
-        </div>
-
-        <div class="col">
-          {% include 'register_project/input.html.twig' with {
             'id': 'documentation',
             'icon': 'fas fa-file-code',
             'label': 'Documentation (Link)'
           } %}
         </div>
       </div>
-    </form>
+    </div>
 
-    <form class="form form-multi-col">
+    <div class="form form-multi-col">
       <h6 class="form-section-title">Git Repository Data</h6>
 
-      {% include 'register_project/dynamic_input.html.twig' %}
-    </form>
+      {% include 'register_project/dynamic_input.html.twig' with {
+        'id': 'git_repo_data',
+        'key_icon': 'fab fa-github',
+        'key_id': 'git_repo_name',
+        'key_label': 'Repo Name',
+        'value_id': 'git_repo_url',
+        'value_label': 'Repo URL',
+      } %}
+    </div>
 
-    <form class="form form-single-col">
+    <div class="form form-multi-col">
+      <h6 class="form-section-title">Mailing List(s)</h6>
+
+      {% include 'register_project/dynamic_input.html.twig' with {
+        'id': 'mailing_lists_data',
+        'key_icon': 'fas fa-mail-bulk',
+        'key_id': 'mailing_list_name',
+        'key_label': 'Mailing List Name',
+        'value_id': 'mailing_list_url',
+        'value_label': 'Mailing List URL',
+      } %}
+    </div>
+
+    <div class="form form-single-col">
       <h6 class="form-section-title">File Upload</h6>
 
       <div class="row">
@@ -154,12 +156,12 @@
           </div>
         </div>
       </div>
-    </form>
+    </div>
 
     <div class="btn-container">
       <button class="btn btn-primary btn-md float-right" type="submit">Review Project</button>
     </div>
-  </div>
+  </form>
 
   {% block javascripts %}
     <script src="{{ asset('js/registerProject/dropdown.js') }}"></script>
@@ -171,5 +173,6 @@
     initiallizeDropdown('technical')
 
     initiallizeDynamicInput('git_repo_data')
+    initiallizeDynamicInput('mailing_lists_data')
   </script>
 {% endblock %}
