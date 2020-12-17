@@ -50,7 +50,7 @@
           {% include 'register_project/input.html.twig' with {
             'id': 'organization',
             'icon': 'fas fa-building',
-            'label': 'Organization Name'
+            'label': 'Organization'
           } %}
         </div>
         
@@ -116,9 +116,9 @@
       {% include 'register_project/dynamic_input.html.twig' with {
         'id': 'git_repo_data',
         'key_icon': 'fab fa-github',
-        'key_id': 'git_repo_name',
+        'key_id': 'git_repo_names[]',
         'key_label': 'Repo Name',
-        'value_id': 'git_repo_url',
+        'value_id': 'git_repo_urls[]',
         'value_label': 'Repo URL',
       } %}
     </div>
@@ -129,10 +129,23 @@
       {% include 'register_project/dynamic_input.html.twig' with {
         'id': 'mailing_lists_data',
         'key_icon': 'fas fa-mail-bulk',
-        'key_id': 'mailing_list_name',
-        'key_label': 'Mailing List Name',
-        'value_id': 'mailing_list_url',
-        'value_label': 'Mailing List URL',
+        'key_id': 'mailing_list_names[]',
+        'key_label': 'List Name',
+        'value_id': 'mailing_list_urls[]',
+        'value_label': 'Subscribe URL',
+      } %}
+    </div>
+
+    <div class="form form-multi-col">
+      <h6 class="form-section-title">More Info</h6>
+
+      {% include 'register_project/dynamic_input.html.twig' with {
+        'id': 'more_info',
+        'key_icon': 'fas fa-angle-double-right',
+        'key_id': 'more_info_titles[]',
+        'key_label': 'Title',
+        'value_id': 'more_info_urls[]',
+        'value_label': 'URL',
       } %}
     </div>
 
@@ -174,5 +187,6 @@
 
     initiallizeDynamicInput('git_repo_data')
     initiallizeDynamicInput('mailing_lists_data')
+    initiallizeDynamicInput('more_info')
   </script>
 {% endblock %}

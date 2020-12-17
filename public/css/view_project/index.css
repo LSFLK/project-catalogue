@@ -15,8 +15,8 @@
     background-image: linear-gradient(to right, #e6e6e640, #cccccc65);
     margin-bottom: 50px;
     padding: 80px;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     overflow: hidden;
 }
 
@@ -42,12 +42,19 @@
     font-weight: 600;
 }
 
+.organization {
+    color: #808080;
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 12px;
+    margin: -5px 3px 20px 3px;
+}
+
 .project-site {
     font-family: 'Montserrat';
     font-size: 16px;
     color: #0066ff;
     font-weight: 600;
-    margin-top: 10px;
     letter-spacing: 1px;
     margin-left: 3px;
 }
@@ -72,7 +79,7 @@
 .section-title {
     font-family: 'Montserrat Medium';
     font-size: 22px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .description {
@@ -91,6 +98,11 @@ table {
 td, th {
     text-align: left;
     padding: 5px;
+}
+
+table.mailing-lists {
+    table-layout: auto;
+    width: 50%;  
 }
 
 .table-header {

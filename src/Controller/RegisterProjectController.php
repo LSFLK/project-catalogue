@@ -18,12 +18,20 @@ class RegisterProjectController extends AbstractController
     {
         return $this->render('view_project/index.html.twig', [
             'name' => $request->request->get('name'),
-            'website' => $request->request->get('website'),
             'objective' => $request->request->get('objective'),
             'description' => $request->request->get('description'),
-            'more_info' => 'Find blogs on Ballerina in community-driven Tech Blog.',
-            'repository' => 'https://github.com/ballerina-platform/ballerina-lang',
-            'categories' => array('programming'),
+            'organization' => $request->request->get('organization'),
+            'website' => $request->request->get('website'),
+            'domain_expertise' => str_replace(' ', '-', strtolower($request->request->get('domain_expertise'))),
+            'technical_expertise' => str_replace(' ', '-', strtolower($request->request->get('technical_expertise'))),
+            'bug_tracking' => $request->request->get('bug_tracking'),
+            'documentation' => $request->request->get('documentation'),
+            'git_repo_names' => $request->request->get('git_repo_names'),
+            'git_repo_urls' => $request->request->get('git_repo_urls'),
+            'mailing_list_names' => $request->request->get('git_repo_names'),
+            'mailing_list_urls' => $request->request->get('git_repo_urls'),
+            'more_info_titles' => $request->request->get('more_info_titles'),
+            'more_info_urls' => $request->request->get('more_info_urls'),
             'languages' => array('java', 'ballerina'),
             'tags' => array('programming-language', 'language', 'compiler')
         ]);

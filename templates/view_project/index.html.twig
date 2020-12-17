@@ -11,6 +11,7 @@
         <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
         <img class="card-img-top project-icon" src="{{ asset('icons/project-icon-default.jpg') }}" alt="">
         <h1 class="title">{{ name }}</h1>
+        <div class="organization">By {{ organization }}</div>
         <a class="project-site" href="https://{{ website }}" target="_blank">{{ website }}</a>
     </div>
   </div>
@@ -27,27 +28,61 @@
                 <th class="table-header">Repo</th>
                 <th class="table-header">License</th>
               </tr>
+              {% for git_repo_name in git_repo_names %}
+                <tr>
+                  <td class="link"><a href="{{ git_repo_urls[loop.index0] }}" target="_blank">{{ git_repo_name }}</a></td>
+                  <td>Apache 2.0</td>
+                  <td>2645 Stars</td>
+                  <td>577 Forks</td>
+                </tr>
+              {% endfor %}
+            </table>
+
+            <div class="section-title">Mailing List(s)</div>
+            <table class="mailing-lists">
               <tr>
-                <td class="link"><a href="{{ git_repositories }}" target="_blank">{{ name }}</a></td>
-                <td>Apache 2.0</td>
-                <td>2645 Stars</td>
-                <td>577 Forks</td>
+                <th class="table-header">List</th>
+              </tr>
+              {% for mailing_list_name in mailing_list_names %}
+                <tr>
+                  <td>{{ mailing_list_name }}</td>
+                  <td class="link"><a href="{{ mailing_list_urls[loop.index0] }}" target="_blank">Subscribe</a></td>
+                </tr>
+              {% endfor %}
+            </table>
+
+            <div class="section-title">Other Details</div>
+            <table class="mailing-lists">
+              <tr>
+                <td class="link"><a href="{{ bug_tracking }}" target="_blank">Bug Tracking</a></td>
+              </tr>
+              <tr>
+                <td class="link"><a href="{{ documentation }}" target="_blank">Documentation</a></td>
+              </tr>
+              <tr>
+                <td class="link"><a href="{{ documentation }}" target="_blank">Project Data</a></td>
               </tr>
             </table>
 
-            <div class="section-title">More Info</div>
-            <div class="description">
-              <ul>
-                <li class="link"><a href="https://medium.com/ballerina-techblog" target="_blank">{{ more_info }}</a></li>
-              </ul>  
-            </div>
+            {% if more_info_titles|length > 1 %}
+              <div class="section-title">More Info</div>
+              <div class="description">
+                <ul>
+                  {% for more_info_title in more_info_titles %}
+                    <li class="link"><a href="{{ more_info_urls[loop.index0] }}" target="_blank">{{ more_info_title }}</a></li>
+                  {% endfor %}
+                </ul>  
+              </div>
+            {% endif %}
         </div>
 
         <div style="margin-top: -35px; width: 100%">
             <div class="sub-container">
-                <div class="title">CATEGORIES</div>
-                <div class="info"><a>{{ domain_expertise }}</a><div>
-                <div class="info"><a>{{ technical_expertise }}</a><div>
+                {% if (domain_expertise|length > 0) or (technical_expertise|length > 0) %}
+                  <div class="title">CATEGORIES</div>
+                  <div class="info"><a>{{ domain_expertise }}</a><div>
+                  <div class="info"><a>{{ technical_expertise }}</a><div>
+                {% endif %}
 
                 <div class="title">LANGUAGES</div>
                 {% for language in languages %}
