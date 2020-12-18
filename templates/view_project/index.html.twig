@@ -65,11 +65,11 @@
             </tr>
           </table>
 
-          {% if project.more_info_titles|length > 1 %}
+          {% if project.more_info_names|length > 1 %}
             <div class="section-title">More Info</div>
             <div class="description">
               <ul>
-                {% for more_info_title in project.more_info_titles %}
+                {% for more_info_title in project.more_info_names %}
                   <li class="link"><a href="{{ project.more_info_urls[loop.index0] }}" target="_blank">{{ more_info_title }}</a></li>
                 {% endfor %}
               </ul>  

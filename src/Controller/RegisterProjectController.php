@@ -25,8 +25,8 @@ class RegisterProjectController extends AbstractController
         $project->organization = $request->request->get('organization');
         $project->website      = $request->request->get('website');
 
-        $project->domain_expertise    = str_replace(' ', '-', strtolower($request->request->get('domain_expertise')));
-        $project->technical_expertise = str_replace(' ', '-', strtolower($request->request->get('technical_expertise')));
+        $project->domain_expertise    = $request->request->get('domain_expertise');
+        $project->technical_expertise = $request->request->get('technical_expertise');
         
         $project->bug_tracking  = $request->request->get('bug_tracking');
         $project->documentation = $request->request->get('documentation');
@@ -37,8 +37,8 @@ class RegisterProjectController extends AbstractController
         $project->mailing_list_names = $request->request->get('mailing_list_names');
         $project->mailing_list_urls  = $request->request->get('mailing_list_urls');
 
-        $project->more_info_titles = $request->request->get('more_info_titles');
-        $project->more_info_urls   = $request->request->get('more_info_urls');
+        $project->more_info_names = $request->request->get('more_info_names');
+        $project->more_info_urls  = $request->request->get('more_info_urls');
 
         $project->languages = array('java', 'ballerina');
         $project->tags = array('programming-language', 'language', 'compiler');
@@ -58,12 +58,10 @@ class RegisterProjectController extends AbstractController
         $project_data = $request->request->get('project_data');
         $project = json_decode($project_data);
 
-        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findOneBy(['name' => $project->domain_expertise]);
-
-        print_r($project->domain_expertise);
+        $domain_expertise_id = $this->getDoctrine()->getRepository(DomainExpertise::class)->findOneBy(['name' => $project->domain_expertise])->getId();
 
         return new Response(
-            'Saved new product with id: '.$project_data
+            $domain_expertise_id
         );
     }
 
