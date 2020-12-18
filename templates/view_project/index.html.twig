@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ name }} - Open Source{% endblock %}
+{% block title %}{{ project.name }} - Open Source{% endblock %}
 
 {% block body %}
   <!-- Custom styles for this template -->
@@ -10,91 +10,98 @@
     <div class="container">
         <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
         <img class="card-img-top project-icon" src="{{ asset('icons/project-icon-default.jpg') }}" alt="">
-        <h1 class="title">{{ name }}</h1>
-        <div class="organization">By {{ organization }}</div>
-        <a class="project-site" href="https://{{ website }}" target="_blank">{{ website }}</a>
+        <h1 class="title">{{ project.name }}</h1>
+        <div class="organization">By {{ project.organization }}</div>
+        <a class="project-site" href="https://{{ project.website }}" target="_blank">{{ project.website }}</a>
     </div>
   </div>
 
   <div class="container">
     <div class="body-container">
         <div class="main-info">
-            <div class="section-title">{{ objective }}</div>
-            <div class="description">{{ description }}</div>
+          <div class="section-title">{{ project.objective }}</div>
+          <div class="description">{{ project.description }}</div>
 
-            <div class="section-title">Source Code</div>
-            <table>
+          <div class="section-title">Source Code</div>
+          <table>
+            <tr>
+              <th class="table-header">Repo</th>
+              <th class="table-header">License</th>
+            </tr>
+            {% for git_repo_name in project.git_repo_names %}
               <tr>
-                <th class="table-header">Repo</th>
-                <th class="table-header">License</th>
+                <td class="link"><a href="{{ project.git_repo_urls[loop.index0] }}" target="_blank">{{ git_repo_name }}</a></td>
+                <td>Apache 2.0</td>
+                <td>2645 Stars</td>
+                <td>577 Forks</td>
               </tr>
-              {% for git_repo_name in git_repo_names %}
-                <tr>
-                  <td class="link"><a href="{{ git_repo_urls[loop.index0] }}" target="_blank">{{ git_repo_name }}</a></td>
-                  <td>Apache 2.0</td>
-                  <td>2645 Stars</td>
-                  <td>577 Forks</td>
-                </tr>
-              {% endfor %}
-            </table>
+            {% endfor %}
+          </table>
 
-            <div class="section-title">Mailing List(s)</div>
-            <table class="mailing-lists">
+          <div class="section-title">Mailing List(s)</div>
+          <table class="mailing-lists">
+            <tr>
+              <th class="table-header">List</th>
+            </tr>
+            {% for mailing_list_name in project.mailing_list_names %}
               <tr>
-                <th class="table-header">List</th>
+                <td>{{ mailing_list_name }}</td>
+                <td class="link"><a href="{{ project.mailing_list_urls[loop.index0] }}" target="_blank">Subscribe</a></td>
               </tr>
-              {% for mailing_list_name in mailing_list_names %}
-                <tr>
-                  <td>{{ mailing_list_name }}</td>
-                  <td class="link"><a href="{{ mailing_list_urls[loop.index0] }}" target="_blank">Subscribe</a></td>
-                </tr>
-              {% endfor %}
-            </table>
+            {% endfor %}
+          </table>
 
-            <div class="section-title">Other Details</div>
-            <table class="mailing-lists">
-              <tr>
-                <td class="link"><a href="{{ bug_tracking }}" target="_blank">Bug Tracking</a></td>
-              </tr>
-              <tr>
-                <td class="link"><a href="{{ documentation }}" target="_blank">Documentation</a></td>
-              </tr>
-              <tr>
-                <td class="link"><a href="{{ documentation }}" target="_blank">Project Data</a></td>
-              </tr>
-            </table>
+          <div class="section-title">Other Details</div>
+          <table class="mailing-lists">
+            <tr>
+              <td class="link"><a href="{{ project.bug_tracking }}" target="_blank">Bug Tracking</a></td>
+            </tr>
+            <tr>
+              <td class="link"><a href="{{ project.documentation }}" target="_blank">Documentation</a></td>
+            </tr>
+            <tr>
+              <td class="link"><a href="{{ project.documentation }}" target="_blank">Project Data</a></td>
+            </tr>
+          </table>
 
-            {% if more_info_titles|length > 1 %}
-              <div class="section-title">More Info</div>
-              <div class="description">
-                <ul>
-                  {% for more_info_title in more_info_titles %}
-                    <li class="link"><a href="{{ more_info_urls[loop.index0] }}" target="_blank">{{ more_info_title }}</a></li>
-                  {% endfor %}
-                </ul>  
-              </div>
-            {% endif %}
+          {% if project.more_info_titles|length > 1 %}
+            <div class="section-title">More Info</div>
+            <div class="description">
+              <ul>
+                {% for more_info_title in project.more_info_titles %}
+                  <li class="link"><a href="{{ project.more_info_urls[loop.index0] }}" target="_blank">{{ more_info_title }}</a></li>
+                {% endfor %}
+              </ul>  
+            </div>
+          {% endif %}
+
+          {% if mode == 'review' %}
+            <div class="btn-container">
+              <button class="btn btn-primary btn-md float-right" type="submit">Confirm & Submit</button>
+              <button class="btn btn-outline-primary btn-md float-right" type="submit">Go Back & Edit</button>
+            </div>
+          {% endif %}
         </div>
 
         <div style="margin-top: -35px; width: 100%">
-            <div class="sub-container">
-                {% if (domain_expertise|length > 0) or (technical_expertise|length > 0) %}
-                  <div class="title">CATEGORIES</div>
-                  <div class="info"><a>{{ domain_expertise }}</a><div>
-                  <div class="info"><a>{{ technical_expertise }}</a><div>
-                {% endif %}
+          <div class="sub-container">
+          {% if (project.domain_expertise|length > 0) or (project.technical_expertise|length > 0) %}
+            <div class="title">CATEGORIES</div>
+            <div class="info"><a>{{ project.domain_expertise }}</a><div>
+            <div class="info"><a>{{ project.technical_expertise }}</a><div>
+          {% endif %}
 
-                <div class="title">LANGUAGES</div>
-                {% for language in languages %}
-                  <div class="info"><a>{{ language }}</a><div>
-                {% endfor %}
+          <div class="title">LANGUAGES</div>
+          {% for language in project.languages %}
+            <div class="info"><a>{{ language }}</a><div>
+          {% endfor %}
 
-                <div class="title">TAGS</div>
-                {% for tag in tags %}
-                  <div class="info"><a>{{ tag }}</a><div>
-                {% endfor %}
-            </div>
+          <div class="title">TAGS</div>
+          {% for tag in project.tags %}
+            <div class="info"><a>{{ tag }}</a><div>
+          {% endfor %}
         </div>
+      </div>
     </div>
   </div>
 {% endblock %}

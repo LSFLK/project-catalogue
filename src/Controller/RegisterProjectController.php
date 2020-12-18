@@ -16,24 +16,29 @@ class RegisterProjectController extends AbstractController
      */
     public function reviewProject(Request $request): Response
     {
+        $project = new \stdClass();
+
+        $project->name = $request->request->get('name');
+        $project->objective = $request->request->get('objective');
+        $project->description = $request->request->get('description');
+        $project->organization = $request->request->get('organization');
+        $project->website = $request->request->get('website');
+        $project->domain_expertise = str_replace(' ', '-', strtolower($request->request->get('domain_expertise')));
+        $project->technical_expertise = str_replace(' ', '-', strtolower($request->request->get('technical_expertise')));
+        $project->bug_tracking = $request->request->get('bug_tracking');
+        $project->documentation = $request->request->get('documentation');
+        $project->git_repo_names = $request->request->get('git_repo_names');
+        $project->git_repo_urls = $request->request->get('git_repo_urls');
+        $project->mailing_list_names = $request->request->get('mailing_list_names');
+        $project->mailing_list_urls = $request->request->get('mailing_list_urls');
+        $project->more_info_titles = $request->request->get('more_info_titles');
+        $project->more_info_urls = $request->request->get('more_info_urls');
+        $project->languages = array('java', 'ballerina');
+        $project->tags = array('programming-language', 'language', 'compiler');
+        
         return $this->render('view_project/index.html.twig', [
-            'name' => $request->request->get('name'),
-            'objective' => $request->request->get('objective'),
-            'description' => $request->request->get('description'),
-            'organization' => $request->request->get('organization'),
-            'website' => $request->request->get('website'),
-            'domain_expertise' => str_replace(' ', '-', strtolower($request->request->get('domain_expertise'))),
-            'technical_expertise' => str_replace(' ', '-', strtolower($request->request->get('technical_expertise'))),
-            'bug_tracking' => $request->request->get('bug_tracking'),
-            'documentation' => $request->request->get('documentation'),
-            'git_repo_names' => $request->request->get('git_repo_names'),
-            'git_repo_urls' => $request->request->get('git_repo_urls'),
-            'mailing_list_names' => $request->request->get('git_repo_names'),
-            'mailing_list_urls' => $request->request->get('git_repo_urls'),
-            'more_info_titles' => $request->request->get('more_info_titles'),
-            'more_info_urls' => $request->request->get('more_info_urls'),
-            'languages' => array('java', 'ballerina'),
-            'tags' => array('programming-language', 'language', 'compiler')
+            'project' => $project,
+            'mode' => 'review'
         ]);
     }
 
