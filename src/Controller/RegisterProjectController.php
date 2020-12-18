@@ -39,7 +39,7 @@ class RegisterProjectController extends AbstractController
 
         $project->more_info_titles = $request->request->get('more_info_titles');
         $project->more_info_urls   = $request->request->get('more_info_urls');
-        
+
         $project->languages = array('java', 'ballerina');
         $project->tags = array('programming-language', 'language', 'compiler');
         
@@ -58,7 +58,13 @@ class RegisterProjectController extends AbstractController
         $project_data = $request->request->get('project_data');
         $project = json_decode($project_data);
 
-        print_r($project);
+        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findOneBy(['name' => $project->domain_expertise]);
+
+        print_r($project->domain_expertise);
+
+        return new Response(
+            'Saved new product with id: '.$project_data
+        );
     }
 
 
@@ -67,8 +73,8 @@ class RegisterProjectController extends AbstractController
      */
     public function index(): Response
     {
-        $domain_expertise = include('options/domain_expertise.php');
-        $technical_expertise = include('options/domain_expertise.php');
+        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAll();
+        $technical_expertise = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAll();
 
         return $this->render('register_project/index.html.twig', [
             'domain_expertise' => $domain_expertise,
