@@ -167,7 +167,8 @@
         <div class="col">
           <label for="project_data_file" class="form-control-sm">Project Data File</label>
           <div class="custom-file">
-            <input id="project_data_file" name="project_data_file" type="file" class="custom-file-input" accept=".pdf">
+            <input id="project_data_file" name="project_data_file" onchange="readFile(this, 'project_data_file_src')" type="file" class="custom-file-input" accept=".pdf">
+            <input type="hidden" id="project_data_file_src" name="project_data_file_src" />
             <label class="custom-file-label form-control-sm" for="form10">Choose file</label>
           </div>
         </div>
@@ -175,7 +176,8 @@
         <div class="col">
           <label for="project_logo" class="form-control-sm">Project Logo</label>
           <div class="custom-file">
-            <input id="project_logo" name="project_logo" type="file" class="custom-file-input" accept=".png">
+            <input id="project_logo" name="project_logo" onchange="readFile(this, 'project_logo_src')" type="file" class="custom-file-input" accept=".png">
+            <input type="hidden" id="project_logo_src" name="project_logo_src" />
             <label class="custom-file-label form-control-sm" for="form11">Choose file</label>
           </div>
         </div>
@@ -200,5 +202,13 @@
     initiallizeDynamicInput('git_repo_data')
     initiallizeDynamicInput('mailing_lists_data')
     initiallizeDynamicInput('more_info')
+
+    function readFile(input, previewID) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) { $('#' + previewID).attr('value', e.target.result) };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
   </script>
 {% endblock %}

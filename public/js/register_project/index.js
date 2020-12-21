@@ -63,28 +63,28 @@ handleOnSelectDropdownOption('domain_expertise');
 handleOnSelectDropdownOption('technical_expertise');
 
 
-registerProjectForm.addEventListener('submit', function (event) {
-    var focusInvalidInput = null;
+// registerProjectForm.addEventListener('submit', function (event) {
+//     var focusInvalidInput = null;
     
-    for(var input in validity) {
-        if(!validity[input] && !focusInvalidInput) {
-            focusInvalidInput = input;
-            break;
-        }
-    }
+//     for(var input in validity) {
+//         if(!validity[input] && !focusInvalidInput) {
+//             focusInvalidInput = input;
+//             break;
+//         }
+//     }
 
-    if(focusInvalidInput) {
-        event.preventDefault();
-        document.getElementById(input).focus();
-    }
+//     if(focusInvalidInput) {
+//         event.preventDefault();
+//         document.getElementById(input).focus();
+//     }
 
-    for(var input in validity) {
-        if(!validity[input]) {
-            if(typeof requiredErrorText[input] === 'object') { showErrorMessageForInputGroup(input) }
-            else { showErrorMessageForInput(input) }
-        }
-    }
-})
+//     for(var input in validity) {
+//         if(!validity[input]) {
+//             if(typeof requiredErrorText[input] === 'object') { showErrorMessageForInputGroup(input) }
+//             else { showErrorMessageForInput(input) }
+//         }
+//     }
+// })
 
 
 function validateInput (id, event = 'keyup', validator = null) {

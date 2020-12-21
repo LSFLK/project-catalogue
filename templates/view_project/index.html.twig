@@ -9,18 +9,18 @@
   <div class="header">
     <div class="container">
         <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
-        <img class="card-img-top project-icon" src="{{ asset('icons/project-icon-default.jpg') }}" alt="">
+        {% if project_logo_src is defined %}
+          <img class="card-img-top project-icon" src="{{ project_logo_src }}" alt="">
+        {% else %}
+          <img class="card-img-top project-icon" src="{{ project.project_logo }}" alt="">
+        {% endif %}
         <h1 class="title">{{ project.name }}</h1>
         <div class="organization">By {{ project.organization }}</div>
         <a class="project-site" href="https://{{ project.website }}" target="_blank">{{ project.website }}</a>
     </div>
   </div>
 
-  <form class="container" action="new" method="POST">
-    {% if project_data is defined %}
-      <input type="hidden" name="project_data" value="{{ project_data }}"/>
-    {% endif %}
-
+  <div class="container">
     <div class="body-container">
         <div class="main-info">
           <div class="section-title">{{ project.objective }}</div>
@@ -67,7 +67,12 @@
                 <td class="link"><a href="{{ project.documentation }}" target="_blank">Documentation</a></td>
               </tr>
               <tr>
-                <td class="link"><a href="{{ project.documentation }}" target="_blank">Project Data</a></td>
+                <td class="link">
+                  <form id="project_data_file_src" action="review/project_data" method="POST" target="_blank">
+                    <a onclick="document.getElementById('project_data_file_src').submit()">Project Data</a>
+                    <input type="hidden" name="src" value="{{ project_data_file_src }}"/>
+                  </form>
+                </td>
               </tr>
             </table>
           {% endif %}
@@ -85,7 +90,10 @@
 
           {% if project_data is defined %}
             <div class="btn-container">
-              <button class="btn btn-primary btn-md float-right" type="submit">Confirm & Submit</button>
+              <form action="new" method="POST">
+                <input type="hidden" name="project_data" value="{{ project_data }}"/>
+                <button class="btn btn-primary btn-md float-right" type="submit">Confirm & Submit</button>
+              </form>
               <button class="btn btn-outline-primary btn-md float-right" type="submit">Go Back & Edit</button>
             </div>
           {% endif %}
