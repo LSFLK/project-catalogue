@@ -37,14 +37,14 @@ class RegisterProjectController extends AbstractController
         $project->bug_tracking  = $data->get('bug_tracking');
         $project->documentation = $data->get('documentation');
 
-        $project->git_repo_names = $data->get('git_repo_names');
-        $project->git_repo_urls  = $data->get('git_repo_urls');
+        $project->git_repo_names = array_filter($data->get('git_repo_names'));
+        $project->git_repo_urls  = array_filter($data->get('git_repo_urls'));
 
-        $project->mailing_list_names = $data->get('mailing_list_names');
-        $project->mailing_list_urls  = $data->get('mailing_list_urls');
+        $project->mailing_list_names = array_filter($data->get('mailing_list_names'));
+        $project->mailing_list_urls  = array_filter($data->get('mailing_list_urls'));
 
-        $project->more_info_names = $data->get('more_info_names');
-        $project->more_info_urls  = $data->get('more_info_urls');
+        $project->more_info_names = array_filter($data->get('more_info_names'));
+        $project->more_info_urls  = array_filter($data->get('more_info_urls'));
 
         $project->languages = array('java', 'ballerina');
         $project->tags = array('programming-language', 'language', 'compiler');
