@@ -22,6 +22,7 @@ class RegisterProjectController extends AbstractController
     public function reviewProject(Request $request): Response
     {
         $data = $request->request;
+        $files = $request->files;
         $project = new \stdClass();
 
         $project->name        = $data->get('name');
@@ -46,14 +47,8 @@ class RegisterProjectController extends AbstractController
         $project->more_info_names = array_filter($data->get('more_info_names'));
         $project->more_info_urls  = array_filter($data->get('more_info_urls'));
 
-        $project->project_data_file = $data->get('project_data_file');
-        $project->project_logo = $data->get('project_logo');
-        
-        // if($project_data_file) {
-        //     $projectDataFileName = $this->generateUniqueFileName().'.'.$project_data_file->guessExtension();
-        //     $project_data_file->move($this->getParameter('project_data_files_directory'), $projectDataFileName);
-        //     $project->project_data_file = $projectDataFileName;
-        // }
+        $project->project_data_file = $files->get('project_data_file');
+        $project->project_logo = $files->get('project_logo');
 
         $project->languages = array('java', 'ballerina');
         $project->tags = array('programming-language', 'language', 'compiler');
@@ -64,14 +59,6 @@ class RegisterProjectController extends AbstractController
             'project_data_file_src' => $data->get('project_data_file_src'),
             'project_logo_src' => $data->get('project_logo_src')
         ]);
-    }
-
-    /**
-     * @return string
-     */
-    private function generateUniqueFileName()
-    {
-        return md5(uniqid());
     }
 
     /**
