@@ -2,18 +2,28 @@
 
 {% block body %}
 
-  <div class="md-form form-sm">
-    {% if icon is defined %}
-      <i class="{{ icon }} prefix"></i>
-    {% endif %}
+  <div for="{{ id }}">
+    <div class="input-container">
+      <div class="md-form form-sm">
+        {% if icon is defined %}
+          <i class="{{ icon }} prefix"></i>
+        {% endif %}
 
-    {% if rows is defined %}
-      <textarea id="{{ id }}" name="{{ id }}" class="md-textarea form-control" rows="{{ rows }}" style="margin-top: 40px"></textarea>
+        {% if rows is defined %}
+          <textarea id="{{ id }}" name="{{ id }}" class="md-textarea form-control" rows="{{ rows }}" style="margin-top: 40px"></textarea>
+        {% else %}
+          <input type="text" id="{{ id }}" name="{{ id }}" class="form-control form-control-sm" style="margin-top: 20px">
+        {% endif %}
+
+        <label for="{{ id }}">{{ label }}</label>
+      </div>
+    </div>
+
+    {% if helperText is defined %}
+      <span id="{{ id }}-helper" class="helper-text">{{ helperText }}</span>
     {% else %}
-      <input type="text" id="{{ id }}" name="{{ id }}" class="form-control form-control-sm" style="margin-top: 20px">
+      <span id="{{ id }}-helper" class="helper-text error"></span>
     {% endif %}
-
-    <label for="{{ id }}">{{ label }}</label>
   </div>
 
 {% endblock %}

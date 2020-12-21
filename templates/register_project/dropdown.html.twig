@@ -2,7 +2,7 @@
 
 {% block body %}
 
-  <div class="select-box" id="{{ id }}">
+  <div class="select-box" id="{{ id }}-dropdown" for="{{ id }}">
     <div class="md-form input-with-post-icon form-sm">
       <i class="fas {{ icon }} prefix"></i>
       <i class="fas fa-angle-down input-prefix"></i>
@@ -22,6 +22,12 @@
         </div>
       {% endfor %}
     </div>
+
+    {% if helperText is defined %}
+      <span id="{{ id }}-helper" class="dropdown-helper-text">{{ helperText }}</span>
+    {% else %}
+      <span id="{{ id }}-helper" class="dropdown-helper-text error"></span>
+    {% endif %}
   </div>
 
 {% endblock %}

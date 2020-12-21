@@ -1,5 +1,5 @@
 function initiallizeDropdown (elementID) {
-    const element = document.getElementById(elementID);
+    const element = document.getElementById(elementID + '-dropdown');
 
     const selected = element.querySelector(".md-form");
     const optionsContainer = element.querySelector(".options-container");

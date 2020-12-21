@@ -47,25 +47,6 @@ function _createInputGroupID (containerID, inputGroup) {
     return inputGroupID;
 }
 
-// function _handleOnClickAddButton (container, inputGroup) {
-//     const button = inputGroup.querySelector(".button");
-//     const icon = button.querySelector("i");
-//     icon.setAttribute("class", "fas fa-minus-circle prefix");
-
-//     button.removeEventListener("click", () => _handleOnClickAddButton(container, inputGroup));
-//     button.addEventListener("click", () => _handleOnClickRemoveButton(container, inputGroup));
-
-//     const newInputGroup = inputGroup.cloneNode(true);
-//     const newButton = newInputGroup.querySelector(".button");
-
-//     container.appendChild(newInputGroup);
-//     newButton.addEventListener("click", () => _handleOnClickAddButton(container, newInputGroup));
-// }
-
-// function _handleOnClickRemoveButton (container, inputGroup) {
-//     console.log("Remove")
-// }
-
 
 
 
