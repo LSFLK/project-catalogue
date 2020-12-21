@@ -15,7 +15,7 @@
       <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'domain', 'name': 'Domain Expertise', 'options': domain_expertise} %}</div>
       <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'technical', 'name': 'Technical Expertise', 'options': technical_expertise} %}</div>
       <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'language', 'name': 'Programming Language', 'options': programming_language} %}</div>
-      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'name', 'name': 'Project Name', 'options': project_names} %}</div>
+      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'name', 'name': 'Project Name', 'options': []} %}</div>
     </div>
   </div>
 
@@ -23,18 +23,9 @@
   <div class="container">
 
     <div class="row">
-      {{ include('projects/card.html.twig', { projectTitle: 'Project One' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Two' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Three' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Four' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Five' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Six' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Seven' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Eight' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Nine' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Ten' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Eleven' }) }}
-      {{ include('projects/card.html.twig', { projectTitle: 'Project Twelve' }) }}
+      {% for project in projects %}
+        {{ include('projects/card.html.twig', { project: project }) }}
+      {% endfor %}
     </div>
 
     <div class="btn-text">LOAD MORE</div>
