@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class RegisterProjectController extends AbstractController
 {  
@@ -58,11 +59,13 @@ class RegisterProjectController extends AbstractController
     /**
      * @Route("/register/new", methods={"POST"}, name="register")
      */
-    public function registerProject(Request $request): Response
+    public function registerProject(Request $request, ValidatorInterface $validator): Response
     {
         $project_data = $request->request->get('project_data');
         $data = json_decode($project_data);
         $entityManager = $this->getDoctrine()->getManager();
+
+        $validation = true;
 
         $project = new Project();
         $project->setName($data->name);
@@ -86,7 +89,11 @@ class RegisterProjectController extends AbstractController
             $gitRepo->setName($data->git_repo_names[$index]);
             $gitRepo->setUrl($data->git_repo_urls[$index]);
             $project->addGitRepo($gitRepo);
-            $entityManager->persist($gitRepo);
+
+            $errors = $validator->validate($gitRepo);
+
+            if (!count($errors)) { $entityManager->persist($gitRepo); }
+            else { return new Response((string) $errors); }
         }
 
         for($index = 0; $index < count($data->mailing_list_names); $index++) {
@@ -94,7 +101,11 @@ class RegisterProjectController extends AbstractController
             $mailingList->setName($data->mailing_list_names[$index]);
             $mailingList->setUrl($data->mailing_list_urls[$index]);
             $project->addMailingList($mailingList);
-            $entityManager->persist($mailingList);
+
+            $errors = $validator->validate($mailingList);
+
+            if (!count($errors)) { $entityManager->persist($mailingList); }
+            else { return new Response((string) $errors); }
         }
 
         for($index = 0; $index < count($data->more_info_names); $index++) {
@@ -102,17 +113,24 @@ class RegisterProjectController extends AbstractController
             $moreInfo->setName($data->more_info_names[$index]);
             $moreInfo->setUrl($data->more_info_urls[$index]);
             $project->addMoreInfo($moreInfo);
-            $entityManager->persist($moreInfo);
+
+            $errors = $validator->validate($moreInfo);
+
+            if (!count($errors)) { $entityManager->persist($moreInfo); }
+            else { return new Response((string) $errors); }
         }
 
-        $entityManager->persist($project);
-        $entityManager->flush();
+        $errors = $validator->validate($project);
 
-        return new Response(
-            'Done'
-        );
+        if (!count($errors)) {
+            $entityManager->persist($project);
+            $entityManager->flush();
+            return new Response('Project Registered!');
+        }
+        else {
+            return new Response((string) $errors);
+        }
     }
-
 
     /**
      * @Route("/register", name="register_project")

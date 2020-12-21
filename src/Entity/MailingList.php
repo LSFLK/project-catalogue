@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MailingListRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MailingListRepository::class)
@@ -24,6 +25,7 @@ class MailingList
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url
      */
     private $url;
 

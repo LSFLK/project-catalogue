@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\GitRepoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=GitRepoRepository::class)
@@ -19,17 +20,21 @@ class GitRepo
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Url
      */
     private $url;
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="git_repo")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank
      */
     private $project;
 
