@@ -9,7 +9,10 @@
 
   <!-- Page Heading -->
   <div class="header">
-    <h1 class="title">Open Source Projects</h1>
+    <div class="row-inline">
+      <h1 class="title">Open Source Projects</h1>
+      <a class="button" href="register" target="_blank">Register New Project</a>
+    </div>
 
     <div class="d-flex filters-container row">
       <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'domain', 'name': 'Domain Expertise', 'options': domain_expertise} %}</div>
