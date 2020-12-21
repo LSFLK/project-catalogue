@@ -27,26 +27,12 @@ class ProjectsController extends AbstractController
 
         foreach ($projects as $project) {
             $_project = new \stdClass();
+            $_project->id = $project->getId();
             $_project->name = $project->getName();
             $_project->objective = $project->getObjective();
             
             array_push($_projects, $project);
         }
-
-        // $project_names = array(
-        //     'Project One',
-        //     'Project Two',
-        //     'Project Three',
-        //     'Project Four',
-        //     'Project Five',
-        //     'Project Six',
-        //     'Project Seven',
-        //     'Project Eight',
-        //     'Project Nine',
-        //     'Project Ten',
-        //     'Project Eleven',
-        //     'Project Tweleve'
-        // );
 
         return $this->render('projects/index.html.twig', [
             'domain_expertise' => $domain_expertise,
