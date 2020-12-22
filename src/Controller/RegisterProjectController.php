@@ -8,6 +8,7 @@ use App\Entity\TechnicalExpertise;
 use App\Entity\GitRepo;
 use App\Entity\MailingList;
 use App\Entity\MoreInfo;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

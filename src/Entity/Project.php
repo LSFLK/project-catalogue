@@ -90,6 +90,16 @@ class Project
      */
     private $more_info;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $project_data_file;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $project_logo;
+
     public function __construct()
     {
         $this->git_repo = new ArrayCollection();
@@ -296,6 +306,30 @@ class Project
                 $moreInfo->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProjectDataFile(): ?string
+    {
+        return $this->project_data_file;
+    }
+
+    public function setProjectDataFile(?string $project_data_file): self
+    {
+        $this->project_data_file = $project_data_file;
+
+        return $this;
+    }
+
+    public function getProjectLogo(): ?string
+    {
+        return $this->project_logo;
+    }
+
+    public function setProjectLogo(?string $project_logo): self
+    {
+        $this->project_logo = $project_logo;
 
         return $this;
     }

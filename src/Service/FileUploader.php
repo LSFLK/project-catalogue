@@ -13,7 +13,7 @@ class FileUploader
 
     public function __construct($targetDirectory, SluggerInterface $slugger)
     {
-        $this->targetDirectory = $this->getParameter($targetDirectory);
+        $this->targetDirectory = $targetDirectory;
         $this->slugger = $slugger;
     }
 
@@ -26,7 +26,7 @@ class FileUploader
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-            return -1;
+            return null;
         }
 
         return $fileName;
