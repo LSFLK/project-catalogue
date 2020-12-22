@@ -68,7 +68,7 @@
             </table>
           {% endif %}
 
-          {% if (project.bug_tracking is defined) or (project.documentation is defined) or (project.documentation is defined) %}
+          {% if (project.bug_tracking != null) or (project.documentation != null) or (project.documentation != null) %}
             <div class="section-title">Other Details</div>
             <table class="mailing-lists">
               {% if project.bug_tracking %}
@@ -100,7 +100,8 @@
                 <input type="hidden" name="project_data" value="{{ project_data }}"/>
                 <button class="btn btn-primary btn-md float-right" type="submit">Confirm & Submit</button>
               </form>
-              <button class="btn btn-outline-primary btn-md float-right" type="submit">Go Back & Edit</button>
+
+              <button class="btn btn-outline-primary btn-md float-right" onclick="window.history.back()">Go Back & Edit</button>
             </div>
           {% endif %}
         </div>
