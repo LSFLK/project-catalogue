@@ -9,7 +9,11 @@
   <div class="header">
     <div class="container">
         <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
-        <img class="card-img-top project-icon" src="{{ asset(dir ~ project.project_logo) }}" alt="">
+        {% if project.project_logo %}
+          <img class="card-img-top project-icon" src="{{ asset(dir ~ project.project_logo) }}" alt="">
+        {% else %}
+          <img class="card-img-top project-icon" src="{{ asset('icons/project-icon-default.jpg') }}" alt="">
+        {% endif %}
         <h1 class="title">{{ project.name }}</h1>
         <div class="organization">By {{ project.organization }}</div>
         <a class="project-site" href="https://{{ project.website }}" target="_blank">{{ project.website }}</a>
@@ -38,7 +42,7 @@
             {% endfor %}
           </table>
 
-          {% if project.more_info_names|length > 1 %}
+          {% if project.more_info_names|length > 0 %}
             <div class="section-title">Mailing List(s)</div>
             <table class="mailing-lists">
               <tr>
@@ -53,22 +57,22 @@
             </table>
           {% endif %}
 
-          {% if (project.bug_tracking is defined) or (project.documentation is defined) or (project.documentation is defined) %}
+          {% if project.bug_tracking or project.documentation or project.documentation %}
             <div class="section-title">Other Details</div>
             <table class="mailing-lists">
-              <tr>
-                <td class="link"><a href="{{ project.bug_tracking }}" target="_blank">Bug Tracking</a></td>
-              </tr>
-              <tr>
-                <td class="link"><a href="{{ project.documentation }}" target="_blank">Documentation</a></td>
-              </tr>
-              <tr>
-                <td class="link"><a href="{{ asset(dir ~ project.project_data_file) }}" target="_blank">Project Data</a></td>
-              </tr>
+              {% if project.bug_tracking %}
+                <tr><td class="link"><a href="{{ project.bug_tracking }}" target="_blank">Bug Tracking</a></td></tr>
+              {% endif %}
+              {% if project.documentation %}
+                <tr><td class="link"><a href="{{ project.documentation }}" target="_blank">Documentation</a></td></tr>
+              {% endif %}
+              {% if project.project_data_file %}
+                <tr><td class="link"><a href="{{ asset(dir ~ project.project_data_file) }}" target="_blank">Project Data</a></td></tr>
+              {% endif %}
             </table>
           {% endif %}
 
-          {% if project.more_info_names|length > 1 %}
+          {% if project.more_info_names|length > 0 %}
             <div class="section-title">More Info</div>
             <div class="description">
               <ul>
