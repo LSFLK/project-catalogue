@@ -36,6 +36,9 @@ class ViewProjectController extends AbstractController
         $_project->bug_tracking  = $project->getBugTracking();
         $_project->documentation = $project->getDocumentation();
 
+        $_project->project_data_file = $project->getProjectDataFile();
+        $_project->project_logo      = $project->getProjectLogo();
+
         $git_repo_names = [];
         $git_repo_urls = [];
         $mailing_list_names = [];
@@ -78,7 +81,8 @@ class ViewProjectController extends AbstractController
         $_project->tags = array('programming-language', 'language', 'compiler');
         
         return $this->render('view_project/index.html.twig', [
-            'project' => $_project
+            'project' => $_project,
+            'dir' => $this->getParameter('public_confirmed_dir')
         ]);
     }
 }
