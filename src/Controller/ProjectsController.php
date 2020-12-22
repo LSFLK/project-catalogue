@@ -29,9 +29,10 @@ class ProjectsController extends AbstractController
             $_project = new \stdClass();
             $_project->id = $project->getId();
             $_project->name = $project->getName();
+            $_project->project_logo = $project->getProjectLogo();
             $_project->objective = $project->getObjective();
             
-            array_push($_projects, $project);
+            array_push($_projects, $_project);
         }
 
         return $this->render('projects/index.html.twig', [

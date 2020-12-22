@@ -4,19 +4,25 @@
   <!-- Custom styles for this template -->
   <link href="{{ asset('css/projects/card.css') }}" rel="stylesheet"/>
 
-  <!-- Card Content -->
-  <div class="col-lg-4 col-sm-6 project-card-container">
-    <a class="card h-100 project-card" href="projects/id={{ project.id }}">
-      <div class="project-card-top">
-        <img class="card-img-top project-card-image" src="{{ asset('img/project-card-background.png') }}" alt="">
-        <img class="card-img-top project-icon" src="{{ asset('icons/project-icon-default.jpg') }}" alt="">
+  <a class="col-lg-4 col-sm-6" href="projects/id={{ project.id }}">
+    <div class="card">
+      <div class="card-header">
+        <img class="card-image" src="{{ asset('img/project-card-background.png') }}" alt="">
+
         <h4 class="card-title">{{ project.name }}</h4>
+
+        {% if project.project_logo %}
+          <img class="card-icon" src="{{ asset('uploads/confirmed/' ~ project.project_logo) }}" alt="">
+        {% else %}
+          <img class="card-icon" src="{{ asset('icons/project-icon-default.png') }}" alt="">
+        {% endif %}
       </div>
+
       <div class="card-body">
         <p class="card-text">{{ project.objective }}</p>
         <div class="card-btn-text">VIEW PROJECT</div>
       </div>
-    </a>
-  </div>
+    </div>
+  </a>
 
 {% endblock %}

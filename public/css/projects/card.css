@@ -1,58 +1,54 @@
-.project-card-container {
+.card {
   margin-bottom: 30px;
-}
-
-.project-card {
   transition: box-shadow .5s;
 }
 
-.project-card:hover {
-  cursor: pointer;
+.card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.project-card-top {
+.card-header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   height: 120px;
   margin-bottom: 0px;
   overflow: hidden;
+  border-style: hidden;
 }
 
-.project-card-image {
+.card-image {
   height: 250px;
   object-fit: contain;
+  position: absolute;
   transition: transform .4s ease-in-out;
   margin-left: 150px;
   margin-top: -20px;
 }
 
-.project-card:hover .project-card-image {
-  transform: scale(2) rotate(25deg);
-}
-
-.project-icon {
-  height: 80px;
-  position: absolute;
-  object-fit: contain;
-  top: 25px;
-  margin-left: 115px;
-  transition: transform .2s ease-in-out;
-}
-
-.project-card:hover .project-icon {
-  transform: scale(1.1);
+.card:hover .card-image {
+  transform: scale(1.7) rotate(25deg);
 }
 
 .card-title {
-  position: absolute;
-  top: 50px;
-  margin-left: 20px;
   font-family: 'Montserrat';
   font-weight: 500;
   color: #1a1a1a;
+  margin-top: 12px;
 }
 
-.card-text {
-  font-family: 'Montserrat';
+.card-icon {
+  height: 80px;
+  object-fit: contain;
+  transition: transform .2s ease-in-out;
+  z-index: 5;
+  margin-left: 10px;
+}
+
+.card:hover .card-icon {
+  transform: scale(1.1);
 }
 
 .card-btn-text {
