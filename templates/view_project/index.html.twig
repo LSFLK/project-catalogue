@@ -94,19 +94,25 @@
           <div class="sub-container">
           {% if (project.domain_expertise|length > 0) or (project.technical_expertise|length > 0) %}
             <div class="title">CATEGORIES</div>
-            <div class="info"><a>{{ project.domain_expertise }}</a><div>
-            <div class="info"><a>{{ project.technical_expertise }}</a><div>
+            <div class="info-container">
+              <a class="info">{{ project.domain_expertise }}</a>
+              <a class="info">{{ project.technical_expertise }}</a>
+            </div>
           {% endif %}
 
           <div class="title">LANGUAGES</div>
+          <div class="info-container">
           {% for language in project.languages %}
-            <div class="info"><a>{{ language }}</a><div>
+            <a class="info">{{ language }}</a>
           {% endfor %}
+          </div>
 
           <div class="title">TAGS</div>
+          <div class="info-container">
           {% for tag in project.tags %}
-            <div class="info"><a>{{ tag }}</a><div>
+            <a class="info">{{ tag }}</a>
           {% endfor %}
+          </div>
         </div>
       </div>
     </div>

@@ -72,7 +72,7 @@
 
 .main-info {
     display: flex;
-    flex-basis: 400%;
+    flex-basis: 350%;
     flex-direction: column;
 }
 
@@ -131,12 +131,14 @@ ul li::before {
 }
 
 .sub-container {
+    display: flex;
+    flex-direction: column;
     font-size: 14px;
-    font-weight: 500;
     margin-left: 20px;
     padding-left: 20px;
     border-left: 4px solid  #e6e6e690;
     height: 100%;
+    color: #808080;
 }
 
 .sub-container .title {
@@ -146,17 +148,36 @@ ul li::before {
     margin-bottom: 6px;
 }
 
+.sub-container .info-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .sub-container .info {
     font-family: 'Roboto';
-    color: #808080;
-    margin-top: 6px;
-    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #ff0000;
+    text-align: center;
+    background-color: #e6e6e6;
+    padding: 5px 10px 5px 10px;
+    border-radius: 50px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    width: fit-content;
+}
+
+.foo {
+    margin-bottom: 100px;
 }
 
 .sub-container .info a {
-    text-decoration: underline;
+    text-align: center;
+    background-color: #e6e6e6;
+    padding: 5px 10px 5px 10px;
+    border-radius: 50px;
 }
 
 .sub-container .info a:hover {
-    text-decoration: underline;
+    
 }
