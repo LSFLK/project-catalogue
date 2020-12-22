@@ -25,7 +25,7 @@
   position: absolute;
   transition: transform .4s ease-in-out;
   margin-left: 150px;
-  margin-top: -20px;
+  margin-top: 20px;
 }
 
 .card:hover .card-image {
