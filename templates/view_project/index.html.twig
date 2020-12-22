@@ -18,7 +18,7 @@
           {% endif %}
 
           {% if project.website %}
-            <a class="project-site" href="https://{{ project.website }}" target="_blank">{{ project.website }}</a>
+            <a id="website" class="website" href="{{ project.website }}" target="_blank"></a>
           {% endif %}
         </div>
         
@@ -132,5 +132,10 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const website = document.getElementById('website');
+    website.innerHTML = website.hostname;
+  </script
 
 {% endblock %}
