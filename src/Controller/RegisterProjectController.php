@@ -50,18 +50,19 @@ class RegisterProjectController extends AbstractController
         $project->more_info_names = array_filter($data->get('more_info_names'));
         $project->more_info_urls  = array_filter($data->get('more_info_urls'));
 
-        $project_data_file = $files->get('project_data_file');
-        $project_logo = $files->get('project_logo');
+        $project_data_file = $files ? $files->get('project_data_file') : null;
+        $project_logo = $files ? $files->get('project_logo') : null;
 
-        if($project_data_file) {
+        if($project_data_file = $files ? $files->get('project_data_file') : null) {
             $projectDataFile = $fileUploader->upload($project_data_file);
-            $project->project_data_file = $projectDataFile;
         }
 
-        if($project_logo) {
+        if($project_logo = $files ? $files->get('project_logo') : null) {
             $projectLogo = $fileUploader->upload($project_logo);
-            $project->project_logo = $projectLogo;
         }
+
+        $project->project_data_file = isset($projectDataFile) ? $projectDataFile : null;
+        $project->project_logo = isset($projectLogo) ? $projectLogo : null;
 
         $project->languages = array('java', 'ballerina');
         $project->tags = array('programming-language', 'language', 'compiler');

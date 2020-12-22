@@ -20,6 +20,14 @@
     overflow: hidden;
 }
 
+.header .row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 55px;
+}
+
 .project-image {
     position: absolute;
     height: 500px;
@@ -28,18 +36,17 @@
     top: -40%;
 }
 
-.project-icon {
-    height: 120px;
-    position: absolute;
-    object-fit: contain;
-    left: 35%;
-    top: 20%
-}
-
 .title {
     color: #1a1a1a;
     font-family: 'Montserrat';
     font-weight: 600;
+}
+
+.project-icon {
+    height: 120px;
+    z-index: 5;
+    object-fit: contain;
+    
 }
 
 .organization {

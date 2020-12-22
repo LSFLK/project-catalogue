@@ -36,29 +36,22 @@ const invalidErrorText = {
     }
 }
 
+var validity = {}
 
-var validity = {
-    name: false,
-    objective: false,
-    description: false,
-    website: true,
-    domain_expertise: false,
-    technical_expertise: false,
-    git_repo_data: false,
-    mailing_lists_data: true,
-    more_info: true
-}
+window.onload = function() {
+    validity = {
+        name: validateInput('name'),
+        objective: validateInput('objective'),
+        description: validateInput('description'),
+        website: validateInput('website', 'keyup', validateURL),
+        domain_expertise: validateInput('domain_expertise', 'click'),
+        technical_expertise: validateInput('technical_expertise', 'click'),
+        git_repo_data: validateDynamicInputGroup('git_repo_data', true),
+        mailing_lists_data: validateDynamicInputGroup('mailing_lists_data'),
+        more_info: validateDynamicInputGroup('more_info')
+    }
+};
 
-
-validateInput('name');
-validateInput('objective');
-validateInput('description');
-validateInput('website', 'keyup', validateURL);
-validateInput('domain_expertise', 'click');
-validateInput('technical_expertise', 'click');
-validateDynamicInputGroup('git_repo_data', true);
-validateDynamicInputGroup('mailing_lists_data');
-validateDynamicInputGroup('more_info');
 handleOnSelectDropdownOption('domain_expertise');
 handleOnSelectDropdownOption('technical_expertise');
 
@@ -118,6 +111,19 @@ function validateInput (id, event = 'keyup', validator = null) {
             }
         }
     })
+
+    const _checkValidity = (validator) => {
+        if(input.value) {
+            if(validator && !validator(input.value)) { return false }
+            else { return true }
+        }
+        else {
+            if(requiredErrorText[id]) { return false }
+            else { return true }
+        }
+    }
+
+    return _checkValidity(validator);
 }
 
 
@@ -215,6 +221,8 @@ function validateDynamicInputGroup (id, required = false) {
     _setupEventListeners();
 
     container.addEventListener("DOMNodeInserted", () => { _setupEventListeners() });
+
+    return _checkValidity(inputs);
 }
 
 

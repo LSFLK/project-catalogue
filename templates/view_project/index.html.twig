@@ -7,16 +7,27 @@
   <link href="{{ asset('css/view_project/index.css') }}" rel="stylesheet"/>
 
   <div class="header">
-    <div class="container">
+    <div class="container row">
         <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
+
+        <div>
+          <h1 class="title">{{ project.name }}</h1>
+
+          {% if project.organization %}
+            <div class="organization">By {{ project.organization }}</div>
+          {% endif %}
+
+          {% if project.website %}
+            <a class="project-site" href="https://{{ project.website }}" target="_blank">{{ project.website }}</a>
+          {% endif %}
+        </div>
+        
+
         {% if project.project_logo %}
-          <img class="card-img-top project-icon" src="{{ asset(dir ~ project.project_logo) }}" alt="">
+          <img class="project-icon" src="{{ asset(dir ~ project.project_logo) }}" alt="">
         {% else %}
-          <img class="card-img-top project-icon" src="{{ asset('icons/project-icon-default.jpg') }}" alt="">
+          <img class="project-icon" src="{{ asset('icons/project-icon-default.jpg') }}" alt="">
         {% endif %}
-        <h1 class="title">{{ project.name }}</h1>
-        <div class="organization">By {{ project.organization }}</div>
-        <a class="project-site" href="https://{{ project.website }}" target="_blank">{{ project.website }}</a>
     </div>
   </div>
 
@@ -57,7 +68,7 @@
             </table>
           {% endif %}
 
-          {% if project.bug_tracking or project.documentation or project.documentation %}
+          {% if (project.bug_tracking is defined) or (project.documentation is defined) or (project.documentation is defined) %}
             <div class="section-title">Other Details</div>
             <table class="mailing-lists">
               {% if project.bug_tracking %}
