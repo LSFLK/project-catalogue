@@ -4,9 +4,9 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    temp_directory: '%kernel.project_dir%/public/uploads/_temp_'
-    project_data_files_directory: '%kernel.project_dir%/public/uploads/project_data_files'
-    project_logos_directory: '%kernel.project_dir%/public/uploads/project_logos'
+    public_temp_dir: 'uploads/_temp_/'
+    temp_dir: '%kernel.project_dir%/public/uploads/_temp_/'
+    confirmed_dir: '%kernel.project_dir%/public/uploads/confirmed/'
 
 services:
     # default configuration for services in *this* file
@@ -35,4 +35,4 @@ services:
 
     App\Service\FileUploader:
         arguments:
-            $targetDirectory: '%temp_directory%'
+            $targetDirectory: '%temp_dir%'

@@ -14,16 +14,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class RegisterProjectController extends AbstractController
 {  
     /**
      * @Route("/register/review", methods={"POST"}, name="review_project")
      */
-    public function reviewProject(Request $request): Response
+    public function reviewProject(Request $request, FileUploader $fileUploader): Response
     {
         $data = $request->request;
         $files = $request->files;
+    
         $project = new \stdClass();
 
         $project->name        = $data->get('name');
@@ -48,8 +50,18 @@ class RegisterProjectController extends AbstractController
         $project->more_info_names = array_filter($data->get('more_info_names'));
         $project->more_info_urls  = array_filter($data->get('more_info_urls'));
 
-        $project->project_data_file = $files->get('project_data_file');
-        $project->project_logo = $files->get('project_logo');
+        $project_data_file = $files->get('project_data_file');
+        $project_logo = $files->get('project_logo');
+
+        if($project_data_file) {
+            $projectDataFile = $fileUploader->upload($project_data_file);
+            $project->project_data_file = $projectDataFile;
+        }
+
+        if($project_logo) {
+            $projectLogo = $fileUploader->upload($project_logo);
+            $project->project_logo = $projectLogo;
+        }
 
         $project->languages = array('java', 'ballerina');
         $project->tags = array('programming-language', 'language', 'compiler');
@@ -57,18 +69,7 @@ class RegisterProjectController extends AbstractController
         return $this->render('view_project/index.html.twig', [
             'project' => $project,
             'project_data' => json_encode($project),
-            'project_data_file_src' => $data->get('project_data_file_src'),
-            'project_logo_src' => $data->get('project_logo_src')
-        ]);
-    }
-
-    /**
-     * @Route("/register/review/project_data", methods={"POST"}, name="pdf_viewer")
-     */
-    public function openPDF(Request $request): Response
-    {
-        return $this->render('view_project/pdf_viewer.html.twig', [
-            'src' => $request->request->get('src')
+            'dir' => $this->getParameter('public_temp_dir')
         ]);
     }
 
@@ -77,10 +78,13 @@ class RegisterProjectController extends AbstractController
      */
     public function registerProject(Request $request, ValidatorInterface $validator): Response
     {
+        $filesystem = new Filesystem();
+        $temp_dir = $this->getParameter('temp_dir');
+        $confirmed_dir = $this->getParameter('confirmed_dir');
+
         $project_data = $request->request->get('project_data');
         $data = json_decode($project_data);
         $entityManager = $this->getDoctrine()->getManager();
-
         $validation = true;
 
         $project = new Project();
@@ -134,6 +138,19 @@ class RegisterProjectController extends AbstractController
 
             if (!count($errors)) { $entityManager->persist($moreInfo); }
             else { return new Response((string) $errors); }
+        }
+
+        $project_data_file = $data->project_data_file;
+        $project_logo = $data->project_logo;
+
+        if($project_data_file) {
+            $filesystem->rename($temp_dir.$project_data_file, $confirmed_dir.$project_data_file);
+            $project->setProjectDataFile($project_data_file);
+        }
+
+        if($project_logo) {
+            $filesystem->rename($temp_dir.$project_logo, $confirmed_dir.$project_logo);
+            $project->setProjectLogo($project_logo);
         }
 
         $errors = $validator->validate($project);

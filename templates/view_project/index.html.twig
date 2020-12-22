@@ -9,11 +9,7 @@
   <div class="header">
     <div class="container">
         <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
-        {% if project_logo_src is defined %}
-          <img class="card-img-top project-icon" src="{{ project_logo_src }}" alt="">
-        {% else %}
-          <img class="card-img-top project-icon" src="{{ project.project_logo }}" alt="">
-        {% endif %}
+        <img class="card-img-top project-icon" src="{{ asset(dir ~ project.project_logo) }}" alt="">
         <h1 class="title">{{ project.name }}</h1>
         <div class="organization">By {{ project.organization }}</div>
         <a class="project-site" href="https://{{ project.website }}" target="_blank">{{ project.website }}</a>
@@ -67,12 +63,7 @@
                 <td class="link"><a href="{{ project.documentation }}" target="_blank">Documentation</a></td>
               </tr>
               <tr>
-                <td class="link">
-                  <form id="project_data_file_src" action="review/project_data" method="POST" target="_blank">
-                    <a onclick="document.getElementById('project_data_file_src').submit()">Project Data</a>
-                    <input type="hidden" name="src" value="{{ project_data_file_src }}"/>
-                  </form>
-                </td>
+                <td class="link"><a href="{{ asset(dir ~ project.project_data_file) }}" target="_blank">Project Data</a></td>
               </tr>
             </table>
           {% endif %}
