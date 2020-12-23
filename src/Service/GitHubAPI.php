@@ -2,17 +2,19 @@
 
 namespace App\Service;
 
+use App\Entity\GitRepo;
 use Symfony\Component\HttpClient\NativeHttpClient;
 
 class GitHubAPI
 {
-    private $client, $gitHubInformation;
+    private $client, $gitRepo, $gitHubInformation;
 
-    public function __construct($repoUrl)
+    public function __construct(GitRepo $gitRepo)
     {
         $client = new NativeHttpClient();
         $this->client = $client;
-        $this->fetchGitHubInformation($repoUrl);
+        $this->gitRepo = $gitRepo;
+        $this->gitHubInformation = $this->fetchGitHubInformation($gitRepo->getUrl());
     }
 
     private function _fetchContent($requestUrl): array
@@ -35,7 +37,7 @@ class GitHubAPI
         $repoUrlPath = parse_url($repoUrl, PHP_URL_PATH);
         $repoApiUrl = $apiUrl.$repoUrlPath;
         $content = $this->_fetchContent($repoApiUrl);
-        $this->gitHubInformation = $content;
+        return $content;
     }
 
     public function getGitHubInformation(): array
@@ -79,5 +81,18 @@ class GitHubAPI
     {
         $topics = isset($this->gitHubInformation['topics']) ? $this->gitHubInformation['topics'] : [];
         return $topics;
+    }
+
+    public function getGitRepoRequiredData(): array
+    {
+        $gitRepoRequiredData = [
+            'name' => $this->gitRepo->getName(),
+            'url'  => $this->gitRepo->getUrl(),
+            'licenseName' => $this->getLicenseName(),
+            'starsCount'  => $this->getStarsCount(),
+            'forksCount'  => $this->getForksCount(),
+        ];
+
+        return $gitRepoRequiredData;
     }
 }

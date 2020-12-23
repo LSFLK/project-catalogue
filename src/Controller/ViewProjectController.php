@@ -48,21 +48,11 @@ class ViewProjectController extends AbstractController
         $topics = [];
 
         foreach ($project->getGitRepo() as $gitRepo) {
-            $url  = $gitRepo->getUrl();
-            $gitHubAPI = new GitHubAPI($url);
+            $_gitRepo = new GitHubAPI($gitRepo);
+            array_push($git_repos, $_gitRepo->getGitRepoRequiredData());
 
-            $_gitRepo = [
-                'name' => $gitRepo->getName(),
-                'url' => $url,
-                'licenseName' => $gitHubAPI->getLicenseName(),
-                'starsCount'  => $gitHubAPI->getStarsCount(),
-                'forksCount'  => $gitHubAPI->getForksCount(),
-            ];
-
-            array_push($git_repos, $_gitRepo);
-
-            $languages = array_merge($languages, $gitHubAPI->getLanguages());
-            $topics = array_merge($topics, $gitHubAPI->getTopics());
+            $languages = array_merge($languages, $_gitRepo->getLanguages());
+            $topics = array_merge($topics, $_gitRepo->getTopics());
         }
 
         foreach ($project->getMailingList() as $mailingList) {
