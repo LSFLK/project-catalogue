@@ -68,7 +68,7 @@
             </table>
           {% endif %}
 
-          {% if (project.bug_tracking is not null) or (project.documentation is not null) or (project.project_data_file is not null) %}
+          {% if (project.bug_tracking is not empty) or (project.documentation is not empty) or (project.project_data_file is not empty) %}
             <div class="section-title">Other Details</div>
             <table class="mailing-lists">
               {% if project.bug_tracking %}

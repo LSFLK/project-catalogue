@@ -8,6 +8,7 @@ use App\Entity\TechnicalExpertise;
 use App\Entity\GitRepo;
 use App\Entity\MailingList;
 use App\Entity\MoreInfo;
+use App\Service\GitHubAPI;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,14 +42,56 @@ class RegisterProjectController extends AbstractController
         $project->bug_tracking  = $data->get('bug_tracking');
         $project->documentation = $data->get('documentation');
 
-        $project->git_repo_names = array_filter($data->get('git_repo_names'));
-        $project->git_repo_urls  = array_filter($data->get('git_repo_urls'));
+        $git_repos = [];
+        $languages = [];
+        $topics = [];
+        $git_repo_names = array_filter($data->get('git_repo_names'));
+        $git_repo_urls  = array_filter($data->get('git_repo_urls'));
 
-        $project->mailing_list_names = array_filter($data->get('mailing_list_names'));
-        $project->mailing_list_urls  = array_filter($data->get('mailing_list_urls'));
+        for($index = 0; $index < count($git_repo_names); $index++) {
+            $gitRepo = new GitRepo();
+            $gitRepo->setName($git_repo_names[$index]);
+            $gitRepo->setUrl($git_repo_urls[$index]);
 
-        $project->more_info_names = array_filter($data->get('more_info_names'));
-        $project->more_info_urls  = array_filter($data->get('more_info_urls'));
+            $_gitRepo = new GitHubAPI($gitRepo);
+            array_push($git_repos, $_gitRepo->getGitRepoRequiredData());
+
+            $languages = array_merge($languages, $_gitRepo->getLanguages());
+            $topics = array_merge($topics, $_gitRepo->getTopics());
+        }
+
+        $mailing_lists = [];
+        $mailing_list_names = array_filter($data->get('mailing_list_names'));
+        $mailing_list_urls  = array_filter($data->get('mailing_list_urls'));
+
+        for($index = 0; $index < count($mailing_list_names); $index++) {
+            $_mailingList = [
+                'name' => $mailing_list_names[$index],
+                'url'  => $mailing_list_urls[$index]
+            ];
+
+            array_push($mailing_lists, $_mailingList);
+        }
+
+        $more_infos = [];
+        $more_info_names = array_filter($data->get('more_info_names'));
+        $more_info_urls  = array_filter($data->get('more_info_urls'));
+
+        for($index = 0; $index < count($more_info_names); $index++) {
+            $_moreInfo = [
+                'name' => $more_info_names[$index],
+                'url'  => $more_info_urls[$index]
+            ];
+
+            array_push($more_infos, $_moreInfo);
+        }
+
+        $project->git_repos = $git_repos;
+        $project->mailing_lists  = $mailing_lists;
+        $project->more_infos = $more_infos;
+        
+        $project->languages  = array_unique($languages);
+        $project->topics = array_unique($topics);
 
         $project_data_file = $files ? $files->get('project_data_file') : null;
         $project_logo = $files ? $files->get('project_logo') : null;
@@ -63,9 +106,6 @@ class RegisterProjectController extends AbstractController
 
         $project->project_data_file = isset($projectDataFile) ? $projectDataFile : null;
         $project->project_logo = isset($projectLogo) ? $projectLogo : null;
-
-        $project->languages = array('java', 'ballerina');
-        $project->tags = array('programming-language', 'language', 'compiler');
         
         return $this->render('view_project/index.html.twig', [
             'project' => $project,
@@ -105,10 +145,10 @@ class RegisterProjectController extends AbstractController
         $technicalExpertise = $technicalExpertiseRepository->findOneBy(['name' => $data->technical_expertise]);
         $project->setTechnicalExpertise($technicalExpertise);
 
-        for($index = 0; $index < count($data->git_repo_names); $index++) {
+        foreach ($data->git_repos as $git_repo) {
             $gitRepo = new GitRepo();
-            $gitRepo->setName($data->git_repo_names[$index]);
-            $gitRepo->setUrl($data->git_repo_urls[$index]);
+            $gitRepo->setName($git_repo['name']);
+            $gitRepo->setUrl($git_repo['url']);
             $project->addGitRepo($gitRepo);
 
             $errors = $validator->validate($gitRepo);
@@ -117,10 +157,10 @@ class RegisterProjectController extends AbstractController
             else { return new Response((string) $errors); }
         }
 
-        for($index = 0; $index < count($data->mailing_list_names); $index++) {
+        foreach ($data->mailing_lists as $mailing_list) {
             $mailingList = new MailingList();
-            $mailingList->setName($data->mailing_list_names[$index]);
-            $mailingList->setUrl($data->mailing_list_urls[$index]);
+            $mailingList->setName($mailing_list['name']);
+            $mailingList->setUrl($mailing_list['url']);
             $project->addMailingList($mailingList);
 
             $errors = $validator->validate($mailingList);
@@ -129,10 +169,10 @@ class RegisterProjectController extends AbstractController
             else { return new Response((string) $errors); }
         }
 
-        for($index = 0; $index < count($data->more_info_names); $index++) {
+        foreach ($data->more_infos as $more_info) {
             $moreInfo = new MoreInfo();
-            $moreInfo->setName($data->more_info_names[$index]);
-            $moreInfo->setUrl($data->more_info_urls[$index]);
+            $moreInfo->setName($more_info['name']);
+            $moreInfo->setUrl($more_info['url']);
             $project->addMoreInfo($moreInfo);
 
             $errors = $validator->validate($moreInfo);
