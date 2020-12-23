@@ -6,6 +6,7 @@ use App\Entity\Project;
 use App\Entity\DomainExpertise;
 use App\Entity\TechnicalExpertise;
 use App\Entity\ProgrammingLanguage;
+use App\Service\GitHubAPI;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,46 +40,55 @@ class ViewProjectController extends AbstractController
         $_project->project_data_file = $project->getProjectDataFile();
         $_project->project_logo      = $project->getProjectLogo();
 
-        $git_repo_names = [];
-        $git_repo_urls = [];
-        $mailing_list_names = [];
-        $mailing_list_urls = [];
-        $more_info_names = [];
-        $more_info_urls = [];
+        $git_repos = [];
+        $mailing_lists = [];
+        $more_infos = [];
+
+        $languages = [];
+        $topics = [];
 
         foreach ($project->getGitRepo() as $gitRepo) {
-            $name = $gitRepo->getName();
             $url  = $gitRepo->getUrl();
+            $gitHubAPI = new GitHubAPI($url);
 
-            array_push($git_repo_names, $name);
-            array_push($git_repo_urls, $url);
+            $_gitRepo = [
+                'name' => $gitRepo->getName(),
+                'url' => $url,
+                'licenseName' => $gitHubAPI->getLicenseName(),
+                'starsCount'  => $gitHubAPI->getStarsCount(),
+                'forksCount'  => $gitHubAPI->getForksCount(),
+            ];
+
+            array_push($git_repos, $_gitRepo);
+
+            $languages = array_merge($languages, $gitHubAPI->getLanguages());
+            $topics = array_merge($topics, $gitHubAPI->getTopics());
         }
 
         foreach ($project->getMailingList() as $mailingList) {
-            $name = $mailingList->getName();
-            $url  = $mailingList->getUrl();
+            $_mailingList = [
+                'name' => $mailingList->getName(),
+                'url'  => $mailingList->getUrl()
+            ];
 
-            array_push($mailing_list_names, $name);
-            array_push($mailing_list_urls, $url);
+            array_push($mailing_lists, $_mailingList);
         }
 
         foreach ($project->getMoreInfo() as $moreInfo) {
-            $name = $moreInfo->getName();
-            $url  = $moreInfo->getUrl();
+            $_moreInfo = [
+                'name' => $moreInfo->getName(),
+                'url'  => $moreInfo->getUrl()
+            ];
 
-            array_push($more_info_names, $name);
-            array_push($more_info_urls, $url);
+            array_push($more_infos, $_moreInfo);
         }
 
-        $_project->git_repo_names = $git_repo_names;
-        $_project->git_repo_urls  = $git_repo_urls;
-        $_project->mailing_list_names = $mailing_list_names;
-        $_project->mailing_list_urls  = $mailing_list_urls;
-        $_project->more_info_names = $more_info_names;
-        $_project->more_info_urls  = $more_info_urls;
-
-        $_project->languages = array('java', 'ballerina');
-        $_project->tags = array('programming-language', 'language', 'compiler');
+        $_project->git_repos = $git_repos;
+        $_project->mailing_lists  = $mailing_lists;
+        $_project->more_infos = $more_infos;
+        
+        $_project->languages  = array_unique($languages);
+        $_project->topics = array_unique($topics);
         
         return $this->render('view_project/index.html.twig', [
             'project' => $_project,

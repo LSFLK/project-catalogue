@@ -43,11 +43,11 @@ class GitHubAPI
         return $this->gitHubInformation;
     }
 
-    public function getLicenceName(): string
+    public function getLicenseName(): string
     {
-        $licence = isset($this->gitHubInformation['licence']) ? $this->gitHubInformation['licence'] : null;
-        $licenceName = isset($licence['name']) ? $licence['name'] : 'N/A';
-        return $licenceName;
+        $license = isset($this->gitHubInformation['license']) ? $this->gitHubInformation['license'] : null;
+        $licenseName = isset($license['name']) ? $license['name'] : 'N/A';
+        return $licenseName;
     }
 
     public function getStarsCount()
