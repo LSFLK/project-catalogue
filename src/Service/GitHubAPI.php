@@ -20,8 +20,13 @@ class GitHubAPI
         $response = $this->client->request('GET', $requestUrl, [
             'headers' => ['Accept' => 'application/vnd.github.mercy-preview+json']
         ]);
-        $content = $response->toArray();
-        return $content;
+
+        if($response->getStatusCode() === 200) {
+            $content = $response->toArray();
+            return $content;
+        }
+
+        return [];
     }
 
     private function fetchGitHubInformation($repoUrl)
@@ -40,32 +45,38 @@ class GitHubAPI
 
     public function getLicenceName(): string
     {
-        $licence = $this->gitHubInformation['licence'];
-
-        if($licence) { return $licence['name']; }
-        else { return null; }
+        $licence = isset($this->gitHubInformation['licence']) ? $this->gitHubInformation['licence'] : 'N/A';
+        return $licence;
     }
 
     public function getStarsCount()
     {
-        return $this->gitHubInformation['stargazers_count'];
+        $starsCount = isset($this->gitHubInformation['stargazers_count']) ? $this->gitHubInformation['stargazers_count'] : 'N/A';
+        return $starsCount;
     }
 
     public function getForksCount()
     {
-        return $this->gitHubInformation['forks_count'];
+        $forksCount = isset($this->gitHubInformation['forks_count']) ? $this->gitHubInformation['forks_count'] : 'N/A';
+        return $forksCount;
     }
 
     public function getLanguages(): array
     {
-        $languagesUrl = $this->gitHubInformation['languages_url'];
-        $content = $this->_fetchContent($languagesUrl);
-        $languages = array_keys($content);
-        return $languages;   
+        $languagesUrl = isset($this->gitHubInformation['languages_url']) ? $this->gitHubInformation['languages_url'] : null;
+        
+        if($languagesUrl) {
+            $content = $this->_fetchContent($languagesUrl);
+            $languages = array_keys($content);
+            return $languages;
+        }
+
+        return [];
     }
 
     public function getTopics(): array
     {
-        return $this->gitHubInformation['topics'];
+        $topics = isset($this->gitHubInformation['topics']) ? $this->gitHubInformation['topics'] : [];
+        return $topics;
     }
 }
