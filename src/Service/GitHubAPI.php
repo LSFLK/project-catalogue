@@ -25,6 +25,7 @@ class GitHubAPI
             $content = $response->toArray();
             return $content;
         }
+        
         return [];
     }
 
