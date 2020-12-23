@@ -25,7 +25,7 @@ class GitHubAPI
             $content = $response->toArray();
             return $content;
         }
-        
+
         return [];
     }
 
@@ -45,8 +45,9 @@ class GitHubAPI
 
     public function getLicenceName(): string
     {
-        $licence = isset($this->gitHubInformation['licence']) ? $this->gitHubInformation['licence'] : 'N/A';
-        return $licence;
+        $licence = isset($this->gitHubInformation['licence']) ? $this->gitHubInformation['licence'] : null;
+        $licenceName = isset($licence['name']) ? $licence['name'] : 'N/A';
+        return $licenceName;
     }
 
     public function getStarsCount()
