@@ -68,7 +68,7 @@ registerProjectForm.addEventListener('submit', function (event) {
 
     if(focusInvalidInput) {
         event.preventDefault();
-        document.getElementById(input).focus();
+        document.getElementById(focusInvalidInput).focus();
     }
 
     for(var input in validity) {
