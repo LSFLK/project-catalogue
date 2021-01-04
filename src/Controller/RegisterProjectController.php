@@ -147,8 +147,8 @@ class RegisterProjectController extends AbstractController
 
         foreach ($data->git_repos as $git_repo) {
             $gitRepo = new GitRepo();
-            $gitRepo->setName($git_repo['name']);
-            $gitRepo->setUrl($git_repo['url']);
+            $gitRepo->setName($git_repo->name);
+            $gitRepo->setUrl($git_repo->url);
             $project->addGitRepo($gitRepo);
 
             $errors = $validator->validate($gitRepo);
@@ -159,8 +159,8 @@ class RegisterProjectController extends AbstractController
 
         foreach ($data->mailing_lists as $mailing_list) {
             $mailingList = new MailingList();
-            $mailingList->setName($mailing_list['name']);
-            $mailingList->setUrl($mailing_list['url']);
+            $mailingList->setName($mailing_list->name);
+            $mailingList->setUrl($mailing_list->url);
             $project->addMailingList($mailingList);
 
             $errors = $validator->validate($mailingList);
@@ -171,8 +171,8 @@ class RegisterProjectController extends AbstractController
 
         foreach ($data->more_infos as $more_info) {
             $moreInfo = new MoreInfo();
-            $moreInfo->setName($more_info['name']);
-            $moreInfo->setUrl($more_info['url']);
+            $moreInfo->setName($more_info->name);
+            $moreInfo->setUrl($more_info->url);
             $project->addMoreInfo($moreInfo);
 
             $errors = $validator->validate($moreInfo);
