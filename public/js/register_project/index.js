@@ -196,17 +196,20 @@ function validateDynamicInputGroup (id, required = false) {
                     helpers[index + 1].classList.add('helper-text-no-icon');
                 }
 
-                validity[id] = _checkValidity(inputs);
+                validity[id] = _checkValidity(inputs, required);
             })
         });
     }
 
-    const _checkValidity = (inputs) => {
+    const _checkValidity = (inputs, required) => {
         var _validity = true;
 
         try {
             inputs.forEach((input, index) => {
-                if(index % 2 === 0 && ((input.value && !inputs[index + 1].value) || (!input.value && inputs[index + 1].value))) {
+                if(index === 0 && required && !input.value && !inputs[index + 1].value) {
+                    throw 'InvalidException';
+                }
+                else if(index % 2 === 0 && ((input.value && !inputs[index + 1].value) || (!input.value && inputs[index + 1].value))) {
                     throw 'InvalidException';
                 }
             })
@@ -222,7 +225,7 @@ function validateDynamicInputGroup (id, required = false) {
 
     container.addEventListener("DOMNodeInserted", () => { _setupEventListeners() });
 
-    return _checkValidity(inputs);
+    return _checkValidity(inputs, required);
 }
 
 
