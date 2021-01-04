@@ -12,6 +12,7 @@
 .header {
     position: relative;
     width: 100%;
+    font-family: 'Montserrat';
     background-image: linear-gradient(to right, #e6e6e640, #cccccc65);
     margin-bottom: 20px;
     padding: 80px;
@@ -38,12 +39,10 @@
 
 .title {
     color: #1a1a1a;
-    font-family: 'Montserrat';
     font-weight: 500;
 }
 
 .page-description {
-    font-family: 'Montserrat';
     font-size: 16px;
     color: #0066ff;
     font-weight: 500;
@@ -54,14 +53,13 @@
 
 .container {
     justify-content: center;
-    font-family: 'Montserrat Regular';
+    font-family: 'Montserrat';
     color: #404040;
     font-weight: 400;
 }
 
 .form-section-title {
     color: #1a1a1a;
-    font-family: 'Montserrat';
     font-weight: 500;
     margin-top: 15px;
     margin-bottom: 15px;

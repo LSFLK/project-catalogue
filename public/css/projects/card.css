@@ -1,4 +1,5 @@
 .card {
+  font-family: 'Montserrat';
   margin-bottom: 30px;
   transition: box-shadow .5s;
 }
@@ -33,7 +34,6 @@
 }
 
 .card-title {
-  font-family: 'Montserrat';
   font-weight: 500;
   color: #1a1a1a;
   margin-top: 12px;
@@ -52,7 +52,6 @@
 }
 
 .card-btn-text {
-  font-family: 'Montserrat';
   font-size: 14px;
   color: #0066ff;
   font-weight: 600;
