@@ -94,18 +94,10 @@ class RegisterProjectController extends AbstractController
         $project->topics = array_unique($topics);
 
         $project_data_file = $files ? $files->get('project_data_file') : null;
+        $project->project_data_file = $project_data_file ? $fileUploader->upload($project_data_file) : null;
+
         $project_logo = $files ? $files->get('project_logo') : null;
-
-        if($project_data_file = $files ? $files->get('project_data_file') : null) {
-            $projectDataFile = $fileUploader->upload($project_data_file);
-        }
-
-        if($project_logo = $files ? $files->get('project_logo') : null) {
-            $projectLogo = $fileUploader->upload($project_logo);
-        }
-
-        $project->project_data_file = isset($projectDataFile) ? $projectDataFile : null;
-        $project->project_logo = isset($projectLogo) ? $projectLogo : null;
+        $project->project_logo = $project_logo ? $fileUploader->upload($project_logo) : null;
         
         return $this->render('view_project/index.html.twig', [
             'project' => $project,
