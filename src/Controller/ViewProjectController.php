@@ -3,15 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Project;
-use App\Entity\DomainExpertise;
-use App\Entity\TechnicalExpertise;
-use App\Entity\ProgrammingLanguage;
-use App\Service\GitHubAPI;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ViewProjectController extends AbstractController
 {
@@ -40,19 +34,23 @@ class ViewProjectController extends AbstractController
         $_project->project_data_file = $project->getProjectDataFile();
         $_project->project_logo      = $project->getProjectLogo();
 
-        $git_repos = [];
-        $mailing_lists = [];
-        $more_infos = [];
+        $_project->languages  = $project->getProgrammingLanguage();
+        $_project->topics = $project->getTopic();
 
-        $languages = [];
-        $topics = [];
+        $_project->git_repos = [];
+        $_project->mailing_lists = [];
+        $_project->more_infos = [];
 
         foreach ($project->getGitRepo() as $gitRepo) {
-            $_gitRepo = new GitHubAPI($gitRepo);
-            array_push($git_repos, $_gitRepo->getGitRepoRequiredData());
-
-            $languages = array_merge($languages, $_gitRepo->getLanguages());
-            $topics = array_merge($topics, $_gitRepo->getTopics());
+            $_gitRepo = [
+                'name' => $gitRepo->getName(),
+                'url'  => $gitRepo->getUrl(),
+                'licenseName' => $gitRepo->getLicenseName(),
+                'starsCount'  => $gitRepo->getStarsCount(),
+                'forksCount'  => $gitRepo->getForksCount(),
+            ];
+            
+            array_push($_project->git_repos, $_gitRepo);
         }
 
         foreach ($project->getMailingList() as $mailingList) {
@@ -61,7 +59,7 @@ class ViewProjectController extends AbstractController
                 'url'  => $mailingList->getUrl()
             ];
 
-            array_push($mailing_lists, $_mailingList);
+            array_push($_project->mailing_lists, $_mailingList);
         }
 
         foreach ($project->getMoreInfo() as $moreInfo) {
@@ -70,15 +68,8 @@ class ViewProjectController extends AbstractController
                 'url'  => $moreInfo->getUrl()
             ];
 
-            array_push($more_infos, $_moreInfo);
+            array_push($_project->more_infos, $_moreInfo);
         }
-
-        $_project->git_repos = $git_repos;
-        $_project->mailing_lists  = $mailing_lists;
-        $_project->more_infos = $more_infos;
-        
-        $_project->languages  = array_unique($languages);
-        $_project->topics = array_unique($topics);
         
         return $this->render('view_project/index.html.twig', [
             'project' => $_project,

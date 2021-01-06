@@ -38,6 +38,21 @@ class GitRepo
      */
     private $project;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $license_name;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $stars_count;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $forks_count;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +90,42 @@ class GitRepo
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getLicenseName(): ?string
+    {
+        return $this->license_name;
+    }
+
+    public function setLicenseName(?string $license_name): self
+    {
+        $this->license_name = $license_name;
+
+        return $this;
+    }
+
+    public function getStarsCount(): ?int
+    {
+        return $this->stars_count;
+    }
+
+    public function setStarsCount(?int $stars_count): self
+    {
+        $this->stars_count = $stars_count;
+
+        return $this;
+    }
+
+    public function getForksCount(): ?int
+    {
+        return $this->forks_count;
+    }
+
+    public function setForksCount(?int $forks_count): self
+    {
+        $this->forks_count = $forks_count;
 
         return $this;
     }

@@ -46,9 +46,9 @@
             {% for git_repo in project.git_repos %}
               <tr>
                 <td class="link"><a href="{{ git_repo.url }}" target="_blank">{{ git_repo.name }}</a></td>
-                <td>{{ git_repo.licenseName }}</td>
-                <td>{{ git_repo.starsCount }} Stars</td>
-                <td>{{ git_repo.forksCount }} Forks</td>
+                <td>{{ git_repo.licenseName ? git_repo.licenseName : 'N/A' }}</td>
+                <td>{{ git_repo.starsCount ? git_repo.starsCount : '-' }} Stars</td>
+                <td>{{ git_repo.forksCount ? git_repo.forksCount : '-' }} Forks</td>
               </tr>
             {% endfor %}
           </table>

@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ProgrammingLanguageRepository;
+use App\Repository\TopicRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProgrammingLanguageRepository::class)
+ * @ORM\Entity(repositoryClass=TopicRepository::class)
  */
-class ProgrammingLanguage
+class Topic
 {
     /**
      * @ORM\Id
@@ -20,18 +20,23 @@ class ProgrammingLanguage
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="programming_language")
+     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="topic")
      */
     private $projects;
 
     public function __construct()
     {
         $this->projects = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -51,11 +56,6 @@ class ProgrammingLanguage
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->name;
-    }
-
     /**
      * @return Collection|Project[]
      */
@@ -68,7 +68,7 @@ class ProgrammingLanguage
     {
         if (!$this->projects->contains($project)) {
             $this->projects[] = $project;
-            $project->addProgrammingLanguage($this);
+            $project->addTopic($this);
         }
 
         return $this;
@@ -77,7 +77,7 @@ class ProgrammingLanguage
     public function removeProject(Project $project): self
     {
         if ($this->projects->removeElement($project)) {
-            $project->removeProgrammingLanguage($this);
+            $project->removeTopic($this);
         }
 
         return $this;

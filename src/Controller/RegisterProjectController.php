@@ -8,6 +8,8 @@ use App\Entity\TechnicalExpertise;
 use App\Entity\GitRepo;
 use App\Entity\MailingList;
 use App\Entity\MoreInfo;
+use App\Entity\ProgrammingLanguage;
+use App\Entity\Topic;
 use App\Service\GitHubAPI;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -141,6 +143,9 @@ class RegisterProjectController extends AbstractController
             $gitRepo = new GitRepo();
             $gitRepo->setName($git_repo->name);
             $gitRepo->setUrl($git_repo->url);
+            $gitRepo->setLicenseName($git_repo->licenseName);
+            $gitRepo->setStarsCount($git_repo->starsCount);
+            $gitRepo->setForksCount($git_repo->forksCount);
             $project->addGitRepo($gitRepo);
 
             $errors = $validator->validate($gitRepo);
@@ -184,6 +189,32 @@ class RegisterProjectController extends AbstractController
         if($project_logo) {
             $filesystem->rename($temp_dir.$project_logo, $confirmed_dir.$project_logo);
             $project->setProjectLogo($project_logo);
+        }
+
+        foreach ($data->languages as $language) {
+            $programmingLanguageRepository = $this->getDoctrine()->getRepository(ProgrammingLanguage::class);
+            $programmingLanguage = $programmingLanguageRepository->findOneBy(['name' => $language]);
+
+            if(!$programmingLanguage) {
+                $programmingLanguage = new ProgrammingLanguage();
+                $programmingLanguage->setName($language);
+                $entityManager->persist($programmingLanguage);
+            }
+
+            $project->addProgrammingLanguage($programmingLanguage);
+        }
+
+        foreach ($data->topics as $topic) {
+            $topicRepository = $this->getDoctrine()->getRepository(Topic::class);
+            $projectTopic = $topicRepository->findOneBy(['name' => $topic]);
+
+            if(!$projectTopic) {
+                $projectTopic = new Topic();
+                $projectTopic->setName($topic);
+                $entityManager->persist($projectTopic);
+            }
+
+            $project->addTopic($projectTopic);
         }
 
         $errors = $validator->validate($project);

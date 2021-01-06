@@ -100,11 +100,23 @@ class Project
      */
     private $project_logo;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ProgrammingLanguage::class, inversedBy="projects")
+     */
+    private $programming_language;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Topic::class, inversedBy="projects")
+     */
+    private $topic;
+
     public function __construct()
     {
         $this->git_repo = new ArrayCollection();
         $this->mailing_list = new ArrayCollection();
         $this->more_info = new ArrayCollection();
+        $this->programming_language = new ArrayCollection();
+        $this->topic = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -330,6 +342,54 @@ class Project
     public function setProjectLogo(?string $project_logo): self
     {
         $this->project_logo = $project_logo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProgrammingLanguage[]
+     */
+    public function getProgrammingLanguage(): Collection
+    {
+        return $this->programming_language;
+    }
+
+    public function addProgrammingLanguage(ProgrammingLanguage $programmingLanguage): self
+    {
+        if (!$this->programming_language->contains($programmingLanguage)) {
+            $this->programming_language[] = $programmingLanguage;
+        }
+
+        return $this;
+    }
+
+    public function removeProgrammingLanguage(ProgrammingLanguage $programmingLanguage): self
+    {
+        $this->programming_language->removeElement($programmingLanguage);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Topic[]
+     */
+    public function getTopic(): Collection
+    {
+        return $this->topic;
+    }
+
+    public function addTopic(Topic $topic): self
+    {
+        if (!$this->topic->contains($topic)) {
+            $this->topic[] = $topic;
+        }
+
+        return $this;
+    }
+
+    public function removeTopic(Topic $topic): self
+    {
+        $this->topic->removeElement($topic);
 
         return $this;
     }
