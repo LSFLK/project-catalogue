@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  <link href="{{ asset('css/register_project/success.css') }}" rel="stylesheet"/>
+
+  <div class="container">
+    <img class="success-icon" src="{{ asset('icons/success.png') }}">
+
+    <div class="thank-you">Thank you!</div>
+
+    <div class="message">Your project has been successfully registered.</div>
+
+    <div class="share-notice">Share the link of your project and let the people explore this project in our catalogue.</div>
+  
+    <div class="share-buttons-container">
+        <a class="share-button" style="background-color: #3b5998" href="http://www.facebook.com/sharer.php?u={{ app.request.getUri }}" target="_blank">
+            <i class="fab fa-facebook" style="margin-right: 5px; color: #ffffff"></i>
+            <div class="share-button-text">Facebook</div>
+        </a>
+
+        <a class="share-button" style="background-color: #00acee" href="http://twitter.com/share" data-url="{{ app.request.getUri }}" target="_blank">
+            <i class="fab fa-twitter" style="margin-right: 5px; color: #ffffff"></i>
+            <div class="share-button-text">Twitter</div>
+        </a>
+
+        <a class="share-button" style="background-color: #009900">
+            <i class="fas fa-envelope" style="margin-right: 5px; color: #ffffff"></i>
+            <div class="share-button-text">Email</div>
+        </a>
+
+        <a class="share-button" style="background-color: #3399ff">
+            <i class="fas fa-link" style="margin-right: 5px; color: #ffffff"></i>
+            <div class="share-button-text">Copy Link</div>
+        </a>
+    </div>
+
+    <div class="link">
+        <a>Back to Projects page</a>
+    </div>
+  </div>
+
+{% endblock %}

@@ -222,11 +222,22 @@ class RegisterProjectController extends AbstractController
         if (!count($errors)) {
             $entityManager->persist($project);
             $entityManager->flush();
-            return new Response('Project Registered!');
+
+            return $this->render('register_project/success.html.twig');
         }
         else {
             return new Response((string) $errors);
         }
+    }
+
+    /**
+     * @Route("/register/success", name="register_project_success")
+     */
+    public function success(): Response
+    {
+        return $this->render('register_project/success.html.twig', [
+            'url' => 'url'
+        ]);
     }
 
     /**
