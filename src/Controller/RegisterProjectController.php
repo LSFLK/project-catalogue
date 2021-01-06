@@ -223,7 +223,7 @@ class RegisterProjectController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->render('register_project/success.html.twig');
+            return $this->redirect('/register/success/id='.$project->getId(), 301);
         }
         else {
             return new Response((string) $errors);
@@ -231,12 +231,12 @@ class RegisterProjectController extends AbstractController
     }
 
     /**
-     * @Route("/register/success", name="register_project_success")
+     * @Route("/register/success/id={id}", name="register_project_success")
      */
-    public function success(): Response
+    public function success($id): Response
     {
         return $this->render('register_project/success.html.twig', [
-            'url' => 'url'
+            'project_id' => $id
         ]);
     }
 
