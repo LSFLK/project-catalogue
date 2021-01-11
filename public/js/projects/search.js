@@ -10,18 +10,17 @@ function initiallizeSearch () {
         const name = event.target.value.trim();
 
         if(name.length) {
-            searchProjectsByName(name);
+            browser_url.searchParams.set('name', name);
         }
         else {
             searchInput.value = null;
             browser_url.searchParams.delete('name');
-            history.pushState({}, null, browser_url)
         }
+
+        searchProjectsByName();
     });
 
-    const searchProjectsByName = (name) => {
-        browser_url.searchParams.set('name', name);
-
+    const searchProjectsByName = () => {
         const api_url = origin + pathname + '/search' + browser_url.search;
 
         $.get(api_url, function(projects){
