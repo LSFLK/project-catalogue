@@ -15,13 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProjectsController extends AbstractController
 {
-    /**
-     * @Route("/projects/search", name="search_projects")
-     */
-    public function search(Request $request): JsonResponse
+    private function _getContentForRetrievedProjects($projects): array
     {
-        $projects = $this->getDoctrine()->getRepository(Project::class)->findByRequestQueryParams($request->query);
-        
         $content = [];
 
         foreach($projects as $project) {
@@ -29,6 +24,27 @@ class ProjectsController extends AbstractController
             array_push($content, $card);
         }
 
+        return $content;
+    }
+
+    /**
+     * @Route("/projects/filter", name="filter_projects")
+     */
+    public function filter(Request $request): JsonResponse
+    {
+        $projects = $this->getDoctrine()->getRepository(Project::class)->findByRequestQueryParams($request->query);
+        $content = $this->_getContentForRetrievedProjects($projects);
+        return new JsonResponse($content);
+    }
+
+    /**
+     * @Route("/projects/search", name="search_projects")
+     */
+    public function search(Request $request): JsonResponse
+    {
+        $name = $request->query->get('name');
+        $projects = $this->getDoctrine()->getRepository(Project::class)->searchByProjectName($name);
+        $content = $this->_getContentForRetrievedProjects($projects);
         return new JsonResponse($content);
     }
 

@@ -71,7 +71,7 @@ function initiallizeDropdown (elementID) {
 
     const fetchProjectsBySearchParams = (browser_url) => {
       const { origin, pathname, search } = browser_url;
-      const api_url = origin + pathname + '/search' + search;
+      const api_url = origin + pathname + '/filter' + search;
 
       $.get(api_url, function(projects){
         history.pushState({}, null, browser_url);

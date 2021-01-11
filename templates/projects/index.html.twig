@@ -6,6 +6,7 @@
   <!-- Custom styles for this template -->
   <link href="{{ asset('css/projects/index.css') }}" rel="stylesheet"/>
   <link href="{{ asset('css/projects/dropdown.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/projects/search.css') }}" rel="stylesheet"/>
   <link href="{{ asset('css/projects/card.css') }}" rel="stylesheet"/>
 
   <!-- Page Heading -->
@@ -19,7 +20,7 @@
       <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'domain', 'name': 'Domain Expertise', 'options': domain_expertise} %}</div>
       <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'technical', 'name': 'Technical Expertise', 'options': technical_expertise} %}</div>
       <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'language', 'name': 'Programming Language', 'options': programming_language} %}</div>
-      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'name', 'name': 'Project Name', 'options': []} %}</div>
+      <div class="flex-fill filter">{% include 'projects/search.html.twig' %}</div>
     </div>
   </div>
 
@@ -41,13 +42,14 @@
   {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ asset('js/projects/dropdown.js') }}"></script>
+    <script src="{{ asset('js/projects/search.js') }}"></script>
   {% endblock %}
 
   <script>
     initiallizeDropdown('domain')
     initiallizeDropdown('technical')
     initiallizeDropdown('language')
-    initiallizeDropdown('name')
+    initiallizeSearch()
   </script>
 
 {% endblock %}
