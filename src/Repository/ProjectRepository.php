@@ -36,10 +36,11 @@ class ProjectRepository extends ServiceEntityRepository
                          ->setParameter('te', $technical_expertise);
         }
 
-        // if($programming_language = $requestQuery->get('language')) {
-        //     $queryBuilder->andWhere('p.programming_language = :te')
-        //                  ->setParameter('te', $programming_language);
-        // }
+        if($programming_language = $requestQuery->get('language')) {
+            $queryBuilder->innerJoin('p.programming_language', 'ppl')
+                         ->andWhere('ppl.id = :pl')
+                         ->setParameter('pl', $programming_language);
+        }
 
         return $queryBuilder->orderBy('p.id', 'ASC')
                             ->setMaxResults(10)
