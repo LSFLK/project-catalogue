@@ -1,4 +1,5 @@
 function initiallizeDropdown (elementID) {
+    const container = document.getElementById('project-cards-container');
     const element = document.getElementById(elementID);
 
     const selected = element.querySelector(".selected");
@@ -73,6 +74,8 @@ function initiallizeDropdown (elementID) {
       const { origin, pathname, search } = browser_url;
       const api_url = origin + pathname + '/filter' + search;
 
+      $(container).fadeOut(150);
+
       $.get(api_url, function(projects){
         history.pushState({}, null, browser_url);
         renderProjectCards(projects);
@@ -80,7 +83,6 @@ function initiallizeDropdown (elementID) {
     }
 
     const renderProjectCards = (projects) => {
-      const container = document.getElementById('project-cards-container');
       container.innerHTML = null;
 
       projects.forEach(project => {
@@ -90,5 +92,7 @@ function initiallizeDropdown (elementID) {
         const projectCard = cardTemplate.querySelector('.project-card')
         container.appendChild(projectCard);
       });
+
+      $(container).fadeIn(200);
     }
   }

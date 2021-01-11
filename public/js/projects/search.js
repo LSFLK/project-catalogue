@@ -1,4 +1,5 @@
 function initiallizeSearch () {
+    const container = document.getElementById('project-cards-container');
     const element = document.getElementById('search-by-name');
     const searchInput = element.querySelector(".search-box-input");
 
@@ -6,8 +7,12 @@ function initiallizeSearch () {
     const { origin, pathname } = url;
     const browser_url = new URL(origin + pathname);
 
+    var delayTimer;
+
     searchInput.addEventListener("keyup", (event) => {
         const name = event.target.value.trim();
+
+        if(delayTimer) { clearTimeout(delayTimer) }
 
         if(name.length) {
             browser_url.searchParams.set('name', name);
@@ -17,11 +22,15 @@ function initiallizeSearch () {
             browser_url.searchParams.delete('name');
         }
 
-        searchProjectsByName();
+        delayTimer = setTimeout(function() {
+            searchProjectsByName();
+        }, 250);
     });
 
     const searchProjectsByName = () => {
         const api_url = origin + pathname + '/search' + browser_url.search;
+
+        $(container).fadeOut(150);
 
         $.get(api_url, function(projects){
             history.pushState({}, null, browser_url);
@@ -30,9 +39,8 @@ function initiallizeSearch () {
     }
 
     const renderProjectCards = (projects) => {
-        const container = document.getElementById('project-cards-container');
         container.innerHTML = null;
-  
+
         projects.forEach(project => {
           const cardTemplate = document.createElement("DIV");
           cardTemplate.innerHTML = project;
@@ -40,5 +48,7 @@ function initiallizeSearch () {
           const projectCard = cardTemplate.querySelector('.project-card');
           container.appendChild(projectCard);
         });
+
+        $(container).fadeIn(200);
     }
 }
