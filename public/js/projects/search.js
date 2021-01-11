@@ -37,7 +37,7 @@ function initiallizeSearch () {
           const cardTemplate = document.createElement("DIV");
           cardTemplate.innerHTML = project;
   
-          const projectCard = cardTemplate.querySelector('.project-card')
+          const projectCard = cardTemplate.querySelector('.project-card');
           container.appendChild(projectCard);
         });
     }
