@@ -6,6 +6,7 @@
   <!-- Custom styles for this template -->
   <link href="{{ asset('css/projects/index.css') }}" rel="stylesheet"/>
   <link href="{{ asset('css/projects/dropdown.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/projects/card.css') }}" rel="stylesheet"/>
 
   <!-- Page Heading -->
   <div class="header">
@@ -25,9 +26,9 @@
   <!-- Page Content -->
   <div class="container">
 
-    <div class="row">
+    <div id="project-cards-container" class="row">
       {% for project in projects %}
-        {{ include('projects/card.html.twig', { project: project }) }}
+        {{ include('projects/card.html.twig') }}
       {% endfor %}
     </div>
 
@@ -38,6 +39,7 @@
   <div class="footer"></div>
 
   {% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ asset('js/projects/dropdown.js') }}"></script>
   {% endblock %}
 

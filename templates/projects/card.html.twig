@@ -1,17 +1,13 @@
-{% extends 'base.html.twig' %}
-
 {% block body %}
-  <!-- Custom styles for this template -->
-  <link href="{{ asset('css/projects/card.css') }}" rel="stylesheet"/>
 
-  <a class="col-lg-4 col-sm-6" href="projects/id={{ project.id }}">
+  <a class="col-lg-4 col-sm-6 project-card" href="projects/id={{ project.id }}">
     <div class="card">
       <div class="card-header">
         <img class="card-image" src="{{ asset('img/project-card-background.png') }}" alt="">
 
         <h4 class="card-title">{{ project.name }}</h4>
 
-        {% if project.project_logo %}
+        {% if project.project_logo is defined %}
           <img class="card-icon" src="{{ asset('uploads/confirmed/' ~ project.project_logo) }}" alt="">
         {% else %}
           <img class="card-icon" src="{{ asset('icons/project-icon-default.png') }}" alt="">

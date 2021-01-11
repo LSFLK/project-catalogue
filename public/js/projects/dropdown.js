@@ -24,9 +24,11 @@ function initiallizeDropdown (elementID) {
 
     optionsList.forEach((option) => {
       option.addEventListener("click", () => {
-        const label = option.querySelector("label").innerHTML;
-        selectedText.innerHTML = label == 'All' ? name : label;
+        const label = option.querySelector("label");
+        const labelText = label.innerHTML;
+        selectedText.innerHTML = labelText == 'All' ? name : labelText;
         optionsContainer.classList.remove("active");
+        labelText == 'All' ? deleteSearchParam(elementID) : setSearchParam(elementID, label.getAttribute('id'));
       });
     });
     
@@ -46,7 +48,7 @@ function initiallizeDropdown (elementID) {
     const filterList = (searchTerm) => {
       searchTerm = searchTerm.toLowerCase();
       optionsList.forEach(option => {
-        const label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+        const label = option.firstElementChild.innerText.toLowerCase();
         if (label.indexOf(searchTerm) != -1) {
           option.style.display = "block";
         } else {
@@ -54,4 +56,39 @@ function initiallizeDropdown (elementID) {
         }
       });
     };
+
+    const setSearchParam = (param, value) => {
+      const browser_url = new URL(window.location.href);
+      browser_url.searchParams.set(param, value);
+      fetchProjectsBySearchParams(browser_url);
+    }
+
+    const deleteSearchParam = (param) => {
+      const browser_url = new URL(window.location.href);
+      browser_url.searchParams.delete(param);
+      fetchProjectsBySearchParams(browser_url);
+    }
+
+    const fetchProjectsBySearchParams = (browser_url) => {
+      const { origin, pathname, search } = browser_url;
+      const api_url = origin + pathname + '/search' + search;
+
+      $.get(api_url, function(projects){
+        history.pushState({}, null, browser_url);
+        renderProjectCards(projects);
+      });
+    }
+
+    const renderProjectCards = (projects) => {
+      const container = document.getElementById('project-cards-container');
+      container.innerHTML = null;
+
+      projects.forEach(project => {
+        const cardTemplate = document.createElement("DIV");
+        cardTemplate.innerHTML = project;
+
+        const projectCard = cardTemplate.querySelector('.project-card')
+        container.appendChild(projectCard);
+      });
+    }
   }

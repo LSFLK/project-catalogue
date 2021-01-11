@@ -23,8 +23,7 @@
 
         {% for option in options %}
           <div class="option">
-            <input type="radio" class="radio" id="{{ option }}" name="category" />
-            <label for="automobiles">{{ option }}</label>
+            <label id="{{ loop.index }}" for="automobiles">{{ option }}</label>
           </div>
         {% endfor %}
         
