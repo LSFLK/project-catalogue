@@ -26,18 +26,12 @@
 
   <!-- Page Content -->
   <div class="container">
-
-    <div id="project-cards-container" class="row">
+    <div id="project-cards-container" class="row project-cards-container">
       {% for project in projects %}
         {{ include('projects/card.html.twig') }}
       {% endfor %}
     </div>
-
-    <div class="btn-text">LOAD MORE</div>
-
   </div>
-
-  <div class="footer"></div>
 
   {% block javascripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
