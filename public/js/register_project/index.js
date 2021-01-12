@@ -39,17 +39,7 @@ const invalidErrorText = {
 var validity = {}
 
 window.onload = function() {
-    validity = {
-        name: validateInput('name'),
-        objective: validateInput('objective'),
-        description: validateInput('description'),
-        website: validateInput('website', 'keyup', validateURL),
-        domain_expertise: validateInput('domain_expertise', 'click'),
-        technical_expertise: validateInput('technical_expertise', 'click'),
-        git_repo_data: validateDynamicInputGroup('git_repo_data', true),
-        mailing_lists_data: validateDynamicInputGroup('mailing_lists_data'),
-        more_info: validateDynamicInputGroup('more_info')
-    }
+    validity = checkFormValidity();
 };
 
 handleOnSelectDropdownOption('domain_expertise');
@@ -78,6 +68,22 @@ registerProjectForm.addEventListener('submit', function (event) {
         }
     }
 })
+
+
+function checkFormValidity() {
+    const validity = {
+        name: validateInput('name'),
+        objective: validateInput('objective'),
+        description: validateInput('description'),
+        website: validateInput('website', 'keyup', validateURL),
+        domain_expertise: validateInput('domain_expertise', 'click'),
+        technical_expertise: validateInput('technical_expertise', 'click'),
+        git_repo_data: validateDynamicInputGroup('git_repo_data', true),
+        mailing_lists_data: validateDynamicInputGroup('mailing_lists_data'),
+        more_info: validateDynamicInputGroup('more_info')
+    }
+    return validity;
+}
 
 
 function validateInput (id, event = 'keyup', validator = null) {
