@@ -2,6 +2,7 @@
   font-family: 'Montserrat';
   margin-bottom: 30px;
   transition: box-shadow .5s;
+  height: 300px;
 }
 
 .card:hover {
@@ -50,6 +51,18 @@
 
 .card:hover .card-icon {
   transform: scale(1.1);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 100px;
 }
 
 .card-btn-text {
