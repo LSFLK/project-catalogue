@@ -8,6 +8,10 @@ function initiallizeSearch () {
     const searchResultsDisplayText = searchResults.querySelector(".text");
     const searchResultsSearchTerm = searchResults.querySelector(".search");
 
+    const domainExpertise = document.getElementById('domain').querySelector(".selected").querySelector(".text");
+    const technicalExpertise = document.getElementById('technical').querySelector(".selected").querySelector(".text");
+    const programmingLanguage = document.getElementById('language').querySelector(".selected").querySelector(".text");
+
     const url = new URL(window.location.href);
     const { origin, pathname } = url;
     const browser_url = new URL(origin + pathname);
@@ -17,6 +21,10 @@ function initiallizeSearch () {
 
     searchInput.addEventListener("keyup", (event) => {
         searchInputText = event.target.value.trim();
+
+        domainExpertise.innerHTML = 'Domain Expertise';
+        technicalExpertise.innerHTML = 'Technical Expertise';
+        programmingLanguage.innerHTML = 'Programming Language';
 
         if(delayTimer) { clearTimeout(delayTimer) }
 
