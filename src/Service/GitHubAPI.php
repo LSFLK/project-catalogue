@@ -83,6 +83,13 @@ class GitHubAPI
         return $topics;
     }
 
+    public function getAvatarUrl(): string
+    {
+        $owner = isset($this->gitHubInformation['owner']) ? $this->gitHubInformation['owner'] : null;
+        $avatar_url = isset($owner['avatar_url']) ? $owner['avatar_url'] : null;
+        return $avatar_url;
+    }
+
     public function getGitRepoRequiredData(): array
     {
         $gitRepoRequiredData = [
@@ -91,6 +98,7 @@ class GitHubAPI
             'licenseName' => $this->getLicenseName(),
             'starsCount'  => $this->getStarsCount(),
             'forksCount'  => $this->getForksCount(),
+            'avatarUrl'  => $this->getAvatarUrl()
         ];
 
         return $gitRepoRequiredData;
