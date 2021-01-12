@@ -98,7 +98,6 @@ class GitHubAPI
             'licenseName' => $this->getLicenseName(),
             'starsCount'  => $this->getStarsCount(),
             'forksCount'  => $this->getForksCount(),
-            'avatarUrl'  => $this->getAvatarUrl()
         ];
 
         return $gitRepoRequiredData;

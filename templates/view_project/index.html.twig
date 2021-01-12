@@ -24,9 +24,13 @@
         
 
         {% if project.project_logo %}
-          <img class="project-icon" src="{{ asset(dir ~ project.project_logo) }}" alt="">
+          {% if 'http' in project.project_logo %}
+            <img class="project-icon" src="{{ project.project_logo }}">
+          {% else %}
+            <img class="project-icon" src="{{ asset(dir ~ project.project_logo) }}">
+          {% endif %}
         {% else %}
-          <img class="project-icon" src="{{ asset('icons/project-icon-default.png') }}" alt="">
+          <img class="project-icon" src="{{ asset('icons/project-icon-default.png') }}">
         {% endif %}
     </div>
   </div>

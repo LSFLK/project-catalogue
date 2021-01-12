@@ -47,6 +47,7 @@ class RegisterProjectController extends AbstractController
         $git_repos = [];
         $languages = [];
         $topics = [];
+        $avatar_url = null;
         $git_repo_names = array_filter($data->get('git_repo_names'));
         $git_repo_urls  = array_filter($data->get('git_repo_urls'));
 
@@ -60,6 +61,7 @@ class RegisterProjectController extends AbstractController
 
             $languages = array_merge($languages, $_gitRepo->getLanguages());
             $topics = array_merge($topics, $_gitRepo->getTopics());
+            $avatar_url == null ? $avatar_url = $_gitRepo->getAvatarUrl() : null;
         }
 
         $mailing_lists = [];
@@ -99,7 +101,7 @@ class RegisterProjectController extends AbstractController
         $project->project_data_file = $project_data_file ? $fileUploader->upload($project_data_file) : null;
 
         $project_logo = $files ? $files->get('project_logo') : null;
-        $project->project_logo = $project_logo ? $fileUploader->upload($project_logo) : null;
+        $project->project_logo = $project_logo ? $fileUploader->upload($project_logo) : $avatar_url;
         
         return $this->render('view_project/index.html.twig', [
             'project' => $project,
@@ -187,7 +189,9 @@ class RegisterProjectController extends AbstractController
         }
 
         if($project_logo) {
-            $filesystem->rename($temp_dir.$project_logo, $confirmed_dir.$project_logo);
+            if (!filter_var($project_logo, FILTER_VALIDATE_URL)) {
+                $filesystem->rename($temp_dir.$project_logo, $confirmed_dir.$project_logo);
+            }
             $project->setProjectLogo($project_logo);
         }
 
