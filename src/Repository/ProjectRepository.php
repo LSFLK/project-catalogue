@@ -42,7 +42,7 @@ class ProjectRepository extends ServiceEntityRepository
                          ->setParameter('pl', $programming_language);
         }
 
-        return $queryBuilder->orderBy('p.id', 'ASC')
+        return $queryBuilder->orderBy('p.name', 'ASC')
                             ->setMaxResults(10)
                             ->getQuery()
                             ->getResult()
@@ -57,7 +57,7 @@ class ProjectRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
                     ->where('p.name LIKE :n')
                     ->setParameter('n', '%'.$name.'%')
-                    ->orderBy('p.id', 'ASC')
+                    ->orderBy('p.name', 'ASC')
                     ->setMaxResults(10)
                     ->getQuery()
                     ->getResult()
