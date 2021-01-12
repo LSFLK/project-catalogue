@@ -21,7 +21,6 @@
             <a id="website" class="website" href="{{ project.website }}" target="_blank"></a>
           {% endif %}
         </div>
-        
 
         {% if project.project_logo %}
           {% if 'http' in project.project_logo %}
@@ -129,11 +128,11 @@
             </div>
           {% endif %}
 
-          {% if project.languages|length %}
+          {% if project.topics|length %}
             <div class="title">TOPICS</div>
             <div class="info-container">
-              {% for tag in project.topics %}
-                <a class="info">{{ tag }}</a>
+              {% for topic in project.topics %}
+                <a class="info">{{ topic }}</a>
               {% endfor %}
             </div>
           {% endif %}
