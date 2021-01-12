@@ -26,6 +26,12 @@
 
   <!-- Page Content -->
   <div class="container">
+    <div id="search-results-count" class="search-results-count">
+      <div class="count"></div>
+      <div class="text"></div>
+      <div class="search"></div>
+    </div>
+
     <div id="project-cards-container" class="row project-cards-container">
       {% for project in projects %}
         {{ include('projects/card.html.twig') }}

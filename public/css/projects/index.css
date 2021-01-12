@@ -68,6 +68,25 @@
     border-radius: 8px 8px 8px 8px;
 }
 
+.search-results-count {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 500;
+    color: #4d4d4d;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+
+.search-results-count .count {
+    font-weight: 600;
+}
+
+.search-results-count .search {
+    font-weight: 600;
+}
+
 .container .btn-text {
     font-family: 'Montserrat';
     font-size: 14px;
