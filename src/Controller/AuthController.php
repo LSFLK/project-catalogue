@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class GoogleAuthController extends AbstractController
+class AuthController extends AbstractController
 {
     /**
      * @Route("/signin/google", name="google_signin")
@@ -24,7 +24,7 @@ class GoogleAuthController extends AbstractController
     /**
      * @Route("/signin/google/auth", name="google_auth")
      */
-    public function authenticateWithGoogle(Request $request, ClientRegistry $clientRegistry) : RedirectResponse
+    public function onAuthenticationSuccessWithClient(Request $request, ClientRegistry $clientRegistry) : RedirectResponse
     {
         return $this->redirectToRoute('projects');
     }

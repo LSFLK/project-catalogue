@@ -19,6 +19,18 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    public function findUserIfExists($authUser, $client): ?User
+    {
+        return $this->createQueryBuilder('u')
+                    ->orWhere('u.'.$client.'_id = :client_id')
+                    ->setParameter('client_id', $authUser->getId())
+                    ->orWhere('u.email = :email')
+                    ->setParameter('email', $authUser->getEmail())
+                    ->getQuery()
+                    ->getOneOrNullResult()
+        ;
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

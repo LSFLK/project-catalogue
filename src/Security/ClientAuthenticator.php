@@ -5,7 +5,6 @@ namespace App\Security;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
-use KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +14,11 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-class GoogleAuthenticator extends SocialAuthenticator
+class ClientAuthenticator extends SocialAuthenticator
 {
+    private $authProviders = ['google'];
+    private $client;
+
     private $clientRegistry;
     private $entityManager;
     private $router;
@@ -30,45 +32,44 @@ class GoogleAuthenticator extends SocialAuthenticator
 
     public function supports(Request $request)
     {
-        return $request->attributes->get('_route') === 'google_auth';
+        $route = $request->attributes->get('_route');
+        
+        foreach($this->authProviders as $authProvider) {
+            if($route === $authProvider.'_auth') {
+                $this->client = $authProvider;
+                return true;
+            }
+        }
     }
+
+    private function getClient()
+    {
+        return $this->clientRegistry->getClient($this->client);
+	}
 
     public function getCredentials(Request $request)
     {
-        return $this->fetchAccessToken($this->getGoogleClient());
+        return $this->fetchAccessToken($this->getClient());
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $googleUser = $this->getGoogleClient()->fetchUserFromToken($credentials);
-        $googleId = $googleUser->getId();
-        $email = $googleUser->getEmail();
-        $userRepository = $this->entityManager->getRepository(User::class);
-
-        // If the user has logged in with Google before.
-        $user = $userRepository->findOneBy(['google_id' => $googleId]);
+        $authUser = $this->getClient()->fetchUserFromToken($credentials);
+        $user = $this->entityManager->getRepository(User::class)->findUserIfExists($authUser, $this->client);
         
         if (!$user) {
-            // If there exists a matching user by email.
-            $user = $userRepository->findOneBy(['email' => $email]);
+            $user = new User();
+            $user->setEmail($authUser->getEmail());
 
-            if(!$user) {
-                // Register new user.
-                $user = new User();
-                $user->setGoogleId($googleId);
-                $user->setEmail($email);
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
-            }
+            $clientIdSetter = 'set'.ucfirst($this->client).'Id';
+            $user->$clientIdSetter($authUser->getId());
+
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
         }
         
         return $userProvider->loadUserByUsername($user->getEmail());
     }
-
-    private function getGoogleClient() : GoogleClient
-    {
-        return $this->clientRegistry->getClient('google');
-	}
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
