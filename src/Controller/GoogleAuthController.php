@@ -13,7 +13,7 @@ class GoogleAuthController extends AbstractController
     /**
      * @Route("/signin/google", name="google_signin")
      */
-    public function connectAction(ClientRegistry $clientRegistry) : RedirectResponse
+    public function signInWithGoogle(ClientRegistry $clientRegistry) : RedirectResponse
     {
         return $clientRegistry
             ->getClient('google')
@@ -24,7 +24,7 @@ class GoogleAuthController extends AbstractController
     /**
      * @Route("/signin/google/auth", name="google_auth")
      */
-    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry) : RedirectResponse
+    public function authenticateWithGoogle(Request $request, ClientRegistry $clientRegistry) : RedirectResponse
     {
         return $this->redirectToRoute('projects');
     }
