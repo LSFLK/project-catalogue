@@ -45,14 +45,15 @@ class GoogleAuthenticator extends SocialAuthenticator
         $email = $googleUser->getEmail();
         $userRepository = $this->entityManager->getRepository(User::class);
 
-        // 1) If the user has logged in with Google before.
+        // If the user has logged in with Google before.
         $user = $userRepository->findOneBy(['google_id' => $googleId]);
         
         if (!$user) {
-            // 2) If there exists a matching user by email.
+            // If there exists a matching user by email.
             $user = $userRepository->findOneBy(['email' => $email]);
 
             if(!$user) {
+                // Register new user.
                 $user = new User();
                 $user->setGoogleId($googleId);
                 $user->setEmail($email);
