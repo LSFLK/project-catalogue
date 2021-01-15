@@ -11,6 +11,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class AuthController extends AbstractController
 {
     /**
+     * @Route("/signin", name="signin")
+     */
+    public function signIn(ClientRegistry $clientRegistry)
+    {
+        return $this->render('signin/index.html.twig');
+    }
+
+    /**
      * @Route("/signin/google", name="google_signin")
      */
     public function signInWithGoogle(ClientRegistry $clientRegistry) : RedirectResponse
