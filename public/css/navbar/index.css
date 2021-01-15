@@ -1,0 +1,26 @@
+.navbar-container {
+    position: fixed !important;
+    z-index: 1000;
+    width: 100%;
+    font-family: 'Montserrat';
+    background-color: #333333;
+    align-items: center;
+    margin-top: -50px;
+}
+
+.brand {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.brand .logo {
+    height: 40px;
+    width: 40px;
+}
+
+.brand .name {
+    font-weight: 500;
+    font-size: 20px;
+    color: #f2f2f2
+}

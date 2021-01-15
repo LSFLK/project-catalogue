@@ -9,11 +9,13 @@
   <link href="{{ asset('css/projects/search.css') }}" rel="stylesheet"/>
   <link href="{{ asset('css/projects/card.css') }}" rel="stylesheet"/>
 
+  {{ include('navbar/index.html.twig') }}
+
   <!-- Page Heading -->
   <div class="header">
     <div class="row-inline">
-      <h1 class="title">Open Source Projects</h1>
-      <a class="button" href="register" target="_blank">Register New Project</a>
+      <h1 class="title">Projects</h1>
+      {# <a class="button" href="register" target="_blank">Register New Project</a> #}
     </div>
 
     <div class="d-flex filters-container row">
