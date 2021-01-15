@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ClientAuthenticator extends SocialAuthenticator
 {
-    private $authProviders = ['google'];
+    private $authProviders = ['google', 'facebook'];
     private $client;
 
     private $clientRegistry;

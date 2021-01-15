@@ -11,6 +11,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
         "knpuniversity/oauth2-client-bundle": "^2.7",
+        "league/oauth2-facebook": "^2.0",
         "league/oauth2-google": "^3.0",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.6",

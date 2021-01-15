@@ -22,7 +22,19 @@ class AuthController extends AbstractController
     }
 
     /**
+     * @Route("/signin/facebook", name="facebook_signin")
+     */
+    public function signInWithFacebook(ClientRegistry $clientRegistry) : RedirectResponse
+    {
+        return $clientRegistry
+            ->getClient('facebook')
+            ->redirect(['public_profile', 'email'])
+        ;
+    }
+
+    /**
      * @Route("/signin/google/auth", name="google_auth")
+     * @Route("/signin/facebook/auth", name="facebook_auth")
      */
     public function onAuthenticationSuccessWithClient(Request $request, ClientRegistry $clientRegistry) : RedirectResponse
     {
