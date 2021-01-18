@@ -1,3 +1,7 @@
+.nav-link-avatar {
+    border-radius: 50px;
+}
+
 .nav-link-signin {
     display: flex;
     flex-direction: row;

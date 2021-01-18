@@ -5,7 +5,7 @@
     background: #2f3640;
     border-radius: 8px;
     margin-bottom: 8px;
-    color: #a6a6a6;
+    color: #bfbfbf;
     position: relative;
     order: 0;
     padding: 2.7px 20px 2.7px 20px;
@@ -19,7 +19,7 @@
     font-size: 14px;
     position: relative;
     background: none;
-    color: #a6a6a6;
+    color: #bfbfbf;
     border-radius: 8px 8px 0 0;
     z-index: 100;
     border: 8px solid #2f3640;
