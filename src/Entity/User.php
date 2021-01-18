@@ -28,16 +28,6 @@ class User implements UserInterface
      */
     private $roles = [];
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $google_id;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $facebook_id;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -107,29 +97,5 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getGoogleId(): ?string
-    {
-        return $this->google_id;
-    }
-
-    public function setGoogleId(?string $google_id): self
-    {
-        $this->google_id = $google_id;
-
-        return $this;
-    }
-
-    public function getFacebookId(): ?string
-    {
-        return $this->facebook_id;
-    }
-
-    public function setFacebookId(?string $facebook_id): self
-    {
-        $this->facebook_id = $facebook_id;
-
-        return $this;
     }
 }

@@ -19,13 +19,11 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function findUserIfExists($authUser, $client): ?User
+    public function findUserByEmail($email): ?User
     {
         return $this->createQueryBuilder('u')
-                    ->orWhere('u.'.$client.'_id = :client_id')
-                    ->setParameter('client_id', $authUser->getId())
-                    ->orWhere('u.email = :email')
-                    ->setParameter('email', $authUser->getEmail())
+                    ->where('u.email = :email')
+                    ->setParameter('email', $email)
                     ->getQuery()
                     ->getOneOrNullResult()
         ;

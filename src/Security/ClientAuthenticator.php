@@ -55,15 +55,13 @@ class ClientAuthenticator extends SocialAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $authUser = $this->getClient()->fetchUserFromToken($credentials);
-        $user = $this->entityManager->getRepository(User::class)->findUserIfExists($authUser, $this->client);
-        
+        $authUserEmail = $authUser->getEmail();
+        $user = $this->entityManager->getRepository(User::class)->findUserByEmail($authUserEmail);
+                
         if (!$user) {
             $user = new User();
-            $user->setEmail($authUser->getEmail());
-
-            $clientIdSetter = 'set'.ucfirst($this->client).'Id';
-            $user->$clientIdSetter($authUser->getId());
-
+            $user->setEmail($authUserEmail);
+            
             $this->entityManager->persist($user);
             $this->entityManager->flush();
         }
