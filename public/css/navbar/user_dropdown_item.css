@@ -1,0 +1,22 @@
+.user-dropdown-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    color: #f2f2f2 !important;
+    margin: 3px -15px 3px -15px !important;
+    padding-left: 23px !important;
+    padding-right: 23px !important;
+}
+
+.user-dropdown-item i {
+    font-size: 22px;
+    color: #b3b3b3;
+    margin-left: -5px;
+    margin-right: 15px;
+}
+
+.user-dropdown-item:hover {
+    background-color: #404040 !important;
+}

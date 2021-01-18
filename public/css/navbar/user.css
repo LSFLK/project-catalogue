@@ -9,6 +9,7 @@
     border-radius: 3px;
     padding: 5px 7px 5px 5px;
     color: #3385ff;
+    font-weight: 600 !important;
 }
 
 .signin-user-icon {
