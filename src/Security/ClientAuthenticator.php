@@ -61,12 +61,20 @@ class ClientAuthenticator extends SocialAuthenticator
         if (!$user) {
             $user = new User();
             $user->setEmail($authUserEmail);
-            
+            $user->setName($authUser->getName());
+            $user->setFirstName($authUser->getFirstName());
+            $user->setLastName($authUser->getLastName());
+            $user->setRoles(['ROLE_USER']);
+
+            if ($getProfilePicture = $this->_getProfilePictureGetterName()) {
+                $user->setProfilePicture($authUser->$getProfilePicture());
+            }
+
             $this->entityManager->persist($user);
             $this->entityManager->flush();
         }
         
-        return $userProvider->loadUserByUsername($user->getEmail());
+        return $userProvider->loadUserByUsername($authUserEmail);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
@@ -91,5 +99,14 @@ class ClientAuthenticator extends SocialAuthenticator
     public function start(Request $request, AuthenticationException $authException = null)
     {
         return new RedirectResponse('/signin/', Response::HTTP_TEMPORARY_REDIRECT);
+    }
+
+    private function _getProfilePictureGetterName()
+    {
+        switch ($this->client) {
+            case 'google'  : return 'getAvatar';
+            case 'facebook': return 'getPictureUrl';
+            default        : return null;
+        }
     }
 }

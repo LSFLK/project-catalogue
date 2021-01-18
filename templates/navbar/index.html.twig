@@ -14,13 +14,14 @@
       <ul class="navbar-nav ml-auto">
         {{ include('navbar/nav_item.html.twig', { 'name': 'Projects', 'path': '/projects' }) }}
         {{ include('navbar/nav_item.html.twig', { 'name': 'About', 'path': '/projects' }) }}
-        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+        {{ include('navbar/user.html.twig') }}
+        {# {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
           {{ include('navbar/nav_item.html.twig', { 'name': 'Sign in', 'path': '/signin' }) }}
         {% endif %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
           {{ include('navbar/nav_item.html.twig', { 'name': app.user.email, 'path': '/signout' }) }}
         {% endif %}
-        
+        <img src="{{ asset('icons/ospc-logo.png') }}" class="logo" > #}
       </ul>
     </div>
 
