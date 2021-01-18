@@ -48,4 +48,12 @@ class AuthController extends AbstractController
     {
         return $this->redirectToRoute('projects');
     }
+
+    /**
+     * @Route("/signout", name="signout", methods={"GET"})
+     */
+    public function signout()
+    {
+        throw new \Exception('Unknown error occured. User not signed out.');
+    }
 }
