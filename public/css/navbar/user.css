@@ -1,0 +1,17 @@
+.nav-link-signin {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: #3385ff;
+    border-radius: 3px;
+    padding: 5px 7px 5px 5px;
+    color: #3385ff;
+}
+
+.signin-user-icon {
+    margin-right: 5px;
+    font-size: 24px;
+}
