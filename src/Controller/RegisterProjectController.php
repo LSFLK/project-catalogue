@@ -18,7 +18,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
+ */
 class RegisterProjectController extends AbstractController
 {  
     /**
@@ -125,6 +129,7 @@ class RegisterProjectController extends AbstractController
         $validation = true;
 
         $project = new Project();
+        $project->setOwner($this->getUser());
         $project->setName($data->name);
         $project->setObjective($data->objective);
         $project->setDescription($data->description);
