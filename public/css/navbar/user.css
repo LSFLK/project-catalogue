@@ -15,3 +15,9 @@
     margin-right: 5px;
     font-size: 24px;
 }
+
+.profile-picture {
+    height: 32px;
+    width: 32px;
+    border-radius: 16px;
+}

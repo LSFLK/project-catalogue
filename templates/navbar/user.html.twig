@@ -1,14 +1,36 @@
 {% block body %}
 
   <div class="nav-item-container">
-    <li class="nav-item">
-      <a href="#" class="nav-link nav-link-name">
-        <div class="nav-link-signin">
-          <i class="fas fa-user-circle signin-user-icon"></i>
-          <dev>Sign in</dev>
-        </div>
-      </a>
-    </li>
+    {#  #}
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+      {% set profile_picture = app.user.getProfilePicture %}
+
+      <li class="nav-item">
+        <a href="{{ path('signout')}}" class="nav-link nav-link-name">
+
+          {% if profile_picture is null %}
+            <img src="{{ asset('icons/default-profile-picture.png') }}" class="profile-picture" >
+          {% else %}
+            <img src="{{ profile_picture }}" class="profile-picture" >
+          {% endif %}
+
+        </a>
+      </li>
+
+    {% else %}
+
+      <li class="nav-item">
+        <a href="{{ path('signin')}}" class="nav-link nav-link-name">
+          <div class="nav-link-signin">
+            <i class="fas fa-user-circle signin-user-icon"></i>
+            <dev>Sign in</dev>
+          </div>
+        </a>
+      </li>
+
+    {% endif %}
+
   </div>
     
 {% endblock %}
