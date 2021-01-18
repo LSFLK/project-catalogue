@@ -110,6 +110,12 @@ class Project
      */
     private $topic;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
+
     public function __construct()
     {
         $this->git_repo = new ArrayCollection();
@@ -390,6 +396,18 @@ class Project
     public function removeTopic(Topic $topic): self
     {
         $this->topic->removeElement($topic);
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }
