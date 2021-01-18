@@ -39,7 +39,6 @@
 .card-title {
   font-weight: 500;
   color: #1a1a1a;
-  margin-top: 12px;
 }
 
 .card-icon {
@@ -48,6 +47,7 @@
   transition: transform .2s ease-in-out;
   z-index: 5;
   margin-left: 10px;
+  margin-top: -15px;
 }
 
 .card:hover .card-icon {
