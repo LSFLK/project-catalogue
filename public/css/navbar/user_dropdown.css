@@ -6,6 +6,7 @@
     border-style: none solid none solid !important;
     border-width: 1.5px;
     border-color: #4d4d4d !important;
+    border-radius: 0px 0px 5px 5px !important;
 }
 
 .user-profile {
@@ -44,6 +45,7 @@
     font-weight: 500;
     color: #3385ff !important;
     margin-left: -10px !important;
+    width:fit-content !important;
 }
 
 .dropdown-section-separator {
