@@ -7,8 +7,9 @@
   <link href="{{ asset('css/view_project/index.css') }}" rel="stylesheet"/>
 
   <div class="header">
-    <div class="container row">
-        <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
+    <div class="row">
+      <div class="container">
+        <img class="project-image" src="{{ asset('img/project-card-background.png') }}">
 
         <div>
           <h1 class="title">{{ project.name }}</h1>
@@ -21,7 +22,7 @@
             <a id="website" class="website" href="{{ project.website }}" target="_blank"></a>
           {% endif %}
         </div>
-
+          
         {% if project.project_logo %}
           {% if 'http' in project.project_logo %}
             <img class="project-icon" src="{{ project.project_logo }}">
@@ -31,6 +32,7 @@
         {% else %}
           <img class="project-icon" src="{{ asset('icons/project-icon-default.png') }}">
         {% endif %}
+      </div>
     </div>
   </div>
 

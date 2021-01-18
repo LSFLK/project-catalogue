@@ -6,7 +6,7 @@
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: #363d47;
-  border-radius: 8px 8px 8px 8px;
+    border-radius: 8px 8px 8px 8px;
 }
 
 .header {
@@ -15,26 +15,24 @@
     font-family: 'Montserrat';
     background-image: linear-gradient(to right, #e6e6e640, #cccccc65);
     margin-bottom: 50px;
-    padding: 80px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     overflow: hidden;
 }
 
-.header .row {
+.container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding-left: 55px;
 }
 
 .project-image {
     position: absolute;
     height: 500px;
     object-fit: contain;
-    left: 35%;
-    top: -40%;
+    top: -70px;
+    right: -50px;
 }
 
 .title {
@@ -44,9 +42,8 @@
 
 .project-icon {
     height: 120px;
-    z-index: 5;
+    z-index: 10;
     object-fit: contain;
-    
 }
 
 .organization {
