@@ -14,7 +14,13 @@
       <ul class="navbar-nav ml-auto">
         {{ include('navbar/nav_item.html.twig', { 'name': 'Projects', 'path': '/projects' }) }}
         {{ include('navbar/nav_item.html.twig', { 'name': 'About', 'path': '/projects' }) }}
-        {{ include('navbar/nav_item.html.twig', { 'name': 'Sign in', 'path': '/signin' }) }}
+        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+          {{ include('navbar/nav_item.html.twig', { 'name': 'Sign in', 'path': '/signin' }) }}
+        {% endif %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          {{ include('navbar/nav_item.html.twig', { 'name': app.user.email, 'path': '/projects' }) }}
+        {% endif %}
+        
       </ul>
     </div>
 
