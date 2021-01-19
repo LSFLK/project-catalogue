@@ -26,17 +26,19 @@
 
     </div>
 
-    <div class="action-row">
-      <div class="button">
-        <i class="fas fa-edit"></i>
-        <div>Edit</div>
-      </div>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+      <div class="action-row">
+        <div class="button">
+            <i class="fas fa-edit"></i>
+            <div>Edit</div>
+        </div>
 
-      <div class="button">
-        <i class="fas fa-cog"></i>
-        <div>Settings</div>
+        <div class="button">
+            <i class="fas fa-cog"></i>
+            <div>Settings</div>
+        </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 
   {% block javascripts %}
