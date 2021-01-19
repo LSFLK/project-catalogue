@@ -1,8 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ project.name }} - Open Source{% endblock %}
-
 {% set project_url = app.request.uri %}
+{% set name = project.getName %}
+{% set objective = project.getObjective %}
+{% set description = project.getDescription %}
+{% set organization = project.getOrganization %}
+{% set website = project.getWebsite %}
+{% set bug_tracking = project.getBugTracking %}
+{% set documentation = project.getDocumentation %}
+{% set git_repo = project.getGitRepo %}
+{% set domain_expertise = project.getDomainExpertise %}
+{% set technical_expertise = project.getTechnicalExpertise %}
+{% set mailing_list = project.getMailingList %}
+{% set more_info = project.getMoreInfo %}
+{% set project_data_file = project.getProjectDataFile %}
+{% set project_logo = project.getProjectLogo %}
+{% set programming_language = project.getProgrammingLanguage %}
+{% set topic = project.getTopic %}
+
+{% block title %}{{ name }} - Project Catalogue{% endblock %}
 
 {% block body %}
   <!-- Custom styles for this template -->
@@ -15,22 +31,22 @@
         <img class="project-image" src="{{ asset('img/project-card-background.png') }}">
 
         <div>
-          <h1 class="title">{{ project.name }}</h1>
+          <h1 class="title">{{ name }}</h1>
 
-          {% if project.organization %}
-            <div class="organization">By {{ project.organization }}</div>
+          {% if organization %}
+            <div class="organization">By {{ organization }}</div>
           {% endif %}
 
-          {% if project.website %}
-            <a id="website" class="website" href="{{ project.website }}" target="_blank"></a>
+          {% if website %}
+            <a id="website" class="website" href="{{ website }}" target="_blank"></a>
           {% endif %}
         </div>
           
-        {% if project.project_logo %}
-          {% if 'http' in project.project_logo %}
-            <img class="project-icon" src="{{ project.project_logo }}">
+        {% if project_logo %}
+          {% if 'http' in project_logo %}
+            <img class="project-icon" src="{{ project_logo }}">
           {% else %}
-            <img class="project-icon" src="{{ asset(dir ~ project.project_logo) }}">
+            <img class="project-icon" src="{{ asset(dir ~ project_logo) }}">
           {% endif %}
         {% else %}
           <img class="project-icon" src="{{ asset('icons/project-icon-default.png') }}">
@@ -44,8 +60,8 @@
   <div class="container">
     <div class="body-container">
         <div class="main-info">
-          <div class="section-title">{{ project.objective }}</div>
-          <div class="description">{{ project.description }}</div>
+          <div class="section-title">{{ objective }}</div>
+          <div class="description">{{ description }}</div>
 
           <div class="section-title">Source Code</div>
           <table>
@@ -53,52 +69,52 @@
               <th class="table-header">Repo</th>
               <th class="table-header">License</th>
             </tr>
-            {% for git_repo in project.git_repos %}
+            {% for _git_repo in git_repo %}
               <tr>
-                <td class="link"><a href="{{ git_repo.url }}" target="_blank">{{ git_repo.name }}</a></td>
-                <td>{{ git_repo.licenseName ? git_repo.licenseName : 'N/A' }}</td>
-                <td>{{ git_repo.starsCount ? git_repo.starsCount : '-' }} Stars</td>
-                <td>{{ git_repo.forksCount ? git_repo.forksCount : '-' }} Forks</td>
+                <td class="link"><a href="{{ _git_repo.getUrl }}" target="_blank">{{ _git_repo.getName }}</a></td>
+                <td>{{ _git_repo.getLicenseName ? _git_repo.getLicenseName : 'N/A' }}</td>
+                <td>{{ _git_repo.getStarsCount ? _git_repo.getStarsCount : '-' }} Stars</td>
+                <td>{{ _git_repo.getForksCount ? _git_repo.getForksCount : '-' }} Forks</td>
               </tr>
             {% endfor %}
           </table>
 
-          {% if project.mailing_lists|length %}
+          {% if mailing_list|length %}
             <div class="section-title">Mailing List(s)</div>
             <table class="mailing-lists">
               <tr>
                 <th class="table-header">List</th>
               </tr>
-              {% for mailing_list in project.mailing_lists %}
+              {% for _mailing_list in mailing_list %}
                 <tr>
-                  <td>{{ mailing_list.name }}</td>
-                  <td class="link"><a href="{{ mailing_list.url }}" target="_blank">Subscribe</a></td>
+                  <td>{{ _mailing_list.getName }}</td>
+                  <td class="link"><a href="{{ _mailing_list.getUrl }}" target="_blank">Subscribe</a></td>
                 </tr>
               {% endfor %}
             </table>
           {% endif %}
 
-          {% if (project.bug_tracking is not empty) or (project.documentation is not empty) or (project.project_data_file is not empty) %}
+          {% if (bug_tracking is not empty) or (documentation is not empty) or (project_data_file is not empty) %}
             <div class="section-title">Other Details</div>
             <table class="mailing-lists">
-              {% if project.bug_tracking %}
-                <tr><td class="link"><a href="{{ project.bug_tracking }}" target="_blank">Bug Tracking</a></td></tr>
+              {% if bug_tracking %}
+                <tr><td class="link"><a href="{{ bug_tracking }}" target="_blank">Bug Tracking</a></td></tr>
               {% endif %}
-              {% if project.documentation %}
-                <tr><td class="link"><a href="{{ project.documentation }}" target="_blank">Documentation</a></td></tr>
+              {% if documentation %}
+                <tr><td class="link"><a href="{{ documentation }}" target="_blank">Documentation</a></td></tr>
               {% endif %}
-              {% if project.project_data_file %}
-                <tr><td class="link"><a href="{{ asset(dir ~ project.project_data_file) }}" target="_blank">Project Data</a></td></tr>
+              {% if project_data_file %}
+                <tr><td class="link"><a href="{{ asset(dir ~ project_data_file) }}" target="_blank">Project Data</a></td></tr>
               {% endif %}
             </table>
           {% endif %}
 
-          {% if project.more_infos|length %}
+          {% if more_info|length %}
             <div class="section-title">More Info</div>
             <div class="description">
               <ul>
-                {% for more_info in project.more_infos %}
-                  <li class="link"><a href="{{ more_info.url }}" target="_blank">{{ more_info.name }}</a></li>
+                {% for _more_info in more_info %}
+                  <li class="link"><a href="{{ _more_info.getUrl }}" target="_blank">{{ _more_info.getName }}</a></li>
                 {% endfor %}
               </ul>  
             </div>
@@ -118,28 +134,26 @@
 
         <div style="margin-top: -35px; width: 100%">
           <div class="sub-container">
-          {% if (project.domain_expertise|length) or (project.technical_expertise|length) %}
             <div class="title" style="margin-top: 0px">CATEGORIES</div>
             <div class="info-container">
-              <a class="info">{{ project.domain_expertise }}</a>
-              <a class="info">{{ project.technical_expertise }}</a>
+              <a class="info">{{ domain_expertise }}</a>
+              <a class="info">{{ technical_expertise }}</a>
             </div>
-          {% endif %}
 
-          {% if project.languages|length %}
+          {% if programming_language|length %}
             <div class="title">LANGUAGES</div>
             <div class="info-container">
-              {% for language in project.languages %}
-                <a class="info">{{ language }}</a>
+              {% for _programming_language in programming_language %}
+                <a class="info">{{ _programming_language }}</a>
               {% endfor %}
             </div>
           {% endif %}
 
-          {% if project.topics|length %}
+          {% if topic|length %}
             <div class="title">TOPICS</div>
             <div class="info-container">
-              {% for topic in project.topics %}
-                <a class="info">{{ topic }}</a>
+              {% for _topic in topic %}
+                <a class="info">{{ _topic }}</a>
               {% endfor %}
             </div>
           {% endif %}

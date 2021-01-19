@@ -12,6 +12,7 @@ use App\Entity\ProgrammingLanguage;
 use App\Entity\Topic;
 use App\Service\GitHubAPI;
 use App\Service\FileUploader;
+use App\Service\ProjectHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,84 +43,9 @@ class RegisterProjectController extends AbstractController
     /**
      * @Route("/register/review", methods={"POST"}, name="review_project")
      */
-    public function reviewProject(Request $request, FileUploader $fileUploader): Response
-    {
-        $data = $request->request;
-        $files = $request->files;
-    
-        $project = new \stdClass();
-
-        $project->name        = $data->get('name');
-        $project->objective   = $data->get('objective');
-        $project->description = $data->get('description');
-
-        $project->organization = $data->get('organization');
-        $project->website      = $data->get('website');
-
-        $project->domain_expertise    = $data->get('domain_expertise');
-        $project->technical_expertise = $data->get('technical_expertise');
-        
-        $project->bug_tracking  = $data->get('bug_tracking');
-        $project->documentation = $data->get('documentation');
-
-        $git_repos = [];
-        $languages = [];
-        $topics = [];
-        $avatar_url = null;
-        $git_repo_names = array_filter($data->get('git_repo_names'));
-        $git_repo_urls  = array_filter($data->get('git_repo_urls'));
-
-        for($index = 0; $index < count($git_repo_names); $index++) {
-            $gitRepo = new GitRepo();
-            $gitRepo->setName($git_repo_names[$index]);
-            $gitRepo->setUrl($git_repo_urls[$index]);
-
-            $_gitRepo = new GitHubAPI($gitRepo);
-            array_push($git_repos, $_gitRepo->getGitRepoRequiredData());
-
-            $languages = array_merge($languages, $_gitRepo->getLanguages());
-            $topics = array_merge($topics, $_gitRepo->getTopics());
-            $avatar_url == null ? $avatar_url = $_gitRepo->getAvatarUrl() : null;
-        }
-
-        $mailing_lists = [];
-        $mailing_list_names = array_filter($data->get('mailing_list_names'));
-        $mailing_list_urls  = array_filter($data->get('mailing_list_urls'));
-
-        for($index = 0; $index < count($mailing_list_names); $index++) {
-            $_mailingList = [
-                'name' => $mailing_list_names[$index],
-                'url'  => $mailing_list_urls[$index]
-            ];
-
-            array_push($mailing_lists, $_mailingList);
-        }
-
-        $more_infos = [];
-        $more_info_names = array_filter($data->get('more_info_names'));
-        $more_info_urls  = array_filter($data->get('more_info_urls'));
-
-        for($index = 0; $index < count($more_info_names); $index++) {
-            $_moreInfo = [
-                'name' => $more_info_names[$index],
-                'url'  => $more_info_urls[$index]
-            ];
-
-            array_push($more_infos, $_moreInfo);
-        }
-
-        $project->git_repos = $git_repos;
-        $project->mailing_lists  = $mailing_lists;
-        $project->more_infos = $more_infos;
-        
-        $project->languages  = array_unique($languages);
-        $project->topics = array_unique($topics);
-
-        $project_data_file = $files ? $files->get('project_data_file') : null;
-        $project->project_data_file = $project_data_file ? $fileUploader->upload($project_data_file) : null;
-
-        $project_logo = $files ? $files->get('project_logo') : null;
-        $project->project_logo = $project_logo ? $fileUploader->upload($project_logo) : $avatar_url;
+    public function reviewProject(Request $request, ProjectHandler $projectHandler): Response
+    {    
+        $project = $projectHandler->createProjectObject($request);
         
         return $this->render('view_project/index.html.twig', [
             'project' => $project,
