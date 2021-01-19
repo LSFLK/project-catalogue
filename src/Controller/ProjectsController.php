@@ -15,26 +15,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProjectsController extends AbstractController
 {
-    private function _getContentForRetrievedProjects($projects): array
-    {
-        $content = [];
-
-        foreach($projects as $project) {
-            $card = $this->renderView('projects/card.html.twig', ['project' => $project]);
-            array_push($content, $card);
-        }
-
-        return $content;
-    }
-
     /**
-     * @Route("/projects/filter", name="filter_projects")
+     * @Route("/projects", name="projects")
      */
-    public function filter(Request $request): JsonResponse
+    public function index(Request $request): Response
     {
         $projects = $this->getDoctrine()->getRepository(Project::class)->findByRequestQueryParams($request->query);
-        $content = $this->_getContentForRetrievedProjects($projects);
-        return new JsonResponse($content);
+        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAllOrderByName();
+        $technical_expertise = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAllOrderByName();
+        $programming_language = $this->getDoctrine()->getRepository(ProgrammingLanguage::class)->findAllOrderByName();       
+
+        return $this->render('projects/index.html.twig', [
+            'domain_expertise' => $domain_expertise,
+            'technical_expertise' => $technical_expertise,
+            'programming_language' => $programming_language,
+            'projects' => $projects,
+        ]);
     }
 
     /**
@@ -49,20 +45,24 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("/projects", name="projects")
+     * @Route("/projects/filter", name="filter_projects")
      */
-    public function index(Request $request): Response
+    public function filter(Request $request): JsonResponse
     {
         $projects = $this->getDoctrine()->getRepository(Project::class)->findByRequestQueryParams($request->query);
-        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAll();
-        $technical_expertise = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAll();
-        $programming_language = $this->getDoctrine()->getRepository(ProgrammingLanguage::class)->findAll();       
+        $content = $this->_getContentForRetrievedProjects($projects);
+        return new JsonResponse($content);
+    }
 
-        return $this->render('projects/index.html.twig', [
-            'domain_expertise' => $domain_expertise,
-            'technical_expertise' => $technical_expertise,
-            'programming_language' => $programming_language,
-            'projects' => $projects,
-        ]);
+    private function _getContentForRetrievedProjects($projects): array
+    {
+        $content = [];
+
+        foreach($projects as $project) {
+            $card = $this->renderView('projects/card.html.twig', ['project' => $project]);
+            array_push($content, $card);
+        }
+
+        return $content;
     }
 }

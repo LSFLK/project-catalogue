@@ -19,6 +19,18 @@ class TechnicalExpertiseRepository extends ServiceEntityRepository
         parent::__construct($registry, TechnicalExpertise::class);
     }
 
+    /**
+     * @return TechnicalExpertise[] Returns an array of TechnicalExpertise objects
+     */
+    public function findAllOrderByName()
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return TechnicalExpertise[] Returns an array of TechnicalExpertise objects
     //  */

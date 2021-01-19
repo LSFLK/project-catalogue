@@ -19,6 +19,18 @@ class ProgrammingLanguageRepository extends ServiceEntityRepository
         parent::__construct($registry, ProgrammingLanguage::class);
     }
 
+    /**
+     * @return ProgrammingLanguage[] Returns an array of ProgrammingLanguage objects
+     */
+    public function findAllOrderByName()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return ProgrammingLanguage[] Returns an array of ProgrammingLanguage objects
     //  */

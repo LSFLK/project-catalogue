@@ -19,6 +19,18 @@ class DomainExpertiseRepository extends ServiceEntityRepository
         parent::__construct($registry, DomainExpertise::class);
     }
 
+    /**
+     * @return DomainExpertise[] Returns an array of DomainExpertise objects
+     */
+    public function findAllOrderByName()
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return DomainExpertise[] Returns an array of DomainExpertise objects
     //  */
