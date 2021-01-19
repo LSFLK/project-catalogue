@@ -1,6 +1,7 @@
 .navbar-container {
     position: fixed !important;
     z-index: 1000;
+    height: 50px !important;
     width: 100%;
     font-family: 'Montserrat';
     background-color: #262626;
