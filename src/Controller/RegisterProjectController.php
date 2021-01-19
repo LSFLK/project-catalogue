@@ -19,13 +19,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @IsGranted("IS_AUTHENTICATED_FULLY")
  */
 class RegisterProjectController extends AbstractController
-{  
+{
     /**
      * @Route("/register", name="register_project")
      */
@@ -46,6 +47,10 @@ class RegisterProjectController extends AbstractController
     public function reviewProject(Request $request, ProjectHandler $projectHandler): Response
     {    
         $project = $projectHandler->createProjectObject($request);
+
+        $session = $request->getSession();
+        $session->remove('project');
+        $session->set('project', $project);
         
         return $this->render('view_project/index.html.twig', [
             'project' => $project,
