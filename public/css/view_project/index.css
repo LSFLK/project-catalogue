@@ -1,19 +1,9 @@
-::-webkit-scrollbar {
-    width: 10px;
-    background: #0d141f;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #363d47;
-    border-radius: 8px 8px 8px 8px;
-}
-
 .header {
     position: relative;
     width: 100%;
     font-family: 'Montserrat';
     background-image: linear-gradient(to right, #e6e6e640, #cccccc65);
+    margin-top: 50px;
     margin-bottom: 50px;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -25,6 +15,9 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    font-family: 'Montserrat';
+    color: #404040;
+    font-weight: 400;
 }
 
 .project-image {
@@ -60,12 +53,6 @@
     font-weight: 600;
     letter-spacing: 1px;
     margin-left: 3px;
-}
-
-.container {
-    font-family: 'Montserrat';
-    color: #404040;
-    font-weight: 400;
 }
 
 .body-container {
@@ -118,12 +105,12 @@ table.mailing-lists {
     font-weight: 500;
 }
 
-ul {
+.description ul {
     list-style: none;
     margin-top: -10px;
 }
   
-ul li::before {
+.description ul li::before {
     content: "\2022";
     color: #404040;
     font-weight: bold;
