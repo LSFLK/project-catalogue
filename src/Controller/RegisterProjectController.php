@@ -26,6 +26,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class RegisterProjectController extends AbstractController
 {  
     /**
+     * @Route("/register", name="register_project")
+     */
+    public function index(): Response
+    {
+        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAllOrderByName();
+        $technical_expertise = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAllOrderByName();
+
+        return $this->render('register_project/index.html.twig', [
+            'domain_expertise' => $domain_expertise,
+            'technical_expertise' => $technical_expertise,
+        ]);
+    }
+
+    /**
      * @Route("/register/review", methods={"POST"}, name="review_project")
      */
     public function reviewProject(Request $request, FileUploader $fileUploader): Response
@@ -249,17 +263,5 @@ class RegisterProjectController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/register", name="register_project")
-     */
-    public function index(): Response
-    {
-        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAll();
-        $technical_expertise = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAll();
-
-        return $this->render('register_project/index.html.twig', [
-            'domain_expertise' => $domain_expertise,
-            'technical_expertise' => $technical_expertise,
-        ]);
-    }
+    
 }
