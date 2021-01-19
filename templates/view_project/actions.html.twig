@@ -1,0 +1,46 @@
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/view_project/index.css') }}" rel="stylesheet"/>
+
+  <div class="container actions-container">
+    <div class="action-row">
+      <a title="Share on LinkedIn" class="share-button" style="background-color: #0e76a8" href=" http://www.linkedin.com/shareArticle?mini=true&url={{ project_url }}" target="_blank">
+        <i class="fab fa-linkedin"></i>
+      </a>
+
+      <a title="Share on Facebook" class="share-button" style="background-color: #3b5998" href="http://www.facebook.com/sharer.php?u={{ project_url }}" target="_blank">
+        <i class="fab fa-facebook"></i>
+      </a>
+
+      <a title="Share on Twitter" class="share-button" style="background-color: #00acee" href="http://twitter.com/share" data-url="{{ project_url }}" target="_blank">
+        <i class="fab fa-twitter"></i>
+      </a>
+
+      <a title="Share on WhatsApp" class="share-button" style="background-color: #128C7E" href="https://api.whatsapp.com/send?text={{ project_url }}" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+
+      <a title="Copy link to clipboard" class="share-button" style="background-color: #3399ff" id="copy_link" link="{{ project_url }}" onclick="copyLinkToClipboard()">
+        <i class="fas fa-link"></i>
+      </a>
+
+    </div>
+
+    <div class="action-row">
+      <div class="button">
+        <i class="fas fa-edit"></i>
+        <div>Edit</div>
+      </div>
+
+      <div class="button">
+        <i class="fas fa-cog"></i>
+        <div>Settings</div>
+      </div>
+    </div>
+  </div>
+
+  {% block javascripts %}
+    <script src="{{ asset('js/view_project/actions.js') }}"></script>
+  {% endblock %}
+
+{% endblock %}

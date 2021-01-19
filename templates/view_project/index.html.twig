@@ -2,9 +2,12 @@
 
 {% block title %}{{ project.name }} - Open Source{% endblock %}
 
+{% set project_url = app.request.uri %}
+
 {% block body %}
   <!-- Custom styles for this template -->
   <link href="{{ asset('css/view_project/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/view_project/actions.css') }}" rel="stylesheet"/>
 
   <div class="header">
     <div class="row">
@@ -35,6 +38,8 @@
       </div>
     </div>
   </div>
+
+  {{ include('view_project/actions.html.twig') }}
 
   <div class="container">
     <div class="body-container">
@@ -114,7 +119,7 @@
         <div style="margin-top: -35px; width: 100%">
           <div class="sub-container">
           {% if (project.domain_expertise|length) or (project.technical_expertise|length) %}
-            <div class="title">CATEGORIES</div>
+            <div class="title" style="margin-top: 0px">CATEGORIES</div>
             <div class="info-container">
               <a class="info">{{ project.domain_expertise }}</a>
               <a class="info">{{ project.technical_expertise }}</a>
