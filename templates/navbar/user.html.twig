@@ -7,17 +7,17 @@
     
       {% set profile_picture = app.user.getProfilePicture %}
 
-<div class="btn-group dropleft">
-      <div class="nav-item dropdown">
-        <a class="nav-link nav-link-name nav-link-avatar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {% if profile_picture is null %}
-            <img src="{{ asset('icons/default-profile-picture.png') }}" class="profile-picture" >
-          {% else %}
-            <img src="{{ profile_picture }}" class="profile-picture" >
-          {% endif %}
-        </a>
-        {{ include('navbar/user_dropdown.html.twig') }}
-      </div>
+      <div class="btn-group dropleft">
+        <div class="nav-item dropdown">
+          <a class="nav-link nav-link-name nav-link-avatar" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if profile_picture is null %}
+              <img src="{{ asset('icons/default-profile-picture.png') }}" class="profile-picture" >
+            {% else %}
+              <img src="{{ profile_picture }}" class="profile-picture" >
+            {% endif %}
+          </a>
+          {{ include('navbar/user_dropdown.html.twig') }}
+        </div>
       </div>
 
     {% else %}
