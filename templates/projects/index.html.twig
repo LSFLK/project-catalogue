@@ -39,11 +39,8 @@
     </div>
   </div>
 
-  {% block javascripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="{{ asset('js/projects/dropdown.js') }}"></script>
-    <script src="{{ asset('js/projects/search.js') }}"></script>
-  {% endblock %}
+  <script src="{{ asset('js/projects/dropdown.js') }}"></script>
+  <script src="{{ asset('js/projects/search.js') }}"></script>
 
   <script>
     initiallizeDropdown('domain')
