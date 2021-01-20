@@ -26,11 +26,11 @@
     </head>
 
     <body>
-        {% block navbar %}
-            {{ include('navbar/index.html.twig') }}
-        {% endblock %}
+        {% block header %}{% endblock %}
 
         {% block body %}{% endblock %}
+
+        {% block footer %}{% endblock %}
         
         {% block javascripts %}
             <!-- JQuery -->
