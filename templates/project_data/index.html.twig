@@ -1,0 +1,19 @@
+{% extends 'layout.html.twig' %}
+
+{% set project_url = app.request.uri %}
+{% set name = project.getName %}
+{% set objective = project.getObjective %}
+{% set description = project.getDescription %}
+{% set organization = project.getOrganization %}
+{% set website = project.getWebsite %}
+{% set bug_tracking = project.getBugTracking %}
+{% set documentation = project.getDocumentation %}
+{% set git_repo = project.getGitRepo %}
+{% set domain_expertise = project.getDomainExpertise %}
+{% set technical_expertise = project.getTechnicalExpertise %}
+{% set mailing_list = project.getMailingList %}
+{% set more_info = project.getMoreInfo %}
+{% set project_data_file = project.getProjectDataFile %}
+{% set project_logo = project.getProjectLogo %}
+{% set programming_language = project.getProgrammingLanguage %}
+{% set topic = project.getTopic %}
