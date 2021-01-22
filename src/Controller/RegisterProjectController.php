@@ -32,12 +32,14 @@ class RegisterProjectController extends AbstractController
      */
     public function index(): Response
     {
-        $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAllOrderByName();
-        $technical_expertise = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAllOrderByName();
+        $domain_expertise_options = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAllOrderByName();
+        $technical_expertise_options = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAllOrderByName();
+        $project = $this->getDoctrine()->getRepository(Project::class)->find(1);
 
         return $this->render('register_project/index.html.twig', [
-            'domain_expertise' => $domain_expertise,
-            'technical_expertise' => $technical_expertise,
+            'domain_expertise_options' => $domain_expertise_options,
+            'technical_expertise_options' => $technical_expertise_options,
+            'project' => $project
         ]);
     }
 

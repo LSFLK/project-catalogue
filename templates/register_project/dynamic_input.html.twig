@@ -1,10 +1,8 @@
-{% extends 'base.html.twig' %}
-
 {% block body %}
 
   <div id="{{ id }}">
     <div class="row input-group">
-      <div class="col-sm-4" id="{{ key_id }}">
+      <div class="col-sm-4 key" id="{{ key_id }}">
         {% include 'register_project/input.html.twig' with {
           'id': key_id,
           'icon': key_icon,
@@ -12,7 +10,7 @@
         } %}
       </div>
           
-      <div class="col-sm-7" id="{{ value_id }}">
+      <div class="col-sm-7 value" id="{{ value_id }}">
         {% include 'register_project/input.html.twig' with {
           'id': value_id,
           'label': value_label

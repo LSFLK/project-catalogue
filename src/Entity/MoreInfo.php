@@ -34,6 +34,11 @@ class MoreInfo
      */
     private $project;
 
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

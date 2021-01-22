@@ -1,133 +1,49 @@
-function initiallizeDynamicInput (containerID) {
+function initiallizeDynamicInput (containerID, currentValuesString, _key, _url) {
     const container = document.getElementById(containerID);
 
     const inputGroup = container.querySelector('.input-group').cloneNode(true);
+    const button = inputGroup.querySelector(".button");
+    const buttonIcon = button.querySelector("i");
+    buttonIcon.setAttribute("class", "fas fa-minus-circle prefix");
 
-    var index = 0;
+    var index = 1;
 
-    var currentInputGroup = container.querySelector('.input-group');
-    var currentButton = currentInputGroup.querySelector(".button");
+    const _handleOnClickAddButton = () => {
+        const newInputGroup = inputGroup.cloneNode(true);
+        const newButton = newInputGroup.querySelector(".button");
+        const newInputGroupID = containerID + '_' + index++;
 
-    currentInputGroup.setAttribute("id", index++);
+        newInputGroup.classList.add(newInputGroupID);
+        newButton.addEventListener("click", () => _handleOnClickRemoveButton(newInputGroupID));
+        container.appendChild(newInputGroup);
+
+        return newInputGroupID;
+    }
 
     const _handleOnClickRemoveButton = (inputGroupID) => {
         container.querySelector('.' + inputGroupID).remove();
     }
 
-    const _handleOnClickAddButton = () => {
-        const previousInputGroupID = _createInputGroupID(containerID, currentInputGroup);
+    const currentInputGroup = container.querySelector('.input-group');
+    const currentButton = currentInputGroup.querySelector(".button");
+    currentInputGroup.classList.add(containerID + '_0');
+    currentButton.addEventListener("click", _handleOnClickAddButton);
 
-        const currentButtonIcon = currentButton.querySelector("i");
-        currentButtonIcon.setAttribute("class", "fas fa-minus-circle prefix");
+    const currentValues = JSON.parse(currentValuesString.replace(/(&quot\;)/g,"\""));
 
-        currentButton.removeEventListener("click", _handleOnClickAddButton);
-        currentButton.addEventListener("click", () => _handleOnClickRemoveButton(previousInputGroupID));
+    const _addObjectValuesToInputGroup = (objectIndex) => {
+        const inputGroupID = containerID + '_' + objectIndex;
+        const inputGroup = container.querySelector('.' + inputGroupID);
+        const key = inputGroup.querySelector('.key').querySelector('input');
+        const value = inputGroup.querySelector('.value').querySelector('input');
 
-        const newInputGroup = inputGroup.cloneNode(true);
-        const newButton = newInputGroup.querySelector(".button");
-
-        container.appendChild(newInputGroup);
-        newButton.addEventListener("click", _handleOnClickAddButton);
-
-        newInputGroup.setAttribute("id", index++);
-
-        currentInputGroup = newInputGroup;
-        currentButton = newButton;
+        const object = currentValues[objectIndex]
+        key.value = object[_key];
+        value.value = object[_url];
     }
 
-    currentButton.addEventListener("click", _handleOnClickAddButton);
+    for(var objectIndex in currentValues) {
+        if(parseInt(objectIndex)) { _handleOnClickAddButton() }
+        _addObjectValuesToInputGroup(objectIndex);
+    }
 }
-
-
-function _createInputGroupID (containerID, inputGroup) {
-    const inputGroupID = containerID + '_' + inputGroup.id;
-
-    inputGroup.classList.add(inputGroupID);
-
-    return inputGroupID;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// $(function() {
-//     // Remove button click
-//     $(document).on(
-//         'click',
-//         '[data-role="dynamic-fields"] > .row [data-role="remove"]',
-//         function(e) {
-//             e.preventDefault();
-//             $(this).closest('.row').remove();
-//         }
-//     );
-//     // Add button click
-//     $(document).on(
-//         'click',
-//         '[data-role="dynamic-fields"] > .row [data-role="add"]',
-//         function(e) {
-//             console.log("CLICKED")
-//             e.preventDefault();
-//             var container = $(this).closest('[data-role="dynamic-fields"]');
-//             new_field_group = container.children().filter('.row:first-child').clone();
-//             new_field_group.find('input').each(function(){
-//                 $(this).val('');
-//             });
-//             container.append(new_field_group);
-//         }
-//     );
-// });

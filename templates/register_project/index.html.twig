@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'project/data.html.twig' %}
 
 {% block title %}Register Project{% endblock %}
 
@@ -80,7 +80,7 @@
               'id': 'domain_expertise',
               'icon': 'fa-star',
               'name': 'Domain Expertise',
-              'options': domain_expertise,
+              'options': domain_expertise_options,
               'helperText': 'Select an option.'
             } %}
           </div>
@@ -92,7 +92,7 @@
               'id': 'technical_expertise',
               'icon': 'fa-cog',
               'name': 'Technical Expertise',
-              'options': technical_expertise,
+              'options': technical_expertise_options,
               'helperText': 'Select an option.'
             } %}
           </div>
@@ -124,7 +124,7 @@
       <h6 class="form-section-title">Git Repository Data</h6>
 
       {% include 'register_project/dynamic_input.html.twig' with {
-        'id': 'git_repo_data',
+        'id': 'git_repo',
         'key_icon': 'fab fa-github',
         'key_id': 'git_repo_names[]',
         'key_label': 'Repo Name',
@@ -138,7 +138,7 @@
       <h6 class="form-section-title">Mailing List(s)</h6>
 
       {% include 'register_project/dynamic_input.html.twig' with {
-        'id': 'mailing_lists_data',
+        'id': 'mailing_list',
         'key_icon': 'fas fa-mail-bulk',
         'key_id': 'mailing_list_names[]',
         'key_label': 'List Name',
@@ -165,21 +165,22 @@
 
       <div class="row">
         <div class="col">
-          <label for="project_data_file" class="form-control-sm">Project Data File</label>
+          <label for="project_data_file" class="form-control-sm" style="margin-left: -8px">Project Data FIle</label>
           <div class="custom-file">
-            <input id="project_data_file" name="project_data_file" onchange="readFile(this, 'project_data_file_src')" type="file" class="custom-file-input" accept=".pdf">
-            <input type="hidden" id="project_data_file_src" name="project_data_file_src" />
-            <label class="custom-file-label form-control-sm" for="form10">Choose file</label>
+            <input id="project_data_file" name="project_data_file" type="file" class="custom-file-input" accept=".pdf">
+            <label class="custom-file-label form-control-sm" for="project_data_file">Choose file</label>
           </div>
+          <img id="project_data_file_preview_default" class="preview" src="{{ asset('img/no-document-preview.png') }}" />
+          <canvas id="project_data_file_preview" class="preview file" style="display:none"></canvas>
         </div>
-        
+
         <div class="col">
-          <label for="project_logo" class="form-control-sm">Project Logo</label>
+          <label for="project_logo" class="form-control-sm" style="margin-left: -8px">Project Logo</label>
           <div class="custom-file">
-            <input id="project_logo" name="project_logo" onchange="readFile(this, 'project_logo_src')" type="file" class="custom-file-input" accept=".png">
-            <input type="hidden" id="project_logo_src" name="project_logo_src" />
-            <label class="custom-file-label form-control-sm" for="form11">Choose file</label>
+            <input id="project_logo" name="project_logo" onchange="readImage(this)" type="file" class="custom-file-input" accept=".png">
+            <label class="custom-file-label form-control-sm" for="project_logo">Choose file</label>
           </div>
+          <img id="project_logo_preview" class="preview" src="{{ project_logo|default(asset('img/no-image-preview.png')) }}" />
         </div>
       </div>
     </div>
@@ -193,21 +194,27 @@
     <script src="{{ asset('js/register_project/index.js') }}"></script>
     <script src="{{ asset('js/register_project/dropdown.js') }}"></script>
     <script src="{{ asset('js/register_project/dynamic_input.js') }}"></script>
+
+    <script src="{{ asset('lib/pdf-thumbnail/pdf.js') }}"></script>
+    <script src="{{ asset('lib/pdf-thumbnail/pdf.worker.js') }}"></script>
+    <script src="{{ asset('lib/pdf-thumbnail/index.js') }}"></script>
   {% endblock %}
 
   <script>
     initiallizeDropdown('domain_expertise')
     initiallizeDropdown('technical_expertise')
 
-    initiallizeDynamicInput('git_repo_data')
-    initiallizeDynamicInput('mailing_lists_data')
-    initiallizeDynamicInput('more_info')
+    initiallizeDynamicInput('git_repo', "{{ git_repo_json | json_encode | default({}) }}", 'name', 'url')
+    initiallizeDynamicInput('mailing_list', "{{ mailing_list_json | json_encode | default({}) }}", 'name', 'url')
+    initiallizeDynamicInput('more_info', "{{ more_info_json | json_encode | default({}) }}", 'name', 'url')
 
-    function readFile(input, previewID) {
+    initiallizePdfPreview('project_data_file')
+
+    function readImage(input) {
       if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) { $('#' + previewID).attr('value', e.target.result) };
-        reader.readAsDataURL(input.files[0]);
+        var imageReader = new FileReader();
+        imageReader.onload = function (e) {$('#' + input.id + '_preview').attr('src', e.target.result) };
+        imageReader.readAsDataURL(input.files[0]);
       }
     }
   </script>

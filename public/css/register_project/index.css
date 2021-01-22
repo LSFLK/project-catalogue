@@ -82,3 +82,29 @@
     margin-bottom: 150px;
     margin: 10px 20% 100px 20%;
 }
+
+.custom-file label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.preview {
+    border-style: dashed;
+    border-color: #cccccc;
+    border-width: 1px;
+    border-radius: 5px;
+    width: 100%;
+    height: 300px; 
+    object-fit: contain;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: #e6e6e650;
+}
+
+.file {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

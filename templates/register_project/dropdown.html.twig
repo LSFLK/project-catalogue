@@ -1,12 +1,10 @@
-{% extends 'base.html.twig' %}
-
 {% block body %}
 
   <div class="select-box" id="{{ id }}-dropdown" for="{{ id }}">
     <div class="md-form input-with-post-icon form-sm">
       <i class="fas {{ icon }} prefix"></i>
       <i class="fas fa-angle-down input-prefix"></i>
-      <input type="text" id="{{ id }}" name="{{ id }}" class="form-control form-control-sm" readonly>
+      <input type="text" id="{{ id }}" name="{{ id }}" value="{{ _context[id]|default(null) }}" class="form-control form-control-sm" readonly>
       <label for="{{ id }}">{{ name }}</label>
     </div>
 
@@ -17,7 +15,7 @@
       
       {% for option in options %}
         <div class="option">
-          <input type="radio" class="radio" id="{{ option }}" name="category" />
+          <input type="radio" class="radio" id="{{ option }}" />
           <label>{{ option }}</label>
         </div>
       {% endfor %}
