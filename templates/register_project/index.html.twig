@@ -171,7 +171,8 @@
             <label class="custom-file-label form-control-sm" for="project_data_file">Choose file</label>
           </div>
           <img id="project_data_file_preview_default" class="preview" src="{{ asset('img/no-document-preview.png') }}" />
-          <canvas id="project_data_file_preview" class="preview file" style="display:none"></canvas>
+          <canvas id="project_data_file_preview" class="preview file" pdf="{{ project_data_file|default(null) }}" style="display:none"></canvas>
+          <div class="remove-file">Remove</div>
         </div>
 
         <div class="col">
@@ -181,6 +182,7 @@
             <label class="custom-file-label form-control-sm" for="project_logo">Choose file</label>
           </div>
           <img id="project_logo_preview" class="preview" src="{{ project_logo|default(asset('img/no-image-preview.png')) }}" />
+          <div class="remove-file">Remove</div>
         </div>
       </div>
     </div>

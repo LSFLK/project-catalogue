@@ -61,4 +61,8 @@ function initiallizePdfPreview(fileInputID) {
         var file = this.files[0];
         loadPreview(file);      
     });
+
+    const currentPDF = document.querySelector(previewCanvasID).getAttribute('pdf');
+
+    if(currentPDF) { showPDF(currentPDF) }
 }

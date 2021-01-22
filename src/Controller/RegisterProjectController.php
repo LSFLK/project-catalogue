@@ -39,7 +39,8 @@ class RegisterProjectController extends AbstractController
         return $this->render('register_project/index.html.twig', [
             'domain_expertise_options' => $domain_expertise_options,
             'technical_expertise_options' => $technical_expertise_options,
-            'project' => $project
+            'project' => $project,
+            'dir' => $this->getParameter('public_confirmed_dir')
         ]);
     }
 

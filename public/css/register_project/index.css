@@ -99,12 +99,25 @@
     object-fit: contain;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding: 50px 20px 50px 20px;
     background-color: #e6e6e650;
 }
 
 .file {
     padding-top: 0px;
     padding-bottom: 0px;
+}
+
+.remove-file {
+    text-align: center;
+    background-color: #ffe6cc;
+    padding: 3px 7px 3px 7px;
+    border-style: solid;
+    border-color: #cc660050;
+    border-width: 1px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #cc6600;
+    cursor: pointer;
 }

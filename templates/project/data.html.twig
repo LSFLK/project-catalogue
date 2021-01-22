@@ -20,7 +20,7 @@
     {% set technical_expertise = project.getTechnicalExpertise %}
     {% set mailing_list = project.getMailingList %}
     {% set more_info = project.getMoreInfo %}
-    {% set project_data_file = 'sdfsdfsd' %}
+    {% set project_data_file = project.getProjectDataFile %}
     {% set project_logo = project.getProjectLogo %}
     {% set programming_language = project.getProgrammingLanguage %}
     {% set topic = project.getTopic %}
@@ -40,5 +40,13 @@
     {% for _more_info in more_info %}
         {% set more_info_json = more_info_json|merge([_more_info.jsonSerialize]) %}
     {% endfor %}
+
+    {% if project_data_file is not null  %}
+        {% set project_data_file = dir ~ project_data_file %}
+    {% endif %}
+
+    {% if 'http' not in project_logo  %}
+        {% set project_logo = dir ~ project_logo %}
+    {% endif %}
 
 {% endif %}
