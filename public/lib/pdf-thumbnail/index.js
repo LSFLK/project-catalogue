@@ -1,4 +1,4 @@
-function initiallizePdfPreview(fileInputID) {
+function initiallizePdfPreview(fileInputID, loadCurrentFilePreview = false) {
     const previewCanvasID = '#' + fileInputID + '_preview';
 
     var _PDF_DOC;                                             // will hold the PDF handle returned by PDF.JS API            
@@ -66,5 +66,5 @@ function initiallizePdfPreview(fileInputID) {
 
     const currentPDF = document.querySelector(previewCanvasID).getAttribute('pdf');
 
-    if(currentPDF) { showPDF(currentPDF) }
+    if(loadCurrentFilePreview && currentPDF) { showPDF(currentPDF) }
 }

@@ -164,7 +164,7 @@
       <h6 class="form-section-title">File Upload</h6>
 
       <div class="row">
-        <div class="col">
+        <div class="col" style="margin-bottom: 10px">
           <label for="project_data_file" class="form-control-sm" style="margin-left: -8px">Project Data FIle</label>
           <div class="custom-file">
             <input id="project_data_file" name="project_data_file" type="file" class="custom-file-input" accept=".pdf">
@@ -175,14 +175,14 @@
           <div id="project_data_file_remove" class="remove-file" onclick="clearInput('project_data_file')" style="display: none">Remove</div>
         </div>
 
-        <div class="col">
+        <div class="col" style="margin-bottom: 10px">
           <label for="project_logo" class="form-control-sm" style="margin-left: -8px">Project Logo</label>
           <div class="custom-file">
             <input id="project_logo" name="project_logo" onchange="readImage(this)" type="file" class="custom-file-input" accept=".png">
             <label id="project_logo_label" class="custom-file-label form-control-sm">Choose file</label>
           </div>
           <img id="project_logo_preview" class="preview" src="{{ project_logo|default(asset('img/no-image-preview.png')) }}" />
-          <div id="project_logo_remove" class="remove-file" onclick="clearInput('project_logo')" style="display: none">Remove</div>
+          <div id="project_logo_remove" class="remove-file" onclick="clearInput('project_logo')" style="display: {% if project_logo and 'http' not in project_logo %}flex{% else %}none{% endif %}">Remove</div>
         </div>
       </div>
     </div>
@@ -196,7 +196,7 @@
     <script src="{{ asset('js/register_project/index.js') }}"></script>
     <script src="{{ asset('js/register_project/dropdown.js') }}"></script>
     <script src="{{ asset('js/register_project/dynamic_input.js') }}"></script>
-
+    <script src="{{ asset('js/register_project/file_upload.js') }}"></script>
     <script src="{{ asset('lib/pdf-thumbnail/pdf.js') }}"></script>
     <script src="{{ asset('lib/pdf-thumbnail/pdf.worker.js') }}"></script>
     <script src="{{ asset('lib/pdf-thumbnail/index.js') }}"></script>
@@ -210,42 +210,10 @@
     initiallizeDynamicInput('mailing_list', "{{ mailing_list_json | json_encode | default({}) }}", 'name', 'url')
     initiallizeDynamicInput('more_info', "{{ more_info_json | json_encode | default({}) }}", 'name', 'url')
 
-    initiallizePdfPreview('project_data_file')
+    initiallizePdfPreview('project_data_file', true)
 
-    function readImage(input) {
-      if (input.files && input.files[0]) {
-        var imageReader = new FileReader();
-        imageReader.onload = function (e) {$('#' + input.id + '_preview').attr('src', e.target.result) };
-        imageReader.readAsDataURL(input.files[0]);
-        document.getElementById(input.id + '_remove').style.display = 'flex';
-        document.getElementById(input.id + '_label').innerHTML = input.files[0].name;
-      }
-    }
-
-    function clearInput(inputID) {
-      const element = document.getElementById(inputID);
-      const newInput = document.createElement('input');
-
-      newInput.setAttribute('id', inputID);
-      newInput.setAttribute('name', inputID);
-      newInput.setAttribute('type', 'file');
-      newInput.setAttribute('class', 'custom-file-input');
-      newInput.setAttribute('accept', element.accept);
-      
-      element.parentNode.replaceChild(newInput, element);
-      document.getElementById(inputID + '_label').innerHTML = 'Choose file';
-
-      if(element.accept == '.png') {
-        newInput.setAttribute('onchange', 'readImage(this)');
-        document.getElementById(inputID + '_preview').src = "{{ asset('img/no-image-preview.png') }}";
-        document.getElementById(inputID + '_remove').style.display = 'none';
-      }
-      else if(element.accept == '.pdf') {
-        initiallizePdfPreview(inputID);
-        document.getElementById(inputID + '_preview').style.display = 'none';
-        document.getElementById(inputID + '_preview_default').style.display = 'inline-block';
-        document.getElementById(inputID + '_remove').style.display = 'none';
-      }
+    function loadNoImagePreview(inputID) {
+      document.getElementById(inputID + '_preview').src = "{{ project_logo|default(asset('img/no-image-preview.png')) }}";
     }
   </script>
 {% endblock %}
