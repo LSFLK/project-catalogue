@@ -28,7 +28,7 @@
           {% if 'http' in project_logo %}
             <img class="project-icon" src="{{ project_logo }}">
           {% else %}
-            <img class="project-icon" src="{{ asset(dir ~ project_logo) }}">
+            <img class="project-icon" src="{{ asset(project_logo) }}">
           {% endif %}
         {% else %}
           <img class="project-icon" src="{{ asset('icons/project-icon-default.png') }}">
@@ -86,7 +86,7 @@
                 <tr><td class="link"><a href="{{ documentation }}" target="_blank">Documentation</a></td></tr>
               {% endif %}
               {% if project_data_file %}
-                <tr><td class="link"><a href="{{ asset(dir ~ project_data_file) }}" target="_blank">Project Data</a></td></tr>
+                <tr><td class="link"><a href="{{ asset(project_data_file) }}" target="_blank">Project Data</a></td></tr>
               {% endif %}
             </table>
           {% endif %}
