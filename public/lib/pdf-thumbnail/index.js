@@ -35,6 +35,7 @@ function initiallizePdfPreview(fileInputID) {
             page.render(renderContext).then(() => {
                 document.querySelector(previewCanvasID).style.display = 'inline-block';
                 document.querySelector(previewCanvasID + '_default').style.display = 'none';
+                document.getElementById(fileInputID + '_remove').style.display = 'flex';
             });
         });
     }
@@ -54,6 +55,7 @@ function initiallizePdfPreview(fileInputID) {
 
         _OBJECT_URL = URL.createObjectURL(file) // object url of PDF 
         showPDF(_OBJECT_URL);                   // send the object url of the pdf to the PDF preview function
+        document.getElementById(fileInputID + '_label').innerHTML = file.name;
     }
 
     /* when users selects a file */

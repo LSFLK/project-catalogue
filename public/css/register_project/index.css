@@ -109,7 +109,8 @@
 }
 
 .remove-file {
-    text-align: center;
+    display: flex;
+    justify-content: center;
     background-color: #ffe6cc;
     padding: 3px 7px 3px 7px;
     border-style: solid;
