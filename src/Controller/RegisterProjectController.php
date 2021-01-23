@@ -30,17 +30,17 @@ class RegisterProjectController extends AbstractController
     /**
      * @Route("/register", name="register_project")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $domain_expertise_options = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAllOrderByName();
         $technical_expertise_options = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAllOrderByName();
-        $project = $this->getDoctrine()->getRepository(Project::class)->find(1);
+
+        $session = $request->getSession();
+        $session->remove('project');
 
         return $this->render('register_project/index.html.twig', [
             'domain_expertise_options' => $domain_expertise_options,
-            'technical_expertise_options' => $technical_expertise_options,
-            'project' => $project,
-            'dir' => $this->getParameter('public_confirmed_dir')
+            'technical_expertise_options' => $technical_expertise_options
         ]);
     }
 

@@ -182,7 +182,7 @@
             <label id="project_logo_label" class="custom-file-label form-control-sm">Choose file</label>
           </div>
           <img id="project_logo_preview" class="preview" src="{{ project_logo|default(asset('img/no-image-preview.png')) }}" />
-          <div id="project_logo_remove" class="remove-file" onclick="clearInput('project_logo')" style="display: {% if project_logo and 'http' not in project_logo %}flex{% else %}none{% endif %}">Remove</div>
+          <div id="project_logo_remove" class="remove-file" onclick="clearInput('project_logo')" style="display: {% if project_logo is defined and 'http' not in project_logo %}flex{% else %}none{% endif %}">Remove</div>
         </div>
       </div>
     </div>

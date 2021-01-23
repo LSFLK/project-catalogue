@@ -1,10 +1,15 @@
 {% extends 'layout.html.twig' %}
 
 {% set project_url = app.request.uri %}
+{% set dir = dir|default(null) %}
 
 {% if project is not defined %}
     {% set project = app.session.get('project') %}
 {% endif %}
+
+{% set git_repo_json = [] %}
+{% set mailing_list_json = [] %}
+{% set more_info_json = [] %}
 
 {% if project is not null %}
 
@@ -24,10 +29,6 @@
     {% set project_logo = project.getProjectLogo %}
     {% set programming_language = project.getProgrammingLanguage %}
     {% set topic = project.getTopic %}
-
-    {% set git_repo_json = [] %}
-    {% set mailing_list_json = [] %}
-    {% set more_info_json = [] %}
 
     {% for _git_repo in git_repo %}
         {% set git_repo_json = git_repo_json|merge([_git_repo.jsonSerialize]) %}
