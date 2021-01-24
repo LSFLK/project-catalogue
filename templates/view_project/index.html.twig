@@ -102,16 +102,7 @@
             </div>
           {% endif %}
 
-          {% if project_data is defined %}
-            <div class="btn-container">
-              <form action="new" method="POST">
-                <input type="hidden" name="project_data" value="{{ project_data }}"/>
-                <button class="btn btn-primary btn-md float-right" type="submit">Confirm & Submit</button>
-              </form>
-
-              <button class="btn btn-outline-primary btn-md float-right" onclick="window.history.back()">Go Back & Edit</button>
-            </div>
-          {% endif %}
+          {% block submit %}{% endblock %}
         </div>
 
         <div style="margin-top: -35px; width: 100%">
