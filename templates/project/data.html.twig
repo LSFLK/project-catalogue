@@ -3,15 +3,11 @@
 {% set project_url = app.request.uri %}
 {% set dir = dir|default(null) %}
 
-{% if project is not defined %}
-    {% set project = app.session.get('project') %}
-{% endif %}
-
 {% set git_repo_json = [] %}
 {% set mailing_list_json = [] %}
 {% set more_info_json = [] %}
 
-{% if project is not null %}
+{% if project is defined %}
 
     {% set name = project.getName %}
     {% set objective = project.getObjective %}

@@ -35,8 +35,6 @@ class RegisterProjectController extends AbstractController
         $domain_expertise_options = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAllOrderByName();
         $technical_expertise_options = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAllOrderByName();
 
-        $request->getSession()->remove('project');
-
         return $this->render('register_project/index.html.twig', [
             'domain_expertise_options' => $domain_expertise_options,
             'technical_expertise_options' => $technical_expertise_options
@@ -49,12 +47,9 @@ class RegisterProjectController extends AbstractController
     public function reviewProject(Request $request, ProjectHandler $projectHandler): Response
     {    
         $project = $projectHandler->createProjectObject($request);
-
-        $request->getSession()->set('project', $project);
         
         return $this->render('review_project/index.html.twig', [
             'project' => $project,
-            'project_token' => bin2hex(random_bytes(20)),
             'dir' => $this->getParameter('public_temp_dir')
         ]);
     }
@@ -64,7 +59,6 @@ class RegisterProjectController extends AbstractController
      */
     public function createProject(Request $request, ValidatorInterface $validator): Response
     {
-        dd("HI");
         // $filesystem = new Filesystem();
         // $temp_dir = $this->getParameter('temp_dir');
         // $confirmed_dir = $this->getParameter('confirmed_dir');
@@ -195,5 +189,8 @@ class RegisterProjectController extends AbstractController
         ]);
     }
 
-    
+    private function _generateProjectToken(): string
+    {
+        return bin2hex(random_bytes(20));
+    }
 }
