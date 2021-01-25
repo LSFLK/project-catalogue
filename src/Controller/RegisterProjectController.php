@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\DomainExpertise;
+use App\Entity\TechnicalExpertise;
 use App\Service\ProjectHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,22 +52,23 @@ class RegisterProjectController extends AbstractController
      * @Route("/register/create", methods={"POST"}, name="create_project")
      */
     public function createProject(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
-    {   
+    {  
         $project_token = $request->request->get('project_token');
-        $project = $session->get($project_token);
-
-        $project->setOwner($this->getUser());
-        $project_id = $projectHandler->writeNewProjectData($project);
-
-        if($project_id) {
-            $response = new RedirectResponse('/register/success', 301);
-            $response->headers->set('Project-Token', $project_token);
-            $response->headers->set('Project-Id', $project_id);
-            return $response;
-        }
-        else {
+        $project = $session->get($project_token || '');
+    
+        if($project) {
+            $project->setOwner($this->getUser());
+            $project_id = $projectHandler->writeNewProjectData($project);
+        
+            if($project_id) {
+                return $this->redirectToRoute('register_project_success', [
+                    'token' => $project_token,
+                    'id' => $project_id
+                ]);
+            }
             return new Response((string) "Something went wrong!");
         }
+        return new Response((string) "Something went wrong!");
     }
 
     /**
@@ -73,10 +76,11 @@ class RegisterProjectController extends AbstractController
      */
     public function success(Request $request, SessionInterface $session): Response
     {
-        $project_token = $request->headers->get('Project-Token');
-        $project_id = $request->headers->get('Project-Id');
+        $project_token = $request->query->get('token');
+        $project_id = $request->query->get('id');
+        $project_session = $session->get($project_token || '');
 
-        if(!$project_token || !$session->get($project_token) || !$project_id) {
+        if(!$project_token || !$project_id || !$project_session || ($project_session->getId() != $project_id)) {
             return $this->redirect('/', 301);
         }
 
@@ -89,6 +93,6 @@ class RegisterProjectController extends AbstractController
 
     private function _generateProjectToken(): string
     {
-        return bin2hex(random_bytes(20));
+        return bin2hex(random_bytes(20).uniqid());
     }
 }
