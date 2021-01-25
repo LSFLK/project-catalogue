@@ -2,16 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Project;
-use App\Entity\DomainExpertise;
-use App\Entity\TechnicalExpertise;
-use App\Entity\GitRepo;
-use App\Entity\MailingList;
-use App\Entity\MoreInfo;
-use App\Entity\ProgrammingLanguage;
-use App\Entity\Topic;
-use App\Service\GitHubAPI;
-use App\Service\FileUploader;
 use App\Service\ProjectHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
