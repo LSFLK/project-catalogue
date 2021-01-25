@@ -13,7 +13,6 @@ use App\Entity\Topic;
 use App\Service\GitHubAPI;
 use App\Service\FileUploader;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\EntityManagerInterface;
@@ -139,9 +138,32 @@ class ProjectHandler
         return $project;
     }
 
+    public function writeNewProjectData(Project $project)
+    {
+        $this->_validate($project);
+
+        $this->entityManager->persist($project);
+        $this->entityManager->flush();
+
+        $this->_moveProjectFilesToConfirmedDirectory($project);
+
+        return $project->getId();
+    }
+
+    private function _moveProjectFilesToConfirmedDirectory(Project $project)
+    {
+        if($projectDataFile = $project->getProjectDataFile()) {
+            $this->fileUploader->moveToConfirmedDirectory($projectDataFile);
+        }
+
+        if(($projectLogo = $project->getProjectLogo()) && (!filter_var($projectLogo, FILTER_VALIDATE_URL))) {
+            $this->fileUploader->moveToConfirmedDirectory($projectLogo);
+        }
+    }
+
     private function _validate($object)
     {
         $errors = $this->validator->validate($object);
-        if (count($errors)) { return new Response((string) $errors); }
+        if (count($errors)) { throw new \Exception((string) $errors); }
     }
 }

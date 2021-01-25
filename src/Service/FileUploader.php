@@ -5,15 +5,17 @@ namespace App\Service;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 class FileUploader
 {
-    private $targetDirectory;
-    private $slugger;
+    private $filesystem, $temp_dir, $confirmed_dir, $slugger;
 
-    public function __construct($targetDirectory, SluggerInterface $slugger)
+    public function __construct($temp_dir, $confirmed_dir, SluggerInterface $slugger)
     {
-        $this->targetDirectory = $targetDirectory;
+        $this->filesystem = new Filesystem();
+        $this->temp_dir = $temp_dir;
+        $this->confirmed_dir = $confirmed_dir;
         $this->slugger = $slugger;
     }
 
@@ -24,16 +26,20 @@ class FileUploader
         $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
         try {
-            $file->move($this->getTargetDirectory(), $fileName);
-        } catch (FileException $e) {
+            $file->move($this->temp_dir, $fileName);
+        }
+        catch (FileException $e) {
             return null;
         }
 
         return $fileName;
     }
 
-    public function getTargetDirectory()
+    public function moveToConfirmedDirectory(string $fileName)
     {
-        return $this->targetDirectory;
+        $temp = $this->temp_dir.$fileName;
+        $confirmed = $this->confirmed_dir.$fileName;
+
+        $this->filesystem->rename($temp, $confirmed);
     }
 }

@@ -1,13 +1,19 @@
 {% extends 'layout.html.twig' %}
 
 {% set project_url = app.request.uri %}
+{% set project_token = project_token|default('') %}
 {% set dir = dir|default(null) %}
+
+{% if project is not defined %}
+    {% set project = app.session.get(project_token)|default(null) %}
+{% endif %}
 
 {% set git_repo_json = [] %}
 {% set mailing_list_json = [] %}
 {% set more_info_json = [] %}
 
-{% if project is defined %}
+
+{% if project is not null %}
 
     {% set name = project.getName %}
     {% set objective = project.getObjective %}

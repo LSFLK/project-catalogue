@@ -61,32 +61,32 @@ class Project
     private $documentation;
 
     /**
-     * @ORM\OneToMany(targetEntity=GitRepo::class, mappedBy="project", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=GitRepo::class, mappedBy="project", orphanRemoval=true, cascade={"persist"})
      * @Assert\NotBlank
      */
     private $git_repo;
 
     /**
-     * @ORM\ManyToOne(targetEntity=DomainExpertise::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=DomainExpertise::class, inversedBy="projects", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
      */
     private $domain_expertise;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TechnicalExpertise::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=TechnicalExpertise::class, inversedBy="projects", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
      */
     private $technical_expertise;
 
     /**
-     * @ORM\OneToMany(targetEntity=MailingList::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=MailingList::class, mappedBy="project", cascade={"persist"})
      */
     private $mailing_list;
 
     /**
-     * @ORM\OneToMany(targetEntity=MoreInfo::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=MoreInfo::class, mappedBy="project", cascade={"persist"})
      */
     private $more_info;
 
@@ -101,17 +101,17 @@ class Project
     private $project_logo;
 
     /**
-     * @ORM\ManyToMany(targetEntity=ProgrammingLanguage::class, inversedBy="projects")
+     * @ORM\ManyToMany(targetEntity=ProgrammingLanguage::class, inversedBy="projects", cascade={"persist"})
      */
     private $programming_language;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Topic::class, inversedBy="projects")
+     * @ORM\ManyToMany(targetEntity=Topic::class, inversedBy="projects", cascade={"persist"})
      */
     private $topic;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $owner;

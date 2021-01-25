@@ -36,4 +36,5 @@ services:
 
     App\Service\FileUploader:
         arguments:
-            $targetDirectory: '%temp_dir%'
+            $temp_dir: '%temp_dir%'
+            $confirmed_dir: '%confirmed_dir%'
