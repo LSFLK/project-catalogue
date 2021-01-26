@@ -19,7 +19,9 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class ProjectHandler
 {
-    private $entityManager, $fileUploader, $validator;
+    private $entityManager;
+    private $fileUploader;
+    private $validator;
 
     public function __construct(EntityManagerInterface $entityManager, FileUploader $fileUploader, ValidatorInterface $validator)
     {

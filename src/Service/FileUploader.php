@@ -9,7 +9,10 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class FileUploader
 {
-    private $filesystem, $temp_dir, $confirmed_dir, $slugger;
+    private $filesystem;
+    private $temp_dir;
+    private $confirmed_dir;
+    private $slugger;
 
     public function __construct($temp_dir, $confirmed_dir, SluggerInterface $slugger)
     {

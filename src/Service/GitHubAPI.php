@@ -7,7 +7,9 @@ use Symfony\Component\HttpClient\NativeHttpClient;
 
 class GitHubAPI
 {
-    private $client, $gitRepo, $gitHubInformation;
+    private $client;
+    private $gitRepo;
+    private $gitHubInformation;
 
     public function __construct(GitRepo $gitRepo)
     {
