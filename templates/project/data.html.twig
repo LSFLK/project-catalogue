@@ -15,6 +15,7 @@
 
 {% if project is not null %}
 
+    {% set id = id|default(project.getId) %}
     {% set name = project.getName %}
     {% set objective = project.getObjective %}
     {% set description = project.getDescription %}

@@ -1,0 +1,9 @@
+{% extends 'register_project/index.html.twig' %}
+
+{% block title %}{{ name }} | Edit{% endblock %}
+
+{% block page_title %}Edit Project{% endblock %}
+
+{% block page_description %}Feel free to edit your project data and update!{% endblock %}
+
+{% block form_action %}{{ path('review_project_before_edit', { id: id }) }}{% endblock %}

@@ -13,12 +13,16 @@
     <div class="container">
         <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
         <img class="card-img-top project-icon" src="{{ asset('icons/register-project.png') }}" alt="">
-        <h1 class="title">Register Project</h1>
-        <dev class="page-description">Add your open source project to our catalogue!</dev>
+        <h1 class="title">
+          {% block page_title %}Register Project{% endblock %}
+        </h1>
+        <dev class="page-description">
+          {% block page_description %}Add your open source project to our catalogue!{% endblock %}
+        </dev>
     </div>
   </div>
 
-  <form class="container" action="{{ path('review_project') }}" method="POST" enctype="multipart/form-data">
+  <form class="container" action="{% block form_action %}{{ path('review_project_before_register') }}{% endblock %}" method="POST" enctype="multipart/form-data">
     <div class="form form-single-col">
       <h6 class="form-section-title">Project Data</h6>
 

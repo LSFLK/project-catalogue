@@ -1,0 +1,16 @@
+{% extends 'view_project/index.html.twig' %}
+
+{% set disable_sensitive_actions = true %}
+
+{% block submit %}
+
+  <div>
+    <form id="project_token" action="{{ path('create_project') }}" method="POST">
+      <input type="hidden" name="project_token" value="{{ project_token }}"/>
+    </form>
+
+    <button class="btn btn-primary btn-md float-right" type="submit" form="project_token">Confirm & Submit</a>
+    <button class="btn btn-outline-primary btn-md float-right" onclick="window.history.back()">Go Back & Edit</button>
+  </div>
+
+{% endblock %}

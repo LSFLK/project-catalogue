@@ -8,7 +8,6 @@ use App\Service\ProjectHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -34,15 +33,15 @@ class RegisterProjectController extends AbstractController
     }
 
     /**
-     * @Route("/register/review", methods={"POST"}, name="review_project")
+     * @Route("/register/review", methods={"POST"}, name="review_project_before_register")
      */
-    public function reviewProject(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
+    public function reviewProjectBeforeRegister(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
     {   
-        $project_token = $this->_generateProjectToken();
+        $project_token = bin2hex(random_bytes(20).uniqid());
         $project = $projectHandler->createProjectObject($request);
         $session->set($project_token, $project);
         
-        return $this->render('review_project/index.html.twig', [
+        return $this->render('register_project/review.html.twig', [
             'project_token' => $project_token,
             'dir' => $this->getParameter('public_temp_dir')
         ]);
@@ -89,10 +88,5 @@ class RegisterProjectController extends AbstractController
         return $this->render('register_project/success.html.twig', [
             'project_id' => $project_id
         ]);
-    }
-
-    private function _generateProjectToken(): string
-    {
-        return bin2hex(random_bytes(20).uniqid());
     }
 }

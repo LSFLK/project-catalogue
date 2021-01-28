@@ -26,17 +26,17 @@
 
     </div>
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and disable_sensitive_actions is not defined %}
       <div class="action-row">
-        <div class="button">
-            <i class="fas fa-edit"></i>
-            <div>Edit</div>
-        </div>
+        <a href="{{ path('edit_project', { id: id }) }}" class="button">
+          <i class="fas fa-edit"></i>
+          <div>Edit</div>
+        </a>
 
-        <div class="button">
-            <i class="fas fa-cog"></i>
-            <div>Settings</div>
-        </div>
+        <a href="#" class="button">
+          <i class="fas fa-cog"></i>
+          <div>Settings</div>
+        </a>
       </div>
     {% endif %}
   </div>
