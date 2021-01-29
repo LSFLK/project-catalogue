@@ -61,7 +61,7 @@ class Project
     private $documentation;
 
     /**
-     * @ORM\OneToMany(targetEntity=GitRepo::class, mappedBy="project", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=GitRepo::class, mappedBy="project", cascade={"persist", "remove"})
      * @Assert\NotBlank
      */
     private $git_repo;
@@ -81,12 +81,12 @@ class Project
     private $technical_expertise;
 
     /**
-     * @ORM\OneToMany(targetEntity=MailingList::class, mappedBy="project", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=MailingList::class, mappedBy="project", cascade={"persist", "remove"})
      */
     private $mailing_list;
 
     /**
-     * @ORM\OneToMany(targetEntity=MoreInfo::class, mappedBy="project", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=MoreInfo::class, mappedBy="project", cascade={"persist", "remove"})
      */
     private $more_info;
 
@@ -101,12 +101,12 @@ class Project
     private $project_logo;
 
     /**
-     * @ORM\ManyToMany(targetEntity=ProgrammingLanguage::class, inversedBy="projects", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=ProgrammingLanguage::class, inversedBy="projects", cascade={"persist", "remove"})
      */
     private $programming_language;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Topic::class, inversedBy="projects", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity=Topic::class, inversedBy="projects", cascade={"persist", "remove"})
      */
     private $topic;
 

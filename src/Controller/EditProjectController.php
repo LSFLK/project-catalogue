@@ -55,4 +55,12 @@ class EditProjectController extends AbstractController
             'dir' => $this->getParameter('public_confirmed_dir')
         ]);
     }
+
+    /**
+     * @Route("/projects/edit/update/id={id}", methods={"POST"}, name="update_project")
+     */
+    public function updateProject($id, Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
+    {
+        
+    }
 }
