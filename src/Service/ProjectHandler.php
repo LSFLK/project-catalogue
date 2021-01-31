@@ -11,7 +11,7 @@ use App\Entity\MoreInfo;
 use App\Entity\ProgrammingLanguage;
 use App\Entity\Topic;
 use App\Service\GitHubAPI;
-use App\Service\FileUploader;
+use App\Service\FileHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -20,17 +20,19 @@ use Doctrine\ORM\EntityManagerInterface;
 class ProjectHandler
 {
     private $entityManager;
-    private $fileUploader;
+    private $fileHandler;
     private $validator;
 
-    public function __construct(EntityManagerInterface $entityManager, FileUploader $fileUploader, ValidatorInterface $validator)
+
+    public function __construct(EntityManagerInterface $entityManager, FileHandler $fileHandler, ValidatorInterface $validator)
     {
         $this->entityManager = $entityManager;
-        $this->fileUploader = $fileUploader;
+        $this->fileHandler = $fileHandler;
         $this->validator = $validator;
     }
-    
-    public function createProjectObject(Request $request)
+
+
+    public function createProjectObjectWithRequestData(Request $request): Project
     {
         $data = $request->request;
         $files = $request->files;
@@ -127,11 +129,11 @@ class ProjectHandler
         }
 
         if ($project_data_file = $files ? $files->get('project_data_file') : null) {
-            $project->setProjectDataFile($this->fileUploader->upload($project_data_file));
+            $project->setProjectDataFile($this->fileHandler->upload($project_data_file));
         }
         
         if ($project_logo = $files ? $files->get('project_logo') : null) {
-            $project->setProjectLogo($this->fileUploader->upload($project_logo));
+            $project->setProjectLogo($this->fileHandler->upload($project_logo));
         }
         else if($avatar_url) {
             $project->setProjectLogo($avatar_url);
@@ -139,6 +141,7 @@ class ProjectHandler
 
         return $project;
     }
+
 
     public function writeNewProjectData(Project $project)
     {
@@ -152,20 +155,50 @@ class ProjectHandler
         return $project->getId();
     }
 
-    private function _moveProjectFilesToConfirmedDirectory(Project $project)
-    {
-        if($projectDataFile = $project->getProjectDataFile()) {
-            $this->fileUploader->moveToConfirmedDirectory($projectDataFile);
-        }
 
-        if(($projectLogo = $project->getProjectLogo()) && (!filter_var($projectLogo, FILTER_VALIDATE_URL))) {
-            $this->fileUploader->moveToConfirmedDirectory($projectLogo);
-        }
+    public function updateProjectData(Project $project)
+    {
+        $currentProject = $this->entityManager->getRepository(Project::class)->find($project->getId());
+        
+        $currentProject = $project;
+        $this->_validate($currentProject);
+
+        
+        $this->entityManager->flush();
+
+        $this->_removeUnwantedFilesFromConfirmedDirectory($currentProject);
+
+        return $project->getId();
     }
+
 
     private function _validate($object)
     {
         $errors = $this->validator->validate($object);
         if (count($errors)) { throw new \Exception((string) $errors); }
+    }
+
+
+    private function _moveProjectFilesToConfirmedDirectory(Project $project)
+    {
+        if($projectDataFile = $project->getProjectDataFile()) {
+            $this->fileHandler->moveFileToConfirmedDirectory($projectDataFile);
+        }
+
+        if(($projectLogo = $project->getProjectLogo()) && (!filter_var($projectLogo, FILTER_VALIDATE_URL))) {
+            $this->fileHandler->moveFileToConfirmedDirectory($projectLogo);
+        }
+    }
+
+
+    private function _removeUnwantedFilesFromConfirmedDirectory(Project $project)
+    {
+        if($projectDataFile = $project->getProjectDataFile()) {
+            $this->fileHandler->removeFileFromConfirmedDirectory($projectDataFile);
+        }
+
+        if(($projectLogo = $project->getProjectLogo()) && (!filter_var($projectLogo, FILTER_VALIDATE_URL))) {
+            $this->fileHandler->removeFileFromConfirmedDirectory($projectLogo);
+        }
     }
 }

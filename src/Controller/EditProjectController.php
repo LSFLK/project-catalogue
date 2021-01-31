@@ -46,7 +46,7 @@ class EditProjectController extends AbstractController
     public function reviewProjectBeforeEdit($id, Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
     {   
         $project_token = bin2hex(random_bytes(20).uniqid());
-        $project = $projectHandler->createProjectObject($request);
+        $project = $projectHandler->createProjectObjectWithRequestData($request);
         $session->set($project_token, $project);
         
         return $this->render('edit_project/review.html.twig', [
@@ -57,10 +57,25 @@ class EditProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projects/edit/update/id={id}", methods={"POST"}, name="update_project")
+     * @Route("/projects/edit/update", methods={"POST"}, name="update_project")
      */
-    public function updateProject($id, Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
+    public function updateProject(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
     {
-        
+        $project_token = $request->request->get('project_token');
+        $project = $session->get($project_token ? $project_token : '');
+
+        if($project) {
+            $project->setOwner($this->getUser());
+            $project_id = $projectHandler->updateProjectData($project);
+
+            if($project_id) {
+                return $this->redirectToRoute('register_project_success', [
+                    'token' => $project_token,
+                    'id' => $project_id
+                ]);
+            }
+            return new Response((string) "Something went wrong!");
+        }
+        return new Response((string) "Something went wrong!");
     }
 }

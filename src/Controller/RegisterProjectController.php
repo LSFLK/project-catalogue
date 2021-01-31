@@ -38,7 +38,7 @@ class RegisterProjectController extends AbstractController
     public function reviewProjectBeforeRegister(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
     {   
         $project_token = bin2hex(random_bytes(20).uniqid());
-        $project = $projectHandler->createProjectObject($request);
+        $project = $projectHandler->createProjectObjectWithRequestData($request);
         $session->set($project_token, $project);
         
         return $this->render('register_project/review.html.twig', [
@@ -53,7 +53,7 @@ class RegisterProjectController extends AbstractController
     public function createProject(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
     {  
         $project_token = $request->request->get('project_token');
-        $project = $session->get($project_token || '');
+        $project = $session->get($project_token ? $project_token : '');
     
         if($project) {
             $project->setOwner($this->getUser());

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
-class FileUploader
+class FileHandler
 {
     private $filesystem;
     private $temp_dir;
@@ -38,11 +38,18 @@ class FileUploader
         return $fileName;
     }
 
-    public function moveToConfirmedDirectory(string $fileName)
+    public function moveFileToConfirmedDirectory(string $fileName)
     {
-        $temp = $this->temp_dir.$fileName;
-        $confirmed = $this->confirmed_dir.$fileName;
+        $pathToFileInTempDirectory = $this->temp_dir.$fileName;
+        $pathToFileInConfirmedDirectory = $this->confirmed_dir.$fileName;
 
-        $this->filesystem->rename($temp, $confirmed);
+        $this->filesystem->rename($pathToFileInTempDirectory, $pathToFileInConfirmedDirectory);
+    }
+
+    public function removeFileFromConfirmedDirectory(string $fileName)
+    {
+        $pathToFile = $this->confirmed_dir.$fileName;
+
+        $this->filesystem->remove($pathToFile);
     }
 }
