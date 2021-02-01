@@ -57,7 +57,7 @@ class RegisterProjectController extends AbstractController
     
         if($project) {
             $project->setOwner($this->getUser());
-            $project_id = $projectHandler->writeNewProjectData($project);
+            $project_id = $projectHandler->writeNewProject($project);
         
             if($project_id) {
                 return $this->redirectToRoute('register_project_success', [

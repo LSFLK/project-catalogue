@@ -67,14 +67,14 @@ class Project
     private $git_repo;
 
     /**
-     * @ORM\ManyToOne(targetEntity=DomainExpertise::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=DomainExpertise::class, inversedBy="projects", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
      */
     private $domain_expertise;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TechnicalExpertise::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=TechnicalExpertise::class, inversedBy="projects", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank
      */

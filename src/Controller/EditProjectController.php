@@ -65,6 +65,7 @@ class EditProjectController extends AbstractController
         $project = $session->get($project_token ? $project_token : '');
 
         if($project) {
+            $project->setOwner($this->getUser());
             $project_id = $projectHandler->saveChangesMadeInProject($id, $project);
 
             if($project_id) {

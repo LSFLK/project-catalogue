@@ -144,55 +144,71 @@ class ProjectHandler
     }
 
 
-    public function writeNewProjectData(Project $project)
+    public function writeNewProject(Project $data)
     {
-        $this->_validate($project);
+        $this->_validate($data);
 
-        $this->entityManager->persist($project);
-        $this->entityManager->flush();
-
+        $project = new Project();
+        $project = $this->_persistAndFlush($project, $data);
         $this->_moveProjectFilesToConfirmedDirectory($project);
 
         return $project->getId();
     }
 
 
-    public function saveChangesMadeInProject($id, Project $projectUpdateData)
+    public function saveChangesMadeInProject($id, $data)
+    {
+        $this->_validate($data);
+
+        $project = $this->entityManager->getRepository(Project::class)->find($id);
+        $this->_removeUnwantedFilesFromConfirmedDirectory($project);
+
+        $project = $this->_persistAndFlush($project, $data);
+        $this->_moveProjectFilesToConfirmedDirectory($project);
+
+        return $project->getId();
+    }
+
+
+    private function _persistAndFlush(Project $project, Project $data): Project
     {
         $domainExpertiseRepository = $this->entityManager->getRepository(DomainExpertise::class);
         $technicalExpertiseRepository = $this->entityManager->getRepository(TechnicalExpertise::class);
         $programmingLanguageRepository = $this->entityManager->getRepository(ProgrammingLanguage::class);
 
-        $project = $this->entityManager->getRepository(Project::class)->find($id);
+        $project->setOwner($data->getOwner());
+        $project->setName($data->getName());
+        $project->setObjective($data->getObjective());
+        $project->setDescription($data->getDescription());
+        $project->setOrganization($data->getOrganization());
+        $project->setWebsite($data->getWebsite());
+        $project->setBugTracking($data->getBugTracking());
+        $project->setDocumentation($data->getDocumentation());
+        $project->setProjectDataFile($data->getProjectDataFile());
+        $project->setProjectLogo($data->getProjectLogo());
 
-        $project->setName($projectUpdateData->getName());
-        $project->setObjective($projectUpdateData->getObjective());
-        $project->setDescription($projectUpdateData->getDescription());
-        $project->setOrganization($projectUpdateData->getOrganization());
-        $project->setWebsite($projectUpdateData->getWebsite());
-        $project->setBugTracking($projectUpdateData->getBugTracking());
-        $project->setDocumentation($projectUpdateData->getDocumentation());
-
-        $domainExpertise = $domainExpertiseRepository->findOneBy(['name' => $projectUpdateData->getDomainExpertise()->getName()]);
+        $domainExpertise = $domainExpertiseRepository->findOneBy(['name' => $data->getDomainExpertise()->getName()]);
         $project->setDomainExpertise($domainExpertise);
 
-        $technicalExpertise = $technicalExpertiseRepository->findOneBy(['name' => $projectUpdateData->getTechnicalExpertise()->getName()]);
+        $technicalExpertise = $technicalExpertiseRepository->findOneBy(['name' => $data->getTechnicalExpertise()->getName()]);
         $project->setTechnicalExpertise($technicalExpertise);
 
-        $project = $this->_compareAndUpdate($project, $projectUpdateData, 'GitRepo', 'Url', ['Name', 'Url']);
-        $project = $this->_compareAndUpdate($project, $projectUpdateData, 'MailingList', 'Url', ['Name', 'Url']);
-        $project = $this->_compareAndUpdate($project, $projectUpdateData, 'MoreInfo', 'Url', ['Name', 'Url']);
+        $project = $this->_compareAndUpdate($project, $data, 'GitRepo', 'Url', ['Name', 'Url']);
+        $project = $this->_compareAndUpdate($project, $data, 'MailingList', 'Url', ['Name', 'Url']);
+        $project = $this->_compareAndUpdate($project, $data, 'MoreInfo', 'Url', ['Name', 'Url']);
+        $project = $this->_compareAndUpdate($project, $data, 'ProgrammingLanguage', 'Name', ['Name']);
+        $project = $this->_compareAndUpdate($project, $data, 'Topic', 'Name', ['Name']);
 
-        $project = $this->_removeUnwantedRelations($project, $projectUpdateData, 'GitRepo', 'Url');
-        $project = $this->_removeUnwantedRelations($project, $projectUpdateData, 'MailingList', 'Url');
-        $project = $this->_removeUnwantedRelations($project, $projectUpdateData, 'MoreInfo', 'Url');
+        $project = $this->_removeUnwantedRelations($project, $data, 'GitRepo', 'Url');
+        $project = $this->_removeUnwantedRelations($project, $data, 'MailingList', 'Url');
+        $project = $this->_removeUnwantedRelations($project, $data, 'MoreInfo', 'Url');
+        $project = $this->_removeUnwantedRelations($project, $data, 'ProgrammingLanguage', 'Name');
+        $project = $this->_removeUnwantedRelations($project, $data, 'Topic', 'Name');
 
-        $this->_moveProjectFilesToConfirmedDirectory($projectUpdateData);
-        $this->_removeUnwantedFilesFromConfirmedDirectory($project);
-
+        $this->entityManager->persist($project);
         $this->entityManager->flush();
 
-        return $project->getId();
+        return $project;
     }
 
 
@@ -245,7 +261,7 @@ class ProjectHandler
                     break;
                 }
             }
-            if (!$found) { $project->$remover($gitRepo); }
+            if (!$found) { $project->$remover($object); }
         }
         return $project;
     }
