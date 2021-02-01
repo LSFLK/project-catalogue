@@ -57,16 +57,15 @@ class EditProjectController extends AbstractController
     }
 
     /**
-     * @Route("/projects/edit/update", methods={"POST"}, name="update_project")
+     * @Route("/projects/edit/update/{id}", methods={"POST"}, name="update_project")
      */
-    public function updateProject(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
+    public function updateProject($id, Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
     {
         $project_token = $request->request->get('project_token');
         $project = $session->get($project_token ? $project_token : '');
 
         if($project) {
-            $project->setOwner($this->getUser());
-            $project_id = $projectHandler->updateProjectData($project);
+            $project_id = $projectHandler->saveChangesMadeInProject($id, $project);
 
             if($project_id) {
                 return $this->redirectToRoute('register_project_success', [

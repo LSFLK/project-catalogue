@@ -34,6 +34,11 @@ class ProjectHandler
 
     public function createProjectObjectWithRequestData(Request $request): Project
     {
+        $domainExpertiseRepository = $this->entityManager->getRepository(DomainExpertise::class);
+        $technicalExpertiseRepository = $this->entityManager->getRepository(TechnicalExpertise::class);
+        $programmingLanguageRepository = $this->entityManager->getRepository(ProgrammingLanguage::class);
+        $topicRepository = $this->entityManager->getRepository(Topic::class);
+
         $data = $request->request;
         $files = $request->files;
 
@@ -46,11 +51,9 @@ class ProjectHandler
         $project->setBugTracking($data->get('bug_tracking'));
         $project->setDocumentation($data->get('documentation'));
 
-        $domainExpertiseRepository = $this->entityManager->getRepository(DomainExpertise::class);
         $domainExpertise = $domainExpertiseRepository->findOneBy(['name' => $data->get('domain_expertise')]);
         $project->setDomainExpertise($domainExpertise);
 
-        $technicalExpertiseRepository = $this->entityManager->getRepository(TechnicalExpertise::class);
         $technicalExpertise = $technicalExpertiseRepository->findOneBy(['name' => $data->get('technical_expertise')]);
         $project->setTechnicalExpertise($technicalExpertise);
 
@@ -83,7 +86,6 @@ class ProjectHandler
         $topics = array_unique($topics);
 
         foreach ($languages as $language) {
-            $programmingLanguageRepository = $this->entityManager->getRepository(ProgrammingLanguage::class);
             $programmingLanguage = $programmingLanguageRepository->findOneBy(['name' => $language]);
 
             if(!$programmingLanguage) {
@@ -95,7 +97,6 @@ class ProjectHandler
         }
 
         foreach ($topics as $topic) {
-            $topicRepository = $this->entityManager->getRepository(Topic::class);
             $projectTopic = $topicRepository->findOneBy(['name' => $topic]);
 
             if(!$projectTopic) {
@@ -156,17 +157,40 @@ class ProjectHandler
     }
 
 
-    public function updateProjectData(Project $project)
+    public function saveChangesMadeInProject($id, Project $projectUpdateData)
     {
-        $currentProject = $this->entityManager->getRepository(Project::class)->find($project->getId());
-        
-        $currentProject = $project;
-        $this->_validate($currentProject);
+        $domainExpertiseRepository = $this->entityManager->getRepository(DomainExpertise::class);
+        $technicalExpertiseRepository = $this->entityManager->getRepository(TechnicalExpertise::class);
+        $programmingLanguageRepository = $this->entityManager->getRepository(ProgrammingLanguage::class);
 
-        
+        $project = $this->entityManager->getRepository(Project::class)->find($id);
+
+        $project->setName($projectUpdateData->getName());
+        $project->setObjective($projectUpdateData->getObjective());
+        $project->setDescription($projectUpdateData->getDescription());
+        $project->setOrganization($projectUpdateData->getOrganization());
+        $project->setWebsite($projectUpdateData->getWebsite());
+        $project->setBugTracking($projectUpdateData->getBugTracking());
+        $project->setDocumentation($projectUpdateData->getDocumentation());
+
+        $domainExpertise = $domainExpertiseRepository->findOneBy(['name' => $projectUpdateData->getDomainExpertise()->getName()]);
+        $project->setDomainExpertise($domainExpertise);
+
+        $technicalExpertise = $technicalExpertiseRepository->findOneBy(['name' => $projectUpdateData->getTechnicalExpertise()->getName()]);
+        $project->setTechnicalExpertise($technicalExpertise);
+
+        $project = $this->_compareAndUpdate($project, $projectUpdateData, 'GitRepo', 'Url', ['Name', 'Url']);
+        $project = $this->_compareAndUpdate($project, $projectUpdateData, 'MailingList', 'Url', ['Name', 'Url']);
+        $project = $this->_compareAndUpdate($project, $projectUpdateData, 'MoreInfo', 'Url', ['Name', 'Url']);
+
+        $project = $this->_removeUnwantedRelations($project, $projectUpdateData, 'GitRepo', 'Url');
+        $project = $this->_removeUnwantedRelations($project, $projectUpdateData, 'MailingList', 'Url');
+        $project = $this->_removeUnwantedRelations($project, $projectUpdateData, 'MoreInfo', 'Url');
+
+        $this->_moveProjectFilesToConfirmedDirectory($projectUpdateData);
+        $this->_removeUnwantedFilesFromConfirmedDirectory($project);
+
         $this->entityManager->flush();
-
-        $this->_removeUnwantedFilesFromConfirmedDirectory($currentProject);
 
         return $project->getId();
     }
@@ -176,6 +200,54 @@ class ProjectHandler
     {
         $errors = $this->validator->validate($object);
         if (count($errors)) { throw new \Exception((string) $errors); }
+    }
+
+
+    private function _compareAndUpdate(Project $project, Project $projectUpdateData, $entity, $comparator, $attributes): Project
+    {
+        $getter = 'get'.$entity;
+        $adder = 'add'.$entity;
+        $comparatorValueGetter = 'get'.$comparator;
+
+        foreach ($projectUpdateData->$getter() as $edited) {
+            $updated = false;
+            foreach ($project->$getter() as $current) {
+                if ($edited->$comparatorValueGetter() === $current->$comparatorValueGetter()) {
+                    foreach ($attributes as $attribute) {
+                        $attributeGetter = 'get'.$attribute;
+                        $attributeSetter = 'set'.$attribute;
+                        $current->$attributeSetter($edited->$attributeGetter());
+                    }
+                    $updated = true;
+                    break;
+                }
+            }
+            if (!$updated) {
+                $project->$adder($edited);
+                $this->_validate($edited);
+            }
+        }
+        return $project;
+    }
+
+
+    private function _removeUnwantedRelations(Project $project, Project $projectUpdateData, $entity, $comparator): Project
+    {
+        $getter = 'get'.$entity;
+        $remover = 'remove'.$entity;
+        $comparatorValueGetter = 'get'.$comparator;
+
+        foreach ($project->$getter() as $object) {
+            $found = false;
+            foreach ($projectUpdateData->$getter() as $edited) {
+                if ($object->$comparatorValueGetter() === $edited->$comparatorValueGetter()) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) { $project->$remover($gitRepo); }
+        }
+        return $project;
     }
 
 

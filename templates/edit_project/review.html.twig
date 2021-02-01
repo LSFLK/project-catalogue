@@ -5,7 +5,7 @@
 {% block submit %}
 
   <div>
-    <form id="project_token" action="{{ path('update_project') }}" method="POST">
+    <form id="project_token" action="{{ path('update_project', { id: id }) }}" method="POST">
       <input type="hidden" name="project_token" value="{{ project_token }}"/>
     </form>
 
