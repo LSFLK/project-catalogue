@@ -219,35 +219,35 @@ class ProjectHandler
     }
 
 
-    private function _compareAndUpdate(Project $project, Project $projectUpdateData, $entity, $comparator, $attributes): Project
+    private function _compareAndUpdate(Project $project, Project $data, $entity, $comparator, $attributes): Project
     {
         $getter = 'get'.$entity;
         $adder = 'add'.$entity;
         $comparatorValueGetter = 'get'.$comparator;
 
-        foreach ($projectUpdateData->$getter() as $edited) {
+        foreach ($data->$getter() as $input) {
             $updated = false;
             foreach ($project->$getter() as $current) {
-                if ($edited->$comparatorValueGetter() === $current->$comparatorValueGetter()) {
+                if ($input->$comparatorValueGetter() === $current->$comparatorValueGetter()) {
                     foreach ($attributes as $attribute) {
                         $attributeGetter = 'get'.$attribute;
                         $attributeSetter = 'set'.$attribute;
-                        $current->$attributeSetter($edited->$attributeGetter());
+                        $current->$attributeSetter($input->$attributeGetter());
                     }
                     $updated = true;
                     break;
                 }
             }
             if (!$updated) {
-                $project->$adder($edited);
-                $this->_validate($edited);
+                $this->_validate($input);
+                $project->$adder($input);
             }
         }
         return $project;
     }
 
 
-    private function _removeUnwantedRelations(Project $project, Project $projectUpdateData, $entity, $comparator): Project
+    private function _removeUnwantedRelations(Project $project, Project $data, $entity, $comparator): Project
     {
         $getter = 'get'.$entity;
         $remover = 'remove'.$entity;
@@ -255,13 +255,16 @@ class ProjectHandler
 
         foreach ($project->$getter() as $object) {
             $found = false;
-            foreach ($projectUpdateData->$getter() as $edited) {
-                if ($object->$comparatorValueGetter() === $edited->$comparatorValueGetter()) {
+            foreach ($data->$getter() as $input) {
+                if ($object->$comparatorValueGetter() === $input->$comparatorValueGetter()) {
                     $found = true;
                     break;
                 }
             }
-            if (!$found) { $project->$remover($object); }
+            if (!$found) {
+                $project->$remover($object);
+                $this->entityManager->remove($object);
+            }
         }
         return $project;
     }
