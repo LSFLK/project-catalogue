@@ -69,7 +69,7 @@ class EditProjectController extends AbstractController
             $project_id = $projectHandler->saveChangesMadeInProject($id, $project);
 
             if($project_id) {
-                return $this->redirectToRoute('register_project_success', [
+                return $this->redirectToRoute('edit_project_success', [
                     'token' => $project_token,
                     'id' => $project_id
                 ]);
@@ -77,5 +77,25 @@ class EditProjectController extends AbstractController
             return new Response((string) "Something went wrong!");
         }
         return new Response((string) "Something went wrong!");
+    }
+
+    /**
+     * @Route("/projects/edit/update/success", name="edit_project_success")
+     */
+    public function success(Request $request, SessionInterface $session): Response
+    {
+        $project_token = $request->query->get('token');
+        $project_id = $request->query->get('id');
+        $project_session = $session->get($project_token ? $project_token : '');
+
+        if(!$project_token || !$project_id || !$project_session) {
+            return $this->redirect('/', 301);
+        }
+
+        $session->remove($project_token);
+
+        return $this->render('edit_project/success.html.twig', [
+            'project_id' => $project_id
+        ]);
     }
 }

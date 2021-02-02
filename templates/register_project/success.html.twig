@@ -1,5 +1,7 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}Success{% endblock %}
+
 {% block body %}
 
   {% set project_url = app.request.getSchemeAndHttpHost() ~ '/projects/id=' ~ project_id %}
@@ -11,9 +13,9 @@
   <div class="container">
     <img class="success-icon" src="{{ asset('icons/success.png') }}">
 
-    <div class="thank-you">Thank you!</div>
+    <div class="thank-you">{% block success %}Thank you!{% endblock %}</div>
 
-    <div class="message">Your project has been successfully registered.</div>
+    <div class="message">{% block message %}Your project has been successfully registered.{% endblock %}</div>
 
     <div class="share-notice">Share the link of your project and let the people explore this project in our catalogue.</div>
   
