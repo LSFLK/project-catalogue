@@ -77,9 +77,9 @@ class RegisterProjectController extends AbstractController
     {
         $project_token = $request->query->get('token');
         $project_id = $request->query->get('id');
-        $project_session = $session->get($project_token || '');
+        $project_session = $session->get($project_token ? $project_token : '');
 
-        if(!$project_token || !$project_id || !$project_session || ($project_session->getId() != $project_id)) {
+        if(!$project_token || !$project_id || !$project_session) {
             return $this->redirect('/', 301);
         }
 
