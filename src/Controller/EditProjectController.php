@@ -52,7 +52,7 @@ class EditProjectController extends AbstractController
         return $this->render('edit_project/review.html.twig', [
             'project_token' => $project_token,
             'id' => $id,
-            'dir' => $this->getParameter('public_confirmed_dir')
+            'dir' => $this->getParameter('public_temp_dir')
         ]);
     }
 
