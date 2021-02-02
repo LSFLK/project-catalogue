@@ -1,0 +1,8 @@
+<div class="setting-container {% if last is not defined %}setting-with-border{% endif %}">
+  <div class="setting-info">
+    <div class="setting-title">{{ title }}</div>
+    <div class="setting-message">{{ message }}</div>
+  </div>
+
+  <a href="{{ action }}" class="setting-action" style="color: {% if color is defined %}{{ color }}{% endif %}">{{ button }}</a>
+</div>
