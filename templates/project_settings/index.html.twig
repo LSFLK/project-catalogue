@@ -39,11 +39,13 @@
         'title': 'Delete this project',
         'message': 'Once you delete a project, there is no going back. Please be certain.',
         'button': 'Delete this project',
-        'action': '#',
+        'data_target': '#delete_project',
         'color': '#ff0000',
         'last': true,
       } %}
     </div>
     
   </div>
+
+  {{ include('delete_project/index.html.twig') }}
 {% endblock %}
