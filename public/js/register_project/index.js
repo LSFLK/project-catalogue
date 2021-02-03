@@ -7,12 +7,12 @@ const requiredErrorText = {
     description: 'Project description is required.',
     domain_expertise: 'Select an option.',
     technical_expertise: 'Select an option.',
-    git_repo_data: {
+    git_repo: {
         required  : true,
         errorText1: 'Repo name is required.',
         errorText2: 'Repo URL is required.',
     },
-    mailing_lists_data: {
+    mailing_list: {
         errorText1: 'List name is required.',
         errorText2: 'Subscribe URL is required.',
     },
@@ -26,10 +26,10 @@ const requiredErrorText = {
 const invalidErrorText = {
     name: 'This project name is already registered.',
     website: 'Invalid URL.',
-    git_repo_data: {
+    git_repo: {
         invalidText2: 'Invalid repo URL.'
     },
-    mailing_lists_data: {
+    mailing_list: {
         invalidText2: 'Invalid subscribe URL.'
     },
     more_info: {
@@ -79,9 +79,9 @@ function checkFormValidity() {
         website: validateInput('website', 'keyup', validateURL),
         domain_expertise: validateInput('domain_expertise', 'click'),
         technical_expertise: validateInput('technical_expertise', 'click'),
-        // git_repo_data: validateDynamicInputGroup('git_repo_data', true),
-        // mailing_lists_data: validateDynamicInputGroup('mailing_lists_data'),
-        // more_info: validateDynamicInputGroup('more_info')
+        git_repo: validateDynamicInputGroup('git_repo', true),
+        mailing_list: validateDynamicInputGroup('mailing_list'),
+        more_info: validateDynamicInputGroup('more_info')
     }
     return validity;
 }
@@ -245,7 +245,7 @@ function showErrorMessageForInput (id) {
     else {
         helper.textContent = requiredErrorText[id];
     }
-    
+
     helper.classList.add('error');
 }
 
