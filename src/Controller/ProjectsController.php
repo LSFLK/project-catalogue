@@ -20,6 +20,10 @@ class ProjectsController extends AbstractController
      */
     public function index(Request $request): Response
     {
+        if ($user_id = $request->query->get('user')) {
+            return $this->redirectToRoute('my_projects');
+        }
+
         $projects = $this->getDoctrine()->getRepository(Project::class)->findByRequestQueryParams($request->query);
         $domain_expertise = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAllOrderByName();
         $technical_expertise = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAllOrderByName();
@@ -34,7 +38,8 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("/projects/search", name="search_projects")
+     * @Route("/projects/search")
+     * @Route("/authuser/projects/search")
      */
     public function search(Request $request): JsonResponse
     {
@@ -45,7 +50,8 @@ class ProjectsController extends AbstractController
     }
 
     /**
-     * @Route("/projects/filter", name="filter_projects")
+     * @Route("/projects/filter")
+     * @Route("/authuser/projects/filter")
      */
     public function filter(Request $request): JsonResponse
     {

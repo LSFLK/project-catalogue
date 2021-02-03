@@ -1,6 +1,6 @@
 {% block body %}
 
-    <a href="{{ path }}" class="user-dropdown-item">
+    <a href="{{ path }}" class="user-dropdown-item" {% if target is defined %}target="{{ target }}"{% endif %}>
       <i class="{{ icon }}"></i>
       <div>{{ name }}</div>
     </a>

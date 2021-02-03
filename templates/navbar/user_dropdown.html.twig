@@ -20,20 +20,21 @@
 
       {{ include('navbar/user_dropdown_item.html.twig', {
         'icon': 'fab fa-dev',
-        'name': 'Projects registered by me',
-        'path': '/projects'
+        'name': 'My Projects',
+        'path': path('my_projects')
       }) }}
 
       {{ include('navbar/user_dropdown_item.html.twig', {
         'icon': 'fas fa-plus-square',
-        'name': 'Register new Project',
-        'path': '/register'
+        'name': 'Register New Project',
+        'path': path('register_project'),
+        'target': '_blank'
       }) }}
 
       {{ include('navbar/user_dropdown_item.html.twig', {
         'icon': 'fas fa-sign-out-alt',
         'name': 'Sign out',
-        'path': "/signout"
+        'path': path('signout')
       }) }}
 
       <div class="dropdown-section-separator"></div>

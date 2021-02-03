@@ -17,8 +17,8 @@
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
-        {{ include('navbar/nav_item.html.twig', { 'name': 'Projects', 'path': '/projects' }) }}
-        {{ include('navbar/nav_item.html.twig', { 'name': 'About', 'path': '/projects' }) }}
+        {{ include('navbar/nav_item.html.twig', { 'name': 'Projects', 'path': path('projects') }) }}
+        {{ include('navbar/nav_item.html.twig', { 'name': 'About', 'path': path('projects') }) }}
         {{ include('navbar/user.html.twig') }}
       </ul>
     </div>

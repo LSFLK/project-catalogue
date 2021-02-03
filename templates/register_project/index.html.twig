@@ -185,7 +185,7 @@
             <input id="project_logo" name="project_logo" onchange="readImage(this)" type="file" class="custom-file-input" accept=".png">
             <label id="project_logo_label" class="custom-file-label form-control-sm">Choose file</label>
           </div>
-          {% if 'http' in project_logo %}
+          {% if project_logo is defined and 'http' in project_logo %}
             <img id="project_logo_preview" class="preview" src="{{ project_logo }}" />
           {% else %}
             <img id="project_logo_preview" class="preview" src="{{ asset(project_logo|default('img/no-image-preview.png')) }}" />
