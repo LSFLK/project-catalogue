@@ -34,7 +34,7 @@ class DeleteProjectController extends AbstractController
 
         if($confirm_check === $confirm) {
             $projectHandler->deleteProject($project_id);
-            return $this->redirectToRoute('projects');
+            return $this->redirectToRoute('my_projects');
         }
 
         return $this->redirectToRoute('view_project', ['id' => $project_id]);
