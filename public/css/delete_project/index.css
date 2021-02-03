@@ -43,6 +43,7 @@
     color: #ff0000;
     background-color: #ff000010;
     transition: 0.3s;
+    outline: none;
 }
 
 .modal-body button:hover {

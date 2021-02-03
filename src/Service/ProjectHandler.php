@@ -170,6 +170,15 @@ class ProjectHandler
     }
 
 
+    public function deleteProject($id)
+    {
+        $project = $this->entityManager->getRepository(Project::class)->find($id);
+
+        $this->entityManager->remove($project);
+        $this->entityManager->flush();
+    }
+
+
     private function _persistAndFlush(Project $project, Project $data): Project
     {
         $domainExpertiseRepository = $this->entityManager->getRepository(DomainExpertise::class);

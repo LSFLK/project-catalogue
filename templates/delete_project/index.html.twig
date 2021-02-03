@@ -29,11 +29,12 @@
                         Please type <b>{{ confirm }}</b> to confirm.
                     </p>
 
-                    <form>
+                    <form action="{{ path('delete_project') }}" method="POST">
+                        <input type="hidden" name="project_id" value="{{ id }}">
                         <input id="confirm" name="confirm" type="text" class="form-control">
-                    </form>
 
-                    <button type="submit" disabled>I understand the consequences, delete this project</button>
+                        <button type="submit" disabled>I understand the consequences, delete this project</button>
+                    </form>
                 </div>
             </div>
         </div>
