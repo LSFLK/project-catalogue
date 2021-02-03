@@ -24,6 +24,7 @@ const requiredErrorText = {
 
 
 const invalidErrorText = {
+    name: 'This project name is already registered.',
     website: 'Invalid URL.',
     git_repo_data: {
         invalidText2: 'Invalid repo URL.'
@@ -72,15 +73,15 @@ registerProjectForm.addEventListener('submit', function (event) {
 
 function checkFormValidity() {
     const validity = {
-        name: validateInput('name'),
+        name: validateProjectName(),
         objective: validateInput('objective'),
         description: validateInput('description'),
         website: validateInput('website', 'keyup', validateURL),
         domain_expertise: validateInput('domain_expertise', 'click'),
         technical_expertise: validateInput('technical_expertise', 'click'),
-        git_repo_data: validateDynamicInputGroup('git_repo_data', true),
-        mailing_lists_data: validateDynamicInputGroup('mailing_lists_data'),
-        more_info: validateDynamicInputGroup('more_info')
+        // git_repo_data: validateDynamicInputGroup('git_repo_data', true),
+        // mailing_lists_data: validateDynamicInputGroup('mailing_lists_data'),
+        // more_info: validateDynamicInputGroup('more_info')
     }
     return validity;
 }
@@ -237,7 +238,14 @@ function validateDynamicInputGroup (id, required = false) {
 
 function showErrorMessageForInput (id) {
     const helper = document.getElementById(id + '-helper');
-    helper.textContent = requiredErrorText[id];
+
+    if(invalidErrorText[id] && document.getElementById(id).value.trim()) {
+        helper.textContent = invalidErrorText[id];
+    }
+    else {
+        helper.textContent = requiredErrorText[id];
+    }
+    
     helper.classList.add('error');
 }
 

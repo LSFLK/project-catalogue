@@ -1,0 +1,12 @@
+.input-with-postfix-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: -15px;
+}
+
+.postfix-icon {
+    font-size: 20px;
+    margin-left: 7px;
+    display: none;
+}

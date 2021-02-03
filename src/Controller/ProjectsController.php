@@ -60,6 +60,18 @@ class ProjectsController extends AbstractController
         return new JsonResponse($content);
     }
 
+    /**
+     * @Route("/projects/validate")
+     */
+    public function validate(Request $request): JsonResponse
+    {
+        $name = $request->query->get('name');
+        $project = $this->getDoctrine()->getRepository(Project::class)->findOneBy(['name' => $name]);
+        
+        if($project) { return new JsonResponse(false); }
+        else { return new JsonResponse(true); }
+    }
+
     private function _getContentForRetrievedProjects($projects): array
     {
         $content = [];
