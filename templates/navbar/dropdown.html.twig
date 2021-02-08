@@ -1,0 +1,19 @@
+{% block body %}
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+      {{ include('navbar/user_dropdown_item.html.twig', {
+        'icon': 'fas fa-question-circle',
+        'name': 'Help',
+        'path': '#'
+      }) }}
+
+      {{ include('navbar/user_dropdown_item.html.twig', {
+        'icon': 'fas fa-comment',
+        'name': 'Send feedback',
+        'path': '#'
+      }) }}
+
+    </div>
+    
+{% endblock %}
