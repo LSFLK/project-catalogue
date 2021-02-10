@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Help & Support{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/help_and_support/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/help_and_support/input.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="container">
+        <img class="card-img-top page-image" src="{{ asset('img/project-card-background.png') }}" alt="">
+        <img class="card-img-top page-icon" src="{{ asset('icons/help-and-support.png') }}" alt="">
+        <h1 class="title">Help & Support</h1>
+        <div class="page-description">Feel free to contact us for any help or support!</div>
+    </div>
+  </div>
+
+  <form class="container" action="{% block form_action %}{{ path('review_project_before_register') }}{% endblock %}" method="POST" enctype="multipart/form-data">
+    <div class="form form-single-col">
+      <h6 class="form-section-title">Full Name <span style="color: #ff0000">*</span></h6>
+      {% include 'help_and_support/input.html.twig' with { 'name': 'name', 'value': app.user.name|default(null) } %}
+    </div>
+
+    <div class="form form-single-col">
+      <h6 class="form-section-title">Email Address <span style="color: #ff0000">*</span></h6>
+      {% include 'help_and_support/input.html.twig' with { 'name': 'email', 'value': app.user.email|default(null) } %}
+    </div>
+
+    <div class="form form-single-col">
+      <h6 class="form-section-title">Description <span style="color: #ff0000">*</span></h6>
+      {% include 'help_and_support/input.html.twig' with { 'name': 'description', 'rows': '5' } %}
+    </div>
+
+    <div class="btn-container">
+      <button class="btn btn-primary btn-md float-right" type="submit">Submit</button>
+    </div>
+  </form>
+
+{% endblock %}
