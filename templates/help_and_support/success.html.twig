@@ -1,0 +1,24 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Received{% endblock %}
+
+{% block body %}
+  <link href="{{ asset('css/help_and_support/success.css') }}" rel="stylesheet"/>
+
+  <div style="height: 25px"></div>
+
+  <div class="container">
+    <img class="success-icon" src="{{ asset('icons/success.png') }}">
+
+    <div class="thank-you">{% block success %}Thank you!{% endblock %}</div>
+
+    <div class="message">{% block message %}We have received your inquiry.{% endblock %}</div>
+
+    <div class="notice">We appreciate you contacting us. One of our team will get back in touch with you soon!.</div>
+
+    <div class="link">
+        <a href="{{ path('projects') }}">Back to Projects page</a>
+    </div>
+  </div>
+
+{% endblock %}

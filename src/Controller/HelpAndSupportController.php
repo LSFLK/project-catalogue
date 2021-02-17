@@ -38,6 +38,6 @@ class HelpAndSupportController extends AbstractController
             ]
         ]);
 
-        return $this->render('help_and_support/index.html.twig');
+        return $this->render('help_and_support/success.html.twig');
     }
 }
