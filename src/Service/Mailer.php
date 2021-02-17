@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class Mailer
 {
@@ -16,11 +16,13 @@ class Mailer
 
     public function sendEmail($data)
     {
-        $email = (new Email())
+        $email = (new TemplatedEmail())
             ->from($_ENV['MAILER_EMAIL'])
             ->to($_ENV['MAILER_EMAIL'])
+            ->replyTo($data['replyTo'])
             ->subject($data['subject'])
-            ->html($data['html']);
+            ->htmlTemplate($data['htmlTemplate'])
+            ->context($data['context']);
 
         $this->mailer->send($email);
     }

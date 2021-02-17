@@ -1,0 +1,49 @@
+.email-container {
+    font-family: 'Google Sans', Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    margin-top: -50px;
+}
+
+.email-title {
+    background-color: #474747;
+    color: #e6e6e6;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.email-info {
+    font-size: 14px;
+    color: #1a1a1a;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.email {
+    font-size: 14px;
+    color: #0066ff;
+}
+
+.user-type {
+    font-size: 14px;
+    color: #404040;
+}
+
+.email-body {
+    color: #1a1a1a;
+}
+
+.subject {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.description {
+    font-size: 14px;
+    margin-top: 10px;
+    white-space: pre-wrap;
+}

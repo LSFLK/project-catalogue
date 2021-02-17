@@ -4,7 +4,10 @@
     {% if rows is defined %}
       <textarea id="{{ name }}" name="{{ name }}" class="md-textarea form-control form-control-sm" style="margin-top: 35px" rows="{{ rows }}" required></textarea>
     {% else %}
-      <input type="text" id="{{ name }}" name="{{ name }}" value="{{ value|default(null) }}" class="form-control form-control-sm" required>
+      <input type="text" id="{{ name }}" name="{{ name }}"
+            value="{{ value|default(null) }}"
+            {% if type is defined %}type="{{ type }}"{% endif %}
+            class="form-control form-control-sm" required>
     {% endif %}
   </div>
 

@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  <form class="container" action="{% block form_action %}{{ path('review_project_before_register') }}{% endblock %}" method="POST" enctype="multipart/form-data">
+  <form class="container" action="{{ path('submit_help_and_support') }}" method="POST" enctype="multipart/form-data">
     <div class="form form-single-col">
       <h6 class="form-section-title">Full Name <span style="color: #ff0000">*</span></h6>
       {% include 'help_and_support/input.html.twig' with { 'name': 'name', 'value': app.user.name|default(null) } %}
@@ -25,6 +25,12 @@
     <div class="form form-single-col">
       <h6 class="form-section-title">Email Address <span style="color: #ff0000">*</span></h6>
       {% include 'help_and_support/input.html.twig' with { 'name': 'email', 'value': app.user.email|default(null) } %}
+      <div class="helper-text">Please enter a valid email address. Otherwise we will not be able to reach you.</div>
+    </div>
+
+    <div class="form form-single-col">
+      <h6 class="form-section-title">Subject <span style="color: #ff0000">*</span></h6>
+      {% include 'help_and_support/input.html.twig' with { 'name': 'subject' } %}
     </div>
 
     <div class="form form-single-col">
