@@ -24,7 +24,7 @@
 
     <div class="form form-single-col">
       <h6 class="form-section-title">Email Address <span style="color: #ff0000">*</span></h6>
-      {% include 'help_and_support/input.html.twig' with { 'name': 'email', 'value': app.user.email|default(null) } %}
+      {% include 'help_and_support/input.html.twig' with { 'name': 'email', 'value': app.user.email|default(null), 'type': 'email' } %}
       <div class="helper-text">Please enter a valid email address. Otherwise we will not be able to reach you.</div>
     </div>
 
