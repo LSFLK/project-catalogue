@@ -15,9 +15,11 @@ class ViewProjectController extends AbstractController
     public function index($id): Response
     {
         $project = $this->getDoctrine()->getRepository(Project::class)->find($id);
+        $is_owner = $project->getOwner() === $this->getUser();
         
         return $this->render('view_project/index.html.twig', [
             'project' => $project,
+            'is_owner' => $is_owner,
             'dir' => $this->getParameter('public_confirmed_dir')
         ]);
     }

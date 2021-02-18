@@ -27,15 +27,19 @@
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') and disable_sensitive_actions is not defined %}
       <div class="action-row">
-        <a href="{{ path('edit_project', { id: id }) }}" class="button">
-          <i class="fas fa-edit"></i>
-          <div>Edit</div>
-        </a>
+        {% if is_owner %}
+          <a href="{{ path('edit_project', { id: id }) }}" class="button">
+            <i class="fas fa-edit"></i>
+            <div>Edit</div>
+          </a>
+        {% endif %}
 
-        <a href="{{ path('project_settings', { id: id }) }}" class="button">
-          <i class="fas fa-cog"></i>
-          <div>Settings</div>
-        </a>
+        {% if is_owner %}
+          <a href="{{ path('project_settings', { id: id }) }}" class="button">
+            <i class="fas fa-cog"></i>
+            <div>Settings</div>
+          </a>
+        {% endif %}
       </div>
     {% endif %}
   </div>
