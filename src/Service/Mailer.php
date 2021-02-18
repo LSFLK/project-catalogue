@@ -19,10 +19,13 @@ class Mailer
         $email = (new TemplatedEmail())
             ->from($_ENV['MAILER_EMAIL'])
             ->to($_ENV['MAILER_EMAIL'])
-            ->replyTo($data['replyTo'])
             ->subject($data['subject'])
             ->htmlTemplate($data['htmlTemplate'])
             ->context($data['context']);
+
+        if(isset($data['replyTo'])) {
+            $email -> replyTo($data['replyTo']);
+        }
 
         $this->mailer->send($email);
     }

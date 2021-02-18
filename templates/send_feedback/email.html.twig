@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  {% apply inline_css(source('@css/send_feedback/email.css')) %}
+    <div class="email-container">
+      <div class="email-title">Feedback</div>
+
+      <div style="padding: 0px 10px;">
+        <div class="email-info">
+            <div class="user-type">{{ user_type }}</div>
+        </div>
+
+        <div class="email-body">
+            <p class="feedback">{{ feedback }}</p>
+        </div>
+      </div>
+    </div>
+  {% endapply %}
+
+{% endblock %}
