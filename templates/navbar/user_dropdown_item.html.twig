@@ -1,19 +1,16 @@
-{% block body %}
+{% if data_target is defined %}
 
-  {% if data_target is defined %}
+  <a data-toggle="modal" data-target="{{ data_target }}" class="user-dropdown-item" {% if target is defined %}target="{{ target }}"{% endif %}>
+    <i class="{{ icon }}"></i>
+    <div>{{ name }}</div>
+  </a>
 
-    <a data-toggle="modal" data-target="{{ data_target }}" class="user-dropdown-item" {% if target is defined %}target="{{ target }}"{% endif %}>
-      <i class="{{ icon }}"></i>
-      <div>{{ name }}</div>
-    </a>
+{% else %}
 
-  {% else %}
+  <a href="{{ path }}" class="user-dropdown-item" {% if target is defined %}target="{{ target }}"{% endif %}>
+    <i class="{{ icon }}"></i>
+    <div>{{ name }}</div>
+  </a>
 
-    <a href="{{ path }}" class="user-dropdown-item" {% if target is defined %}target="{{ target }}"{% endif %}>
-      <i class="{{ icon }}"></i>
-      <div>{{ name }}</div>
-    </a>
+{% endif %}
 
-  {% endif %}
-
-{% endblock %}

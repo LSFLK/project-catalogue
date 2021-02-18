@@ -3,8 +3,6 @@
 {% set project_logo = project.getProjectLogo %}
 {% set objective = project.getObjective %}
 
-{% block body %}
-
   <a class="col-lg-4 col-sm-6 project-card" href="{{ path('view_project', { id: id }) }}">
     <div class="card">
       <div class="header">
@@ -29,5 +27,3 @@
       </div>
     </div>
   </a>
-
-{% endblock %}
