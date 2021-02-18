@@ -1,0 +1,22 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    left: 0;
+    bottom: 0;
+    height: 70px;
+    width: 100%;
+    background-color: #262626;
+    color: #cccccc;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 600;
+    padding-left: 70px;
+    padding-right: 70px;
+}
+
+.footer img {
+    height: 50px;
+    object-fit: contain;
+}
