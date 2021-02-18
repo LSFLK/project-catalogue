@@ -28,10 +28,14 @@
         {% endblock %}
     </head>
 
-    <header>{% block header %}{% endblock %}</header>
+    
 
     <body>
+        <header>{% block header %}{% endblock %}</header>
+
         <main>{% block body %}{% endblock %}</main>
+
+        <footer>{% block footer %}{% endblock %}</footer>
         
         {% block javascripts %}
             <!-- JQuery -->
@@ -45,5 +49,5 @@
         {% endblock %}
     </body>
 
-    <footer>{% block footer %}{% endblock %}</footer>
+    
 </html>
