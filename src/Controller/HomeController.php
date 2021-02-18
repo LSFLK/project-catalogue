@@ -13,6 +13,6 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->redirectToRoute('projects');
+        return $this->render('home/index.html.twig');
     }
 }

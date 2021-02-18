@@ -3,5 +3,134 @@
 {% block title %}Project Catalogue{% endblock %}
 
 {% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/home/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/home/aos.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/home/token.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/home/counter.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/home/card.css') }}" rel="stylesheet"/>
+
+  <section id="welcome">
+    <div class="welcome-container" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Welcome to OSPC</h1>
+      <h2>Explore the value of open source projects and the resources in Sri Lanka</h2>
+      <a href="{{ path('projects') }}" class="btn">Explore Projects</a>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about">
+      <div class="container" data-aos="fade-up">
+        <div class="row about-container">
+
+          <div class="col-lg-6 content order-lg-1 order-2">
+            <h2 class="title">Few Words About Platform</h2>
+            <p>The main objectives of the Open Source Project Catalogue are to support open-source projects and grow the community.</p>
+
+            {{ include('home/token.html.twig', {
+                'icon': 'fas fa-book-open',
+                'title': "Up-to-date catalogue",
+                'description': "Maintains an up-to-date catalogue of all open source projects which are undertaken by Sri Lankan or Sri Lanka-based organizations, Sri Lankan Software Engineers and resources."
+            }) }}
+
+            {{ include('home/token.html.twig', {
+                'icon': 'fas fa-search',
+                'title': "Volunteers search",
+                'description': "Helps volunteers search for opportunities to contribute to projects. So they can be of help to other open source projects as well."
+            }) }}
+
+            {{ include('home/token.html.twig', {
+                'icon': 'fas fa-users',
+                'title': "Up-to-date register",
+                'description': "Maintains an up-to-date register of volunteers / contributors and their expertise areas which can be searched / filtered by various ways."
+            }) }}
+
+          </div>
+
+          <div class="col-lg-6 background order-lg-2 order-1" data-aos="fade-left" data-aos-delay="100"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Facts Section ======= -->
+    <section id="facts">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h3 class="section-title">Facts</h3>
+          <p class="section-description">We’ve always used open source to innovate. We want to give something back. We enjoy being a part of the community.</p>
+        </div>
+        <div class="row counters">
+          
+          {{ include('home/counter.html.twig', { 'name': 'Projects', 'value': 232 }) }}
+          {{ include('home/counter.html.twig', { 'name': 'Users', 'value': 864 }) }}
+          {{ include('home/counter.html.twig', { 'name': 'Volunteers', 'value': 523 }) }}
+          {{ include('home/counter.html.twig', { 'name': 'Expertise Areas', 'value': 50 }) }}
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Services Section ======= -->
+    <section id="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h3 class="section-title">Everyone Benefits</h3>
+          <p class="section-description">Open source is good for everyone. By being open and freely available, it enables and encourages collaboration and the development of technology, solving real world problems</p>
+        </div>
+        <div class="row">
+          {{ include('home/card.html.twig', {
+            'icon': 'fas fa-code',
+            'title': "Use",
+            'description': "Thousands of open source projects to build scalable and reliable products."
+          }) }}
+
+          {{ include('home/card.html.twig', {
+            'icon': 'fas fa-expand-arrows-alt',
+            'title': "Release",
+            'description': "Millions of lines of code under open source licenses for others to use."
+          }) }}
+
+          {{ include('home/card.html.twig', {
+            'icon': 'fas fa-hands-helping',
+            'title': "Support",
+            'description': "Healthy ecosystem is important for the sustainability of open source for all."
+          }) }}
+          
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Call To Action Section ======= -->
+    <section id="call-to-action">
+      <div class="container">
+        <div class="row" data-aos="zoom-in">
+          <div class="col-lg-9 text-center text-lg-start">
+            <h3 class="cta-title">Contact Us</h3>
+            <p class="cta-text">Feel free to connect with us for any inquiries. Our team can help and support you always.</p>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" href="{{ path('help_and_support') }}">Help & Support</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></a>
+
+  
+  <script src="{{ asset('js/home/aos.js') }}"></script>
+  <script src="{{ asset('js/home/glightbox.min.js') }}"></script>
+  <script src="{{ asset('js/home/purecounter.js') }}"></script>
+  <script src="{{ asset('js/home/swiper-bundle.min.js') }}"></script>
+
+  <script src="{{ asset('js/home/index.js') }}"></script>
 
 {% endblock %}

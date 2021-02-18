@@ -21,6 +21,7 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
+        {{ include('navbar/nav_item.html.twig', { 'name': 'Home', 'path': path('home') }) }}
         {{ include('navbar/nav_item.html.twig', { 'name': 'Projects', 'path': path('projects') }) }}
         {{ include('navbar/nav_item.html.twig', { 'name': 'About', 'path': path('projects') }) }}
 
