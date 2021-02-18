@@ -196,16 +196,14 @@
     </div>
   </form>
 
-  {% block javascripts %}
-    <script src="{{ asset('js/register_project/index.js') }}"></script>
-    <script src="{{ asset('js/register_project/project_name.js') }}"></script>
-    <script src="{{ asset('js/register_project/dropdown.js') }}"></script>
-    <script src="{{ asset('js/register_project/dynamic_input.js') }}"></script>
-    <script src="{{ asset('js/register_project/file_upload.js') }}"></script>
-    <script src="{{ asset('lib/pdf-thumbnail/pdf.js') }}"></script>
-    <script src="{{ asset('lib/pdf-thumbnail/pdf.worker.js') }}"></script>
-    <script src="{{ asset('lib/pdf-thumbnail/index.js') }}"></script>
-  {% endblock %}
+  <script src="{{ asset('js/register_project/index.js') }}"></script>
+  <script src="{{ asset('js/register_project/project_name.js') }}"></script>
+  <script src="{{ asset('js/register_project/dropdown.js') }}"></script>
+  <script src="{{ asset('js/register_project/dynamic_input.js') }}"></script>
+  <script src="{{ asset('js/register_project/file_upload.js') }}"></script>
+  <script src="{{ asset('lib/pdf-thumbnail/pdf.js') }}"></script>
+  <script src="{{ asset('lib/pdf-thumbnail/pdf.worker.js') }}"></script>
+  <script src="{{ asset('lib/pdf-thumbnail/index.js') }}"></script>
 
   <script>
     initiallizeDropdown('domain_expertise')
