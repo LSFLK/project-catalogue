@@ -38,6 +38,10 @@
         {{ include('projects/card.html.twig') }}
       {% endfor %}
     </div>
+
+    {% if not projects|length %}
+      <div class="no-projects">No projects to display</div>
+    {% endif %}
   </div>
 
   <script src="{{ asset('js/projects/dropdown.js') }}"></script>

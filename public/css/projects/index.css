@@ -92,3 +92,15 @@
     background-color: #4d4d4d;
     padding: 30px;
 }
+
+.no-projects {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat';
+    font-size: 20px;
+    font-weight: 500;
+    color: #bfbfbf;
+    height: 300px;
+}
