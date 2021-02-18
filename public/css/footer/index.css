@@ -3,18 +3,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    left: 0;
-    bottom: 0;
-    height: 70px;
-    width: 100%;
-    background-color: #262626;
     color: #cccccc;
     font-family: 'Montserrat';
     font-size: 14px;
     font-weight: 500;
-    padding-left: 60px;
-    padding-right: 70px;
-    margin-top: auto; 
+    margin-top: auto;
 }
 
 .footer a {
@@ -27,4 +20,14 @@
 .footer img {
     height: 40px;
     object-fit: contain;
+}
+
+.footer .copyright {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.footer .logo {
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -10,13 +10,16 @@
 }
 
 .container {
+    font-family: 'Montserrat';
+    color: #404040;
+    font-weight: 400;
+}
+
+.row .container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    font-family: 'Montserrat';
-    color: #404040;
-    font-weight: 400;
 }
 
 .project-image {

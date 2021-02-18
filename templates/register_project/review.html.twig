@@ -4,7 +4,7 @@
 
 {% block submit %}
 
-  <div>
+  <div style="margin-top: auto;">
     <form id="project_token" action="{{ path('create_project') }}" method="POST">
       <input type="hidden" name="project_token" value="{{ project_token }}"/>
     </form>

@@ -86,13 +86,6 @@
     text-align: center;
 }
 
-.footer {
-    position: relative;
-    width: 100%;
-    background-color: #4d4d4d;
-    padding: 30px;
-}
-
 .no-projects {
     display: flex;
     flex-direction: column;
