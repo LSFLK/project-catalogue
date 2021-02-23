@@ -58,6 +58,10 @@
     border-radius: 8px 8px 8px 8px;
 }
 
+.project-cards-container {
+    margin-bottom: 50px;
+}
+
 .search-results-count {
     display: flex;
     flex-direction: row;
