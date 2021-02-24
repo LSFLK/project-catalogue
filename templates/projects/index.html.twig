@@ -40,7 +40,7 @@
     </div>
 
     <div class="no-projects-container">
-      <div id="no-projects" class="no-projects">No projects to display</div>
+      <div id="no-projects" class="no-projects" style="display: {% if projects|length %}none{% else %}inline{% endif %}">No projects to display</div>
     </div>
   </div>
 
