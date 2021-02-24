@@ -16,20 +16,20 @@
 
       <div class="dropdown-section-separator"></div>
 
-      {{ include('navbar/user_dropdown_item.html.twig', {
+      {{ include('navbar/dropdown_item.html.twig', {
         'icon': 'fab fa-dev',
         'name': 'My Projects',
         'path': path('my_projects')
       }) }}
 
-      {{ include('navbar/user_dropdown_item.html.twig', {
+      {{ include('navbar/dropdown_item.html.twig', {
         'icon': 'fas fa-plus-square',
         'name': 'Register New Project',
         'path': path('register_project'),
         'target': '_blank'
       }) }}
 
-      {{ include('navbar/user_dropdown_item.html.twig', {
+      {{ include('navbar/dropdown_item.html.twig', {
         'icon': 'fas fa-sign-out-alt',
         'name': 'Sign out',
         'path': path('signout')
@@ -37,13 +37,13 @@
 
       <div class="dropdown-section-separator"></div>
 
-      {{ include('navbar/user_dropdown_item.html.twig', {
+      {{ include('navbar/dropdown_item.html.twig', {
         'icon': 'fas fa-question-circle',
         'name': 'Help & Support',
         'path': path('help_and_support')
       }) }}
 
-      {{ include('navbar/user_dropdown_item.html.twig', {
+      {{ include('navbar/dropdown_item.html.twig', {
         'icon': 'fas fa-comment',
         'name': 'Send feedback',
         'data_target': '#send_feedback'

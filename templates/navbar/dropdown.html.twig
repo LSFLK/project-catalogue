@@ -2,13 +2,13 @@
 
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-      {{ include('navbar/user_dropdown_item.html.twig', {
+      {{ include('navbar/dropdown_item.html.twig', {
         'icon': 'fas fa-question-circle',
         'name': 'Help & Support',
         'path': path('help_and_support')
       }) }}
 
-      {{ include('navbar/user_dropdown_item.html.twig', {
+      {{ include('navbar/dropdown_item.html.twig', {
         'icon': 'fas fa-comment',
         'name': 'Send feedback',
         'data_target': '#send_feedback'
