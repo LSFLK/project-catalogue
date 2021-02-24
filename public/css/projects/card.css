@@ -49,6 +49,7 @@
 .card-title {
   font-weight: 500;
   color: #1a1a1a;
+  margin-left: -10px;
 }
 
 .card-icon {
@@ -58,6 +59,7 @@
   z-index: 5;
   margin-left: 10px;
   margin-top: -15px;
+  margin-right: -10px;
 }
 
 .card:hover .card-icon {
