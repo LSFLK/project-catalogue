@@ -2,7 +2,7 @@ body {
     background-color: #e6e6e650;
 }
 
-.container {
+main .container {
     display: flex;
     flex-direction: column;
     justify-content: center;

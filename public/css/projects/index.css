@@ -81,7 +81,7 @@
     font-weight: 600;
 }
 
-.container .btn-text {
+main .container .btn-text {
     font-family: 'Montserrat';
     font-size: 14px;
     color: #0066ff;
@@ -90,11 +90,14 @@
     text-align: center;
 }
 
-.no-projects {
+.no-projects-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.no-projects {
     font-family: 'Montserrat';
     font-size: 20px;
     font-weight: 500;

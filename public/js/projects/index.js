@@ -1,10 +1,6 @@
 const noProjectsLabel = document.getElementById('no-projects');
 
-function handleNoProjectsLabel() {
-    const projects = "{{ projects }}";
-
+function handleNoProjectsLabel(projects) {
     if(projects.length) { noProjectsLabel.style.display = "none" }
-    else { noProjectsLabel.style.display = "inline-block" }
+    else { noProjectsLabel.style.display = "inline" }
 }
-
-window.onLoad = function() { handleNoProjectsLabel() };

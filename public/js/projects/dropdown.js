@@ -85,6 +85,8 @@ function initiallizeDropdown (elementID) {
     const renderProjectCards = (projects) => {
       container.innerHTML = null;
 
+      handleNoProjectsLabel(projects);
+
       projects.forEach(project => {
         const cardTemplate = document.createElement("DIV");
         cardTemplate.innerHTML = project;
