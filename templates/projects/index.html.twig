@@ -39,11 +39,10 @@
       {% endfor %}
     </div>
 
-    {% if not projects|length %}
-      <div class="no-projects">No projects to display</div>
-    {% endif %}
+    <div id="no-projects" class="no-projects">No projects to display</div>
   </div>
 
+  <script src="{{ asset('js/projects/index.js') }}"></script>
   <script src="{{ asset('js/projects/dropdown.js') }}"></script>
   <script src="{{ asset('js/projects/search.js') }}"></script>
 
