@@ -31,6 +31,13 @@ class TechnicalExpertiseRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getTechnicalExpertiseCount() {
+        return $this->createQueryBuilder('t')
+                    ->select('count(t.id)')
+                    ->getQuery()
+                    ->getSingleScalarResult();
+    }
+
     // /**
     //  * @return TechnicalExpertise[] Returns an array of TechnicalExpertise objects
     //  */

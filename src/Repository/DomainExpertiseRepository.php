@@ -31,6 +31,13 @@ class DomainExpertiseRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getDomainExpertiseCount() {
+        return $this->createQueryBuilder('d')
+                    ->select('count(d.id)')
+                    ->getQuery()
+                    ->getSingleScalarResult();
+    }
+
     // /**
     //  * @return DomainExpertise[] Returns an array of DomainExpertise objects
     //  */

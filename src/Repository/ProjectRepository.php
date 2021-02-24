@@ -43,7 +43,6 @@ class ProjectRepository extends ServiceEntityRepository
         }
 
         return $queryBuilder->orderBy('p.name', 'ASC')
-                            ->setMaxResults(10)
                             ->getQuery()
                             ->getResult()
         ;
@@ -58,10 +57,16 @@ class ProjectRepository extends ServiceEntityRepository
                     ->where('p.name LIKE :n')
                     ->setParameter('n', '%'.$name.'%')
                     ->orderBy('p.name', 'ASC')
-                    ->setMaxResults(10)
                     ->getQuery()
                     ->getResult()
         ;
+    }
+
+    public function getProjectsCount() {
+        return $this->createQueryBuilder('p')
+                    ->select('count(p.id)')
+                    ->getQuery()
+                    ->getSingleScalarResult();
     }
 
     // /**
