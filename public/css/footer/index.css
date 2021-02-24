@@ -1,3 +1,17 @@
+footer {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    left: 0;
+    bottom: 0;
+    height: 70px;
+    width: 100%;
+    background-color: #262626;
+}
+
 .footer {
     display: flex;
     flex-direction: row;
