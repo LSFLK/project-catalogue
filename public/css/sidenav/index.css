@@ -34,13 +34,3 @@
     border-color: #404040;
     margin: 5px 10px;
 }
-
-main {
-    -webkit-transition: all 0.6s ease;
-    transition: all 0.6s ease;
-    -webkit-filter: blur(10px);
-    filter: blur(10px);
-    -webkit-filter: url(#blur);
-            filter: url(#blur);
-    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='10');
-}
