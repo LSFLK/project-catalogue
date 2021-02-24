@@ -1,4 +1,4 @@
-function validateProjectName() {
+function validateProjectName(projectName) {
     const input = document.getElementById('name');
     const helper = document.getElementById('name-helper');
     const helperText = helper.textContent;
@@ -40,5 +40,19 @@ function validateProjectName() {
         return $.get('/projects/validate?name=' + name, function(result){
             return result;
         });
+    }
+
+    const currentValue = input.value.trim();
+
+    if(currentValue && projectName && currentValue == projectName) {
+        helper.textContent = helperText;
+        helper.classList.remove('error');
+        validity.name = true;
+        validIcon.style.display = 'block';
+        invalidIcon.style.display = 'none';
+        return true;
+    }
+    else {
+        return false;
     }
 }
