@@ -1,0 +1,29 @@
+<!-- Custom styles for this template -->
+<link href="{{ asset('css/sidenav/index.css') }}" rel="stylesheet"/>
+
+<div id="sidenav" class="sidenav">
+
+  {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+    <a href="{{ path('signin')}}">
+      <div class="nav-link-signin">
+        <i class="fas fa-user-circle signin-user-icon" style="margin-right: 10px"></i>
+        <div>Sign in</div>
+      </div>
+    </a>
+
+    <div class="sidenav-section-separator"></div>
+  {% endif %}
+
+  <a href="{{ path('home') }}">Home</a>
+  <a href="{{ path('projects') }}">Projects</a>
+  <a href="{{ path('projects') }}">About</a>
+
+  {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="sidenav-section-separator"></div>
+
+    <a href="{{ path('help_and_support') }}">Help & Support</a>
+    <a data-toggle="modal" data-target="#send_feedback">Send feedback</a>
+  {% endif %}
+</div>
+
+<script src="{{ asset('js/sidenav/index.js') }}"></script>

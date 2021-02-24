@@ -13,11 +13,15 @@
       <div class="name">Open Source Project Catalogue</div>
     </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="navbar-toggler" style="margin-right: -40px; margin-left: -50px">
+      {{ include('navbar/user.html.twig', { 'toggle': true }) }}
+    </div>
+
+    <button class="navbar-toggler" type="button" onclick="toggleSidenav()">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
         {{ include('navbar/nav_item.html.twig', { 'name': 'Home', 'path': path('home') }) }}
         {{ include('navbar/nav_item.html.twig', { 'name': 'Projects', 'path': path('projects') }) }}
@@ -37,8 +41,8 @@
         {{ include('navbar/user.html.twig') }}
       </ul>
     </div>
-
   </nav>
 
+  {{ include('sidenav/index.html.twig') }}
   {{ include('send_feedback/index.html.twig') }}
 {% endblock %}

@@ -1,0 +1,46 @@
+.sidenav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 50;
+    right: 0;
+    background-color: #111111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    color: #f2f2f2 !important;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    font-weight: 500;
+    text-align: right;
+    padding-top: 5px;
+}
+
+.sidenav a {
+    padding: 10px 20px;
+    margin: 0px 10px;
+    color: #f2f2f2 !important;
+}
+
+.sidenav a:hover {
+    background-color: #262626 !important;
+}
+
+.sidenav-section-separator {
+    border-top-style: solid;
+    border-width: 1.5px;
+    border-color: #404040;
+    margin: 5px 10px;
+}
+
+main {
+    -webkit-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+    -webkit-filter: url(#blur);
+            filter: url(#blur);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='10');
+}
