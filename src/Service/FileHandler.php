@@ -52,4 +52,11 @@ class FileHandler
 
         $this->filesystem->remove($pathToFile);
     }
+
+    public function copyFileToTempDirectoryFromConfirmedDirectory(string $fileName) {
+        $pathToFileInConfirmedDirectory =  $this->confirmed_dir.$fileName;
+        $pathToFileInTempDirectory = $this->temp_dir.$fileName;
+
+        $this->filesystem->copy($pathToFileInConfirmedDirectory, $pathToFileInTempDirectory, true);
+    }
 }

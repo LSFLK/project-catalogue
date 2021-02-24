@@ -185,6 +185,7 @@
             <img id="project_logo_preview" class="preview" src="{{ project_logo }}" />
           {% else %}
             <img id="project_logo_preview" class="preview" src="{{ asset(project_logo|default('img/no-image-preview.png')) }}" />
+            <input id="project_logo_previously_uploaded" name="project_logo_previously_uploaded" type="hidden" value="{{ project.getProjectLogo }}">
           {% endif %}
           <div id="project_logo_remove" class="remove-file" onclick="clearInput('project_logo')" style="display: {% if project_logo is defined and 'http' not in project_logo %}flex{% else %}none{% endif %}">Remove</div>
         </div>

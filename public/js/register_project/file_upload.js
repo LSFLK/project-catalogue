@@ -10,24 +10,26 @@ function readImage(input) {
   
 
 function clearInput(inputID) {
-    const element = document.getElementById(inputID);
+    const currentInput = document.getElementById(inputID);
     const newInput = document.createElement('input');
+    const previouslyUploaded = document.getElementById(inputID + '_previously_uploaded');
 
     newInput.setAttribute('id', inputID);
     newInput.setAttribute('name', inputID);
     newInput.setAttribute('type', 'file');
     newInput.setAttribute('class', 'custom-file-input');
-    newInput.setAttribute('accept', element.accept);
+    newInput.setAttribute('accept', currentInput.accept);
     
-    element.parentNode.replaceChild(newInput, element);
+    previouslyUploaded && previouslyUploaded.parentNode.removeChild(previouslyUploaded);
+    currentInput.parentNode.replaceChild(newInput, currentInput);
     document.getElementById(inputID + '_label').innerHTML = 'Choose file';
 
-    if(element.accept == '.png') {
+    if(currentInput.accept == '.png') {
       newInput.setAttribute('onchange', 'readImage(this)');
       document.getElementById(inputID + '_remove').style.display = 'none';
       loadNoImagePreview(inputID);
     }
-    else if(element.accept == '.pdf') {
+    else if(currentInput.accept == '.pdf') {
       initiallizePdfPreview(inputID);
       document.getElementById(inputID + '_preview').style.display = 'none';
       document.getElementById(inputID + '_preview_default').style.display = 'inline-block';
