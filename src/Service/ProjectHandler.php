@@ -140,7 +140,7 @@ class ProjectHandler
         if ($project_logo = $files ? $files->get('project_logo') : null) {
             $project->setProjectLogo($this->fileHandler->upload($project_logo));
         }
-        else if ($project_logo_previously_uploaded = $data->get('project_logo_previously_uploaded')) {
+        else if ($project_logo_previously_uploaded = $data->get('project_logo_previously_uploaded') && !filter_var($data->get('project_logo_previously_uploaded'), FILTER_VALIDATE_URL)) {
             $this->fileHandler->copyFileToTempDirectoryFromConfirmedDirectory($project_logo_previously_uploaded);
             $project->setProjectLogo($project_logo_previously_uploaded);
         }

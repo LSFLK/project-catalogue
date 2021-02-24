@@ -66,5 +66,5 @@ function initiallizePdfPreview(fileInputID, loadCurrentFilePreview = false) {
 
     const currentPDF = document.querySelector(previewCanvasID).getAttribute('pdf');
 
-    if(loadCurrentFilePreview && currentPDF) { showPDF(currentPDF) }
+    if(loadCurrentFilePreview && currentPDF) { showPDF(window.location.origin + '/' + currentPDF) }
 }

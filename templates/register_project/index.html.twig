@@ -171,7 +171,7 @@
             <label id="project_data_file_label" class="custom-file-label form-control-sm">Choose file</label>
           </div>
           <img id="project_data_file_preview_default" class="preview" src="{{ asset('img/no-document-preview.png') }}" />
-          <canvas id="project_data_file_preview" class="preview file" pdf="{{ project.getProjectDataFile|default(null) }}" style="display:none"></canvas>
+          <canvas id="project_data_file_preview" class="preview file" pdf="{{ project_data_file|default(null) }}" style="display:none"></canvas>
           <div id="project_data_file_remove" class="remove-file" onclick="clearInput('project_data_file')" style="display: none">Remove</div>
           <input id="project_data_file_previously_uploaded" name="project_data_file_previously_uploaded" type="hidden" value="{{ project.getProjectDataFile|default(null) }}">
         </div>
