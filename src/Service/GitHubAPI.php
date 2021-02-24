@@ -51,7 +51,7 @@ class GitHubAPI
     {
         $license = isset($this->gitHubInformation['license']) ? $this->gitHubInformation['license'] : null;
         $licenseName = isset($license['name']) ? $license['name'] : 'N/A';
-        return $licenseName;
+        return str_replace('"', "'", $licenseName);
     }
 
     public function getStarsCount()
