@@ -1,4 +1,4 @@
-const registerProjectForm = document.getElementsByTagName('form')[0];
+const registerProjectForm = document.getElementById('registerProjectForm');
 
 
 const requiredErrorText = {
@@ -48,6 +48,7 @@ handleOnSelectDropdownOption('technical_expertise');
 
 
 registerProjectForm.addEventListener('submit', function (event) {
+    console.log("OK")
     var focusInvalidInput = null;
     
     for(var input in validity) {
