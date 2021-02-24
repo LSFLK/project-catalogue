@@ -132,6 +132,10 @@ class ProjectHandler
         if ($project_data_file = $files ? $files->get('project_data_file') : null) {
             $project->setProjectDataFile($this->fileHandler->upload($project_data_file));
         }
+        else if ($project_data_file_previously_uploaded = $data->get('project_data_file_previously_uploaded')) {
+            $this->fileHandler->copyFileToTempDirectoryFromConfirmedDirectory($project_data_file_previously_uploaded);
+            $project->setProjectDataFile($project_data_file_previously_uploaded);
+        }
 
         if ($project_logo = $files ? $files->get('project_logo') : null) {
             $project->setProjectLogo($this->fileHandler->upload($project_logo));
