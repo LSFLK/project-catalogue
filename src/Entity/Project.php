@@ -116,6 +116,11 @@ class Project
      */
     private $owner;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Contributor::class, inversedBy="projects", cascade={"persist"})
+     */
+    private $contributor;
+
     public function __construct()
     {
         $this->git_repo = new ArrayCollection();
@@ -123,6 +128,7 @@ class Project
         $this->more_info = new ArrayCollection();
         $this->programming_language = new ArrayCollection();
         $this->topic = new ArrayCollection();
+        $this->contributor = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -408,6 +414,30 @@ class Project
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contributor[]
+     */
+    public function getContributor(): Collection
+    {
+        return $this->contributor;
+    }
+
+    public function addContributor(Contributor $contributor): self
+    {
+        if (!$this->contributor->contains($contributor)) {
+            $this->contributor[] = $contributor;
+        }
+
+        return $this;
+    }
+
+    public function removeContributor(Contributor $contributor): self
+    {
+        $this->contributor->removeElement($contributor);
 
         return $this;
     }

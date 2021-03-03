@@ -10,6 +10,7 @@ use App\Entity\MailingList;
 use App\Entity\MoreInfo;
 use App\Entity\ProgrammingLanguage;
 use App\Entity\Topic;
+use App\Entity\Contributor;
 use App\Service\GitHubAPI;
 use App\Service\FileHandler;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +39,7 @@ class ProjectHandler
         $technicalExpertiseRepository = $this->entityManager->getRepository(TechnicalExpertise::class);
         $programmingLanguageRepository = $this->entityManager->getRepository(ProgrammingLanguage::class);
         $topicRepository = $this->entityManager->getRepository(Topic::class);
+        $contributorRepository = $this->entityManager->getRepository(Contributor::class);
 
         $data = $request->request;
         $files = $request->files;
@@ -59,6 +61,7 @@ class ProjectHandler
 
         $languages = [];
         $topics = [];
+        $contributors = [];
         $avatar_url = null;
         $git_repo_names = array_filter($data->get('git_repo_names'));
         $git_repo_urls  = array_filter($data->get('git_repo_urls'));
@@ -79,6 +82,7 @@ class ProjectHandler
 
             $languages = array_merge($languages, $gitHubApi->getLanguages());
             $topics = array_merge($topics, $gitHubApi->getTopics());
+            $contributors = array_merge($contributors, $gitHubApi->getContributors());
             if(!$avatar_url) { $avatar_url = $gitHubApi->getAvatarUrl(); }
         }
 
@@ -105,6 +109,11 @@ class ProjectHandler
             }
 
             $project->addTopic($projectTopic);
+        }
+
+        foreach ($contributors as $contributorData) {
+            $contributor = $contributorRepository->findOneOrCreateIfNotExist($contributorData);
+            $project->addContributor($contributor);
         }
 
         $mailing_list_names = array_filter($data->get('mailing_list_names'));
@@ -215,12 +224,14 @@ class ProjectHandler
         $project = $this->_compareAndUpdate($project, $data, 'MoreInfo', 'Url', ['Name', 'Url']);
         $project = $this->_compareAndUpdate($project, $data, 'ProgrammingLanguage', 'Name', ['Name']);
         $project = $this->_compareAndUpdate($project, $data, 'Topic', 'Name', ['Name']);
+        $project = $this->_compareAndUpdate($project, $data, 'Contributor', 'Login', ['Login', 'AvatarUrl']);
 
         $project = $this->_removeUnwantedRelations($project, $data, 'GitRepo', 'Url');
         $project = $this->_removeUnwantedRelations($project, $data, 'MailingList', 'Url');
         $project = $this->_removeUnwantedRelations($project, $data, 'MoreInfo', 'Url');
         $project = $this->_removeUnwantedRelations($project, $data, 'ProgrammingLanguage', 'Name');
         $project = $this->_removeUnwantedRelations($project, $data, 'Topic', 'Name');
+        $project = $this->_removeUnwantedRelations($project, $data, 'Contributor', 'Login');
 
         $this->entityManager->persist($project);
         $this->entityManager->flush();

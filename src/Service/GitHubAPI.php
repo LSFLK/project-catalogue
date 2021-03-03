@@ -92,6 +92,14 @@ class GitHubAPI
         return $avatar_url;
     }
 
+    public function getContributors(): array
+    {
+        $contributorsUrl = isset($this->gitHubInformation['contributors_url']) ? $this->gitHubInformation['contributors_url'] : null;
+        
+        if($contributorsUrl) { return $this->_fetchContent($contributorsUrl); }
+        return [];
+    }
+
     public function getGitRepoRequiredData(): array
     {
         $gitRepoRequiredData = [
