@@ -89,26 +89,14 @@ class ProjectHandler
         $languages  = array_unique($languages);
         $topics = array_unique($topics);
 
-        foreach ($languages as $language) {
-            $programmingLanguage = $programmingLanguageRepository->findOneBy(['name' => $language]);
-
-            if(!$programmingLanguage) {
-                $programmingLanguage = new ProgrammingLanguage();
-                $programmingLanguage->setName($language);
-            }
-
+        foreach ($languages as $languageName) {
+            $programmingLanguage = $programmingLanguageRepository->findOneOrCreateIfNotExist($languageName);
             $project->addProgrammingLanguage($programmingLanguage);
         }
 
-        foreach ($topics as $topic) {
-            $projectTopic = $topicRepository->findOneBy(['name' => $topic]);
-
-            if(!$projectTopic) {
-                $projectTopic = new Topic();
-                $projectTopic->setName($topic);
-            }
-
-            $project->addTopic($projectTopic);
+        foreach ($topics as $topicName) {
+            $topic = $topicRepository->findOneOrCreateIfNotExist($topicName);
+            $project->addTopic($topic);
         }
 
         foreach ($contributors as $contributorData) {

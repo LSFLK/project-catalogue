@@ -31,6 +31,20 @@ class ProgrammingLanguageRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return ProgrammingLanguage Returns a ProgrammingLanguage object
+     */
+    public function findOneOrCreateIfNotExist($languageName) {
+        $programmingLanguage = $this->findOneBy(['name' => $languageName]);
+
+        if(!$programmingLanguage) {
+            $programmingLanguage = new ProgrammingLanguage();
+            $programmingLanguage->setName($languageName);
+        }
+
+        return $programmingLanguage;
+    }
+
     // /**
     //  * @return ProgrammingLanguage[] Returns an array of ProgrammingLanguage objects
     //  */

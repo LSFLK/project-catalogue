@@ -19,6 +19,9 @@ class ContributorRepository extends ServiceEntityRepository
         parent::__construct($registry, Contributor::class);
     }
 
+    /**
+     * @return Contributor Returns a Contributor object
+     */
     public function findOneOrCreateIfNotExist($contributorData)
     {
         $contributor = $this->findOneBy(['login' => $contributorData['login']]);

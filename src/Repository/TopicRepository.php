@@ -19,6 +19,20 @@ class TopicRepository extends ServiceEntityRepository
         parent::__construct($registry, Topic::class);
     }
 
+    /**
+     * @return Topic Returns a Topic object
+     */
+    public function findOneOrCreateIfNotExist($topicName) {
+        $topic = $this->findOneBy(['name' => $topicName]);
+
+        if(!$topic) {
+            $topic = new Topic();
+            $topic->setName($topicName);
+        }
+
+        return $topic;
+    }
+
     // /**
     //  * @return Topic[] Returns an array of Topic objects
     //  */
