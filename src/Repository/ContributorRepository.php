@@ -28,6 +28,7 @@ class ContributorRepository extends ServiceEntityRepository
 
         if(!$contributor) {
             $contributor = new Contributor();
+            $contributor->setGithubId($contributorData['id']);
             $contributor->setLogin($contributorData['login']);
             $contributor->setAvatarUrl($contributorData['avatar_url']);
         }

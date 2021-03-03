@@ -22,6 +22,11 @@ class Contributor
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $github_id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $login;
 
     /**
@@ -42,6 +47,18 @@ class Contributor
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getGithubId(): ?string
+    {
+        return $this->github_id;
+    }
+
+    public function setGithubId(string $github_id): self
+    {
+        $this->github_id = $github_id;
+
+        return $this;
     }
 
     public function getLogin(): ?string

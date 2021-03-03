@@ -212,14 +212,14 @@ class ProjectHandler
         $project = $this->_compareAndUpdate($project, $data, 'MoreInfo', 'Url', ['Name', 'Url']);
         $project = $this->_compareAndUpdate($project, $data, 'ProgrammingLanguage', 'Name', ['Name']);
         $project = $this->_compareAndUpdate($project, $data, 'Topic', 'Name', ['Name']);
-        $project = $this->_compareAndUpdate($project, $data, 'Contributor', 'Login', ['Login', 'AvatarUrl']);
+        $project = $this->_compareAndUpdate($project, $data, 'Contributor', 'GithubId', ['GithubId', 'Login', 'AvatarUrl']);
 
         $project = $this->_removeUnwantedRelations($project, $data, 'GitRepo', 'Url');
         $project = $this->_removeUnwantedRelations($project, $data, 'MailingList', 'Url');
         $project = $this->_removeUnwantedRelations($project, $data, 'MoreInfo', 'Url');
         $project = $this->_removeUnwantedRelations($project, $data, 'ProgrammingLanguage', 'Name');
         $project = $this->_removeUnwantedRelations($project, $data, 'Topic', 'Name');
-        $project = $this->_removeUnwantedRelations($project, $data, 'Contributor', 'Login');
+        $project = $this->_removeUnwantedRelations($project, $data, 'Contributor', 'GithubId');
 
         $this->entityManager->persist($project);
         $this->entityManager->flush();
