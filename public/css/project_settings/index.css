@@ -13,7 +13,6 @@
 main .container {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
     font-family: 'Montserrat';
     color: #404040;
@@ -46,7 +45,7 @@ main .container {
 }
 
 .main-container {
-    flex-direction: column;
+    flex-direction: column !important;
     align-items: flex-start;
 }
 
