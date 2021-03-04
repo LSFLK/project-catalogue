@@ -102,8 +102,6 @@
             </div>
           {% endif %}
 
-          {% block submit %}{% endblock %}
-
           <div class="contributions-section">
             <div class="section-title">Want to contribute to this open source project?</div>
             <p>Checkout the open issues and current contrubutors here...</p>
@@ -121,6 +119,8 @@
               {% endfor %}
             </table>
           </div>
+
+          {% block submit %}{% endblock %}
         </div>
 
         <div style="margin-top: -35px; width: 100%">
