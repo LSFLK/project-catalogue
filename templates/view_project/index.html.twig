@@ -63,7 +63,7 @@
 
           {% if mailing_list|length %}
             <div class="section-title">Mailing List(s)</div>
-            <table class="mailing-lists">
+            <table>
               <tr>
                 <th class="table-header">List</th>
               </tr>
@@ -78,7 +78,7 @@
 
           {% if (bug_tracking is not empty) or (documentation is not empty) or (project_data_file is not empty) %}
             <div class="section-title">Other Details</div>
-            <table class="mailing-lists">
+            <table>
               {% if bug_tracking %}
                 <tr><td class="link"><a href="{{ bug_tracking }}" target="_blank">Bug Tracking</a></td></tr>
               {% endif %}
@@ -103,6 +103,24 @@
           {% endif %}
 
           {% block submit %}{% endblock %}
+
+          <div class="contributions-section">
+            <div class="section-title">Want to contribute to this open source project?</div>
+            <p>Checkout the open issues and current contrubutors here...</p>
+            <table style="margin-bottom: 0px;">
+              <tr>
+                <th class="table-header">Repo</th>
+              </tr>
+              {% for _git_repo in git_repo %}
+                {% set gitRepoUrl = _git_repo.getUrl %}
+                <tr>
+                  <td class="link"><a href="{{ gitRepoUrl }}" target="_blank">{{ _git_repo.getName }}</a></td>
+                  <td class="link"><a href="{{ gitRepoUrl ~ '/issues' }}" target="_blank">Issues</a></td>
+                  <td class="link"><a href="{{ gitRepoUrl ~ '/contributors' }}" target="_blank">Contributors</a></td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
         </div>
 
         <div style="margin-top: -35px; width: 100%">

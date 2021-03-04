@@ -86,16 +86,13 @@ table {
     width: 70%;
     margin-left: -3px;
     margin-bottom: 45px;
+    table-layout: auto;
+    width: 50%; 
 }
   
 td, th {
     text-align: left;
     padding: 5px;
-}
-
-table.mailing-lists {
-    table-layout: auto;
-    width: 50%;  
 }
 
 .table-header {
@@ -172,4 +169,11 @@ table.mailing-lists {
     font-family: 'Roboto';
     font-size: 13px;
     color: #0066ff;
+}
+
+.contributions-section {
+    border: 1px solid #cccccc;
+    padding: 15px;
+    border-radius: 3px;
+    margin-left: -15px;
 }
