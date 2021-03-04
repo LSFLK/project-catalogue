@@ -157,7 +157,9 @@
                   <img src="{{ _contributor.getAvatarUrl }}" title="{{ _contributor.getLogin }}">
                 </a>
               {% endfor %}
-              {% if contributor|length > 10 %}<span>+ more contributors</span>{% endif %}
+              {% if contributor|length > 10 %}
+                <span>+ {{ contributor|length - 10 }} contributors</span>
+              {% endif %}
             </div>
           {% endif %}
         </div>
