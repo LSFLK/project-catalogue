@@ -130,6 +130,18 @@
               {% endfor %}
             </div>
           {% endif %}
+
+          {% if contributor|length %}
+            <div class="title">CONTRIBUTORS</div>
+            <div class="info-container">
+              {% for _contributor in contributor|slice(0, 10) %}
+                <a class="contributor" href="{{ 'https://github.com/' ~ _contributor.getLogin }}" target="_blank">
+                  <img src="{{ _contributor.getAvatarUrl }}" title="{{ _contributor.getLogin }}">
+                </a>
+              {% endfor %}
+              {% if contributor|length > 10 %}<span>+ more contributors</span>{% endif %}
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

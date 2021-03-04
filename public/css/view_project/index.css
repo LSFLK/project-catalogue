@@ -159,3 +159,17 @@ table.mailing-lists {
     margin-right: 5px;
     width: fit-content;
 }
+
+.info-container .contributor img {
+    height: 32px;
+    width: 32px;
+    border-radius: 16px;
+    border: 0.5px solid #cccccc;
+    margin: 0px 8px 8px 0px;
+}
+
+.info-container span {
+    font-family: 'Roboto';
+    font-size: 13px;
+    color: #0066ff;
+}
