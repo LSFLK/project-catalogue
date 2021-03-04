@@ -22,7 +22,7 @@ class GitHubAPI
     private function _fetchContent($requestUrl): array
     {
         $response = $this->client->request('GET', $requestUrl, [
-            'headers' => ['Accept' => 'application/vnd.github.mercy-preview+json']
+            'headers' => ['Accept' => 'application/vnd.github.v3+json']
         ]);
 
         if($response->getStatusCode() === 200) {
@@ -95,9 +95,20 @@ class GitHubAPI
     public function getContributors(): array
     {
         $contributorsUrl = isset($this->gitHubInformation['contributors_url']) ? $this->gitHubInformation['contributors_url'] : null;
+        $contributorsUrl = $contributorsUrl.'?per_page=100';
+
+        $contributors = [];
+        $page = 1;
+
+        do {
+            $contributorsUrl = $contributorsUrl.'&page='.$page;
+            $result = $this->_fetchContent($contributorsUrl);
+            $contributors = array_merge($contributors, $result);
+            $page = $page + 1;
+        }
+        while(count($result));
         
-        if($contributorsUrl) { return $this->_fetchContent($contributorsUrl); }
-        return [];
+        return $contributors;
     }
 
     public function getGitRepoRequiredData(): array
