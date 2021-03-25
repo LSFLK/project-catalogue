@@ -11,9 +11,9 @@
     <div class="container row-inline">
       <img class="avatar" src="{{ app.user.getProfilePicture }}" />
       <div>
-        <h1 class="name">{{ app.user.getName }}</h1>
-        <h3 class="email">{{ app.user.getEmail }}</h3>
-        <h3 class="sub-title">Your personal account</h3>
+        <div class="name">{{ app.user.getName }}</div>
+        <div class="email">{{ app.user.getEmail }}</div>
+        <div class="sub-title">Your personal account</div>
       </div>
     </div>
   </div>
@@ -38,8 +38,8 @@
       {{ include('manage_user_account/card.html.twig', {
         'icon': asset('icons/organizations.png'),
         'title': 'Organizations',
-        'description': 'Manage your organizations and linked organizations',
-        'path': path('my_projects')
+        'description': 'Manage your organizations and connected organizations',
+        'path': path('organizations')
       }) }}
 
     </div>

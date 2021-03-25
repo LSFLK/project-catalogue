@@ -1,0 +1,42 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Organizations{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/organizations/index.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="container row-inline">
+      <div style="margin-right: auto;">
+        <div class="title">Organizations</div>
+        <div class="sub-title">Your organizations and connected organizations</div>
+      </div>
+      <img class="avatar" src="{{ asset('icons/organizations.png') }}" />
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="section">
+      <div class="section-top">
+        <div class="section-title">My Organizations</div>
+        <div class="section-button"><a>New Organization</a></div>
+      </div>
+      <div class="section-content">
+        <div class="empty-content">No organizations registered</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-top">
+        <div class="section-title">Connected Organizations</div>
+      </div>
+      <div class="section-content">
+        <div class="empty-content">You are not connected with any other organization</div>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}

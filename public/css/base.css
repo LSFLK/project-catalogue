@@ -22,7 +22,8 @@ body {
 main { 
     animation: fadeInAnimation ease 0.75s;
     animation-iteration-count: 1; 
-    animation-fill-mode: forwards; 
+    animation-fill-mode: forwards;
+    font-family: 'Montserrat';
 } 
   
 @keyframes fadeInAnimation { 
