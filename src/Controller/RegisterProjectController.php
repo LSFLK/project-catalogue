@@ -19,7 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class RegisterProjectController extends AbstractController
 {
     /**
-     * @Route("/register", name="register_project")
+     * @Route("/register/project", name="register_project")
      */
     public function index(): Response
     {
@@ -33,7 +33,7 @@ class RegisterProjectController extends AbstractController
     }
 
     /**
-     * @Route("/register/review", methods={"POST"}, name="review_project_before_register")
+     * @Route("/register/project/review", methods={"POST"}, name="review_project_before_register")
      */
     public function reviewProjectBeforeRegister(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
     {   
@@ -48,7 +48,7 @@ class RegisterProjectController extends AbstractController
     }
 
     /**
-     * @Route("/register/create", methods={"POST"}, name="create_project")
+     * @Route("/register/project/create", methods={"POST"}, name="create_project")
      */
     public function createProject(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
     {  
@@ -71,7 +71,7 @@ class RegisterProjectController extends AbstractController
     }
 
     /**
-     * @Route("/register/success", name="register_project_success")
+     * @Route("/register/project/success", name="register_project_success")
      */
     public function success(Request $request, SessionInterface $session): Response
     {
