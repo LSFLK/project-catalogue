@@ -1,0 +1,82 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Register Organization{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/register_organization/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/register_organization/organization_name.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/register_organization/input.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="container">
+        <img class="card-img-top organization-image" src="{{ asset('img/project-card-background.png') }}" alt="">
+        <img class="card-img-top organization-icon" src="{{ asset('icons/organizations.png') }}" alt="">
+        <h1 class="title">
+          {% block page_title %}Register Organization{% endblock %}
+        </h1>
+        <dev class="page-description">
+          {% block page_description %}Add your organization to our platform!{% endblock %}
+        </dev>
+    </div>
+  </div>
+
+  <form id="registerOrganizationForm" class="container" action="{% block form_action %}{{ path('review_project_before_register') }}{% endblock %}" method="POST" enctype="multipart/form-data">
+    <div class="form form-single-col">
+      <h6 class="form-section-title">Organization Data</h6>
+
+      {% include 'register_organization/organization_name.html.twig' %}
+
+      {% include 'register_organization/input.html.twig' with {
+        'id': 'website',
+        'icon': 'fas fa-globe',
+        'label': 'Website',
+        'helperText': 'Official website (if any).'
+      } %}
+
+      {% include 'register_organization/input.html.twig' with {
+        'id': 'description',
+        'icon': 'fas fa-bars',
+        'label': 'Description (1000 characters)',
+        'rows': '5',
+        'helperText': 'A brief description about the organization (1000 characters max).'
+      } %}
+
+    </div>
+    <div class="form form-single-col">
+      <h6 class="form-section-title">File Upload</h6>
+
+      <div class="row">        
+        <div class="col" style="margin-bottom: 10px">
+          <label for="organization_logo" class="form-control-sm" style="margin-left: -8px">Organization Logo</label>
+          <div class="custom-file">
+            <input id="organization_logo" name="organization_logo" onchange="readImage(this)" type="file" class="custom-file-input" accept=".png">
+            <label id="organization_logo_label" class="custom-file-label form-control-sm">Choose file</label>
+          </div>
+          {% if organization_logo is defined and 'http' in organization_logo %}
+            <img id="organization_logo_preview" class="preview" src="{{ organization_logo }}" />
+          {% else %}
+            <img id="organization_logo_preview" class="preview" src="{{ asset(organization_logo|default('img/no-image-preview.png')) }}" />
+          {% endif %}
+          <div id="organization_logo_remove" class="remove-file" onclick="clearInput('organization_logo')" style="display: {% if organization_logo is defined and 'http' not in organization_logo %}flex{% else %}none{% endif %}">Remove</div>
+          <input id="organization_logo_previously_uploaded" name="organization_logo_previously_uploaded" type="hidden" value="{{ organization.getOrganizationLogo|default(null) }}">
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <button class="btn btn-primary btn-md float-right" type="submit">Register Organization</button>
+    </div>
+  </form>
+
+  <script src="{{ asset('js/register_organization/index.js') }}"></script>
+  <script src="{{ asset('js/register_organization/organization_name.js') }}"></script>
+  <script src="{{ asset('js/register_organization/file_upload.js') }}"></script>
+  <script src="{{ asset('lib/pdf-thumbnail/index.js') }}"></script>
+
+  <script>
+    function loadNoImagePreview(inputID) {
+      document.getElementById(inputID + '_preview').src = "{{ asset('img/no-image-preview.png') }}";
+    }
+  </script>
+{% endblock %}

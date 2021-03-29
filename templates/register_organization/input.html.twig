@@ -1,0 +1,23 @@
+  <div for="{{ id }}">
+    <div class="input-container">
+      <div class="md-form form-sm">
+        {% if icon is defined %}
+          <i class="{{ icon }} prefix"></i>
+        {% endif %}
+
+        {% if rows is defined %}
+          <textarea id="{{ id }}" name="{{ id }}" class="md-textarea form-control form-control-sm" rows="{{ rows }}" style="margin-top: 40px">{{ _context[id]|default(null) }}</textarea>
+        {% else %}
+          <input type="text" id="{{ id }}" name="{{ id }}" value="{{ _context[id]|default(null) }}" class="form-control form-control-sm" style="margin-top: 20px">
+        {% endif %}
+
+        <label for="{{ id }}">{{ label }}</label>
+      </div>
+    </div>
+
+    {% if helperText is defined %}
+      <span id="{{ id }}-helper" class="helper-text">{{ helperText }}</span>
+    {% else %}
+      <span id="{{ id }}-helper" class="helper-text error"></span>
+    {% endif %}
+  </div>
