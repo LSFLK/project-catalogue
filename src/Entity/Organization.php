@@ -35,7 +35,7 @@ class Organization
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $logo;
+    private $organization_logo;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="organizations")
@@ -84,14 +84,14 @@ class Organization
         return $this;
     }
 
-    public function getLogo(): ?string
+    public function getOrganizationLogo(): ?string
     {
-        return $this->logo;
+        return $this->organization_logo;
     }
 
-    public function setLogo(?string $logo): self
+    public function setOrganizationLogo(?string $organization_logo): self
     {
-        $this->logo = $logo;
+        $this->organization_logo = $organization_logo;
 
         return $this;
     }

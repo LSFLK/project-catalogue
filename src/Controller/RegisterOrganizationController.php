@@ -19,8 +19,8 @@ class RegisterOrganizationController extends AbstractController
     /**
      * @Route("/register/project/create", methods={"POST"}, name="create_organization")
      */
-    public function createProject(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
+    public function createProject(Request $request, OrganizationHandler $organizationHandler): Response
     {
-
+        $organization = $organizationHandler->createOrganizationObjectWithRequestData($request);
     }
 }
