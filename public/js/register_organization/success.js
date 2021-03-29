@@ -9,5 +9,5 @@ function copyLinkToClipboard() {
     document.execCommand('copy');
     document.body.removeChild(element);
 
-    alert("Project link has been copied to clipboard.");
+    alert("Organization link has been copied to clipboard.");
 }
