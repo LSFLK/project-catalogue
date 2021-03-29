@@ -37,6 +37,12 @@ class Organization
      */
     private $logo;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="organizations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +92,18 @@ class Organization
     public function setLogo(?string $logo): self
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

@@ -13,8 +13,14 @@ class RegisterOrganizationController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('register_organization/index.html.twig', [
-            'controller_name' => 'RegisterOrganizationController',
-        ]);
+        return $this->render('register_organization/index.html.twig');
+    }
+
+    /**
+     * @Route("/register/project/create", methods={"POST"}, name="create_organization")
+     */
+    public function createProject(Request $request, SessionInterface $session, ProjectHandler $projectHandler): Response
+    {
+
     }
 }
