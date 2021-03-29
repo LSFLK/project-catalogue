@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class OrganizationsController extends AbstractController
+class MyOrganizationsController extends AbstractController
 {
     /**
-     * @Route("/authuser/organizations", name="organizations")
+     * @Route("/authuser/organizations", name="my_organizations")
      */
     public function index(): Response
     {
-        return $this->render('organizations/index.html.twig', [
+        return $this->render('my_organizations/index.html.twig', [
             'controller_name' => 'OrganizationsController',
         ]);
     }
