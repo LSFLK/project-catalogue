@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OrganizationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OrganizationRepository::class)
@@ -19,6 +20,7 @@ class Organization
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank
      */
     private $name;
 
@@ -38,7 +40,7 @@ class Organization
     private $organization_logo;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="organizations")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="organizations", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $owner;
