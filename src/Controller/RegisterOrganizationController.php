@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Service\OrganizationHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
+ */
 class RegisterOrganizationController extends AbstractController
 {
     /**
@@ -19,7 +23,7 @@ class RegisterOrganizationController extends AbstractController
     /**
      * @Route("/register/organization/create", methods={"POST"}, name="create_organization")
      */
-    public function createProject(Request $request, OrganizationHandler $organizationHandler): Response
+    public function createOrganization(Request $request, OrganizationHandler $organizationHandler): Response
     {
         $organization_token = bin2hex(random_bytes(20).uniqid());
         $organization = $organizationHandler->createOrganizationObjectWithRequestData($request);
