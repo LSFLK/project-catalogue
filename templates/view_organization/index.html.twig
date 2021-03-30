@@ -25,15 +25,7 @@
         <div class="section-button"><a href="{{ path('register_organization') }}">Register New Organization</a></div>
       </div>
       <div class="section-content">
-        {% if organizations|length %}
-          <div id="organization-cards-container" class="row organization-cards-container">
-            {% for organization in organizations %}
-              {{ include('my_organizations/card.html.twig') }}
-            {% endfor %}
-          </div>
-        {% else %}
-          <div class="empty-content">No organizations registered</div>
-        {% endif %}
+        <div class="empty-content">No organizations registered</div>
       </div>
     </div>
 
