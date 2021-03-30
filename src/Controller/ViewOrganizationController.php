@@ -20,7 +20,6 @@ class ViewOrganizationController extends AbstractController
         return $this->render('view_organization/index.html.twig', [
             'organization' => $organization,
             'is_owner' => $is_owner,
-            'dir' => $this->getParameter('public_confirmed_dir')
         ]);
     }
 }
