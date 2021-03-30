@@ -17,8 +17,10 @@ class MyOrganizationsController extends AbstractController
      */
     public function index(): Response
     {
+        $organizations = $this->getUser()->getOrganizations();
+
         return $this->render('my_organizations/index.html.twig', [
-            'controller_name' => 'OrganizationsController',
+            'organizations' => $organizations,
         ]);
     }
 }
