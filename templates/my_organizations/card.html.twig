@@ -2,7 +2,7 @@
 {% set name = organization.getName %}
 {% set organization_logo = organization.getOrganizationLogo %}
 
-  <a class="col-lg-3 col-sm-6 organization-card" href="{{ path('view_project', { id: id }) }}">
+  <a class="col-lg-3 col-sm-6 organization-card" href="{{ path('view_organization', { id: id }) }}">
     <div class="card">
       <div class="header">
         {% if organization_logo %}
