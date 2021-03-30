@@ -19,6 +19,32 @@ class OrganizationRepository extends ServiceEntityRepository
         parent::__construct($registry, Organization::class);
     }
 
+    /**
+     * @return Organization[] Returns an array of Organization objects
+     */
+    public function findAllOrderByName()
+    {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return Organization[] Returns an array of Organization objects
+    */
+    public function searchByOrganizationName($name)
+    {
+        return $this->createQueryBuilder('o')
+                    ->where('o.name LIKE :n')
+                    ->setParameter('n', '%'.$name.'%')
+                    ->orderBy('o.name', 'ASC')
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Organization[] Returns an array of Organization objects
     //  */

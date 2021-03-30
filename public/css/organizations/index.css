@@ -4,7 +4,7 @@
     background-color: #474747;
     margin-top: 50px;
     margin-bottom: 30px;
-    padding: 30px 30px 10px 30px;
+    padding: 30px;
 }
 
 .row-inline {
@@ -12,6 +12,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .row-inline a:hover {
@@ -41,6 +42,7 @@
     font-family: 'Montserrat';
     font-weight: 500;
     font-size: 30px;
+    
 }
 
 .form-control {
@@ -58,7 +60,7 @@
     border-radius: 8px 8px 8px 8px;
 }
 
-.project-cards-container {
+.organization-cards-container {
     margin-bottom: 50px;
 }
 
@@ -90,14 +92,14 @@ main .container .btn-text {
     text-align: center;
 }
 
-.no-projects-container {
+.no-organizations-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.no-projects {
+.no-organizations {
     font-family: 'Montserrat';
     font-size: 20px;
     font-weight: 500;

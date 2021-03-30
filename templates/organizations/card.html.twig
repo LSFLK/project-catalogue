@@ -1,0 +1,17 @@
+{% set id = organization.getId %}
+{% set name = organization.getName %}
+{% set organization_logo = organization.getOrganizationLogo %}
+
+  <a class="col-lg-4 col-sm-6 organization-card" href="{{ path('view_project', { id: id }) }}">
+    <div class="card">
+      <div class="header">
+        {% if organization_logo %}
+          <img class="card-icon" src="{{ asset('uploads/confirmed/' ~ organization_logo) }}">
+        {% else %}
+          <img class="card-icon" src="{{ asset('icons/organizations.png') }}">
+        {% endif %}
+
+        <h4 class="card-title">{{ name }}</h4>
+      </div>
+    </div>
+  </a>

@@ -2,7 +2,7 @@
   font-family: 'Montserrat';
   margin-bottom: 30px;
   transition: box-shadow .5s;
-  height: 300px;
+  height: 120px;
   animation: zoominoutsinglefeatured 1s ;
 }
 
@@ -49,7 +49,7 @@
 .card-title {
   font-weight: 500;
   color: #1a1a1a;
-  margin-left: -10px;
+  margin: auto;
 }
 
 .card-icon {
@@ -57,9 +57,7 @@
   object-fit: contain;
   transition: transform .2s ease-in-out;
   z-index: 5;
-  margin-left: 10px;
-  margin-top: -15px;
-  margin-right: -10px;
+  margin-right: 20px;
 }
 
 .card:hover .card-icon {
