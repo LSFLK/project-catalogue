@@ -79,6 +79,29 @@
     color: #3370ff;
 }
 
+.content-button {
+    font-size: 14px;
+    font-weight: 600;
+    align-items: center !important;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: #3385ff50;
+    padding: 5px 10px 5px 10px;
+    color: #3385ff;
+    transition: 0.5s;
+    width: fit-content;
+    margin: auto;
+    margin-top: -20px;
+    margin-bottom: 15px;
+}
+
+.content-button:hover {
+    border-color: #3385ff;
+    background-color: #e6f2ff;
+    color: #3370ff;
+}
+
 .section-content {
     border: 1px solid #cccccc;
     border-radius: 5px;
@@ -90,6 +113,14 @@
     font-size: 14px;
     font-weight: 500;
     color: #b3b3b3;
+    text-align: center;
+    margin: 15px 0px 30px 0px;
+}
+
+.content-notice {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4d4d4d;
     text-align: center;
     margin: 15px 0px 30px 0px;
 }

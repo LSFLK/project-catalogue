@@ -40,7 +40,12 @@
         {% if is_owner %}<div class="section-button"><a href="{{ path('register_project') }}">Register New Project</a></div>{% endif %}
       </div>
       <div class="section-content">
-        <div class="empty-content">No projects registered</div>
+        {% if projects_count %}
+          <div class="content-notice">{{ projects_count }} project{% if projects_count > 1 %}s{% endif %} registered</div>
+          <div class="content-button"><a href="{{ path('register_project') }}">View Registered Projects</a></div>
+        {% else %}
+          <div class="empty-content">No projects registered</div>
+        {% endif %}
       </div>
     </div>
 
