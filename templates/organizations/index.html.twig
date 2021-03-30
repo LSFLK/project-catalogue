@@ -1,20 +1,44 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}Hello OrganizationsController!{% endblock %}
+{% block title %}Organizations{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/projects/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/projects/search.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/projects/card.css') }}" rel="stylesheet"/>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+  <!-- Page Heading -->
+  <div class="header">
+    {% block header_top %}
+      <div class="row-inline">
+        <h1 class="title">Organizations</h1>
+        <div class="flex-fill filter">{% include 'projects/search.html.twig' %}</div>
+      </div>
+    {% endblock %}
+  </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Lanka Software Foundation/Projects/Open Source Projects Catalogue/open-source-project-catalogue/src/Controller/OrganizationsController.php'|file_link(0) }}">src/Controller/OrganizationsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Lanka Software Foundation/Projects/Open Source Projects Catalogue/open-source-project-catalogue/templates/organizations/index.html.twig'|file_link(0) }}">templates/organizations/index.html.twig</a></code></li>
-    </ul>
-</div>
+  <!-- Page Content -->
+  <div class="container">
+    <div id="search-results-count" class="search-results-count">
+      <div class="count"></div>
+      <div class="text"></div>
+      <div class="search"></div>
+    </div>
+
+    {# <div id="project-cards-container" class="row project-cards-container">
+      {% for project in projects %}
+        {{ include('projects/card.html.twig') }}
+      {% endfor %}
+    </div>
+
+    <div class="no-projects-container">
+      <div id="no-projects" class="no-projects" style="display: {% if projects|length %}none{% else %}inline{% endif %}">No projects to display</div>
+    </div> #}
+  </div>
+
+  <script src="{{ asset('js/projects/index.js') }}"></script>
+  <script src="{{ asset('js/projects/dropdown.js') }}"></script>
+  <script src="{{ asset('js/projects/search.js') }}"></script>
+
 {% endblock %}
