@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Project;
+use App\Entity\Organization;
 use App\Entity\DomainExpertise;
 use App\Entity\TechnicalExpertise;
 use App\Entity\GitRepo;
@@ -35,6 +36,7 @@ class ProjectHandler
 
     public function createProjectObjectWithRequestData(Request $request): Project
     {
+        $organizationRepository = $this->entityManager->getRepository(Organization::class);
         $domainExpertiseRepository = $this->entityManager->getRepository(DomainExpertise::class);
         $technicalExpertiseRepository = $this->entityManager->getRepository(TechnicalExpertise::class);
         $programmingLanguageRepository = $this->entityManager->getRepository(ProgrammingLanguage::class);
@@ -48,10 +50,14 @@ class ProjectHandler
         $project->setName($data->get('name'));
         $project->setObjective($data->get('objective'));
         $project->setDescription($data->get('description'));
-        $project->setOrganization($data->get('organization'));
         $project->setWebsite($data->get('website'));
         $project->setBugTracking($data->get('bug_tracking'));
         $project->setDocumentation($data->get('documentation'));
+
+        if($data->get('organization')){
+            $organization = $organizationRepository->findOneBy(['name' => $data->get('organization')]);
+            $project->setOrganization($organization);
+        }
 
         $domainExpertise = $domainExpertiseRepository->findOneBy(['name' => $data->get('domain_expertise')]);
         $project->setDomainExpertise($domainExpertise);
@@ -186,6 +192,7 @@ class ProjectHandler
 
     private function _persistAndFlush(Project $project, Project $data): Project
     {
+        $organizationRepository = $this->entityManager->getRepository(Organization::class);
         $domainExpertiseRepository = $this->entityManager->getRepository(DomainExpertise::class);
         $technicalExpertiseRepository = $this->entityManager->getRepository(TechnicalExpertise::class);
         $programmingLanguageRepository = $this->entityManager->getRepository(ProgrammingLanguage::class);
@@ -194,12 +201,16 @@ class ProjectHandler
         $project->setName($data->getName());
         $project->setObjective($data->getObjective());
         $project->setDescription($data->getDescription());
-        $project->setOrganization($data->getOrganization());
         $project->setWebsite($data->getWebsite());
         $project->setBugTracking($data->getBugTracking());
         $project->setDocumentation($data->getDocumentation());
         $project->setProjectDataFile($data->getProjectDataFile());
         $project->setProjectLogo($data->getProjectLogo());
+
+        if($data->getOrganization()){
+            $organization = $organizationRepository->findOneBy(['name' => $data->getOrganization()->getName()]);
+            $project->setOrganization($organization);
+        }
 
         $domainExpertise = $domainExpertiseRepository->findOneBy(['name' => $data->getDomainExpertise()->getName()]);
         $project->setDomainExpertise($domainExpertise);
