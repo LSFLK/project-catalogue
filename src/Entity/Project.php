@@ -39,11 +39,6 @@ class Project
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
-     */
-    private $organization;
-
-    /**
      * @ORM\Column(type="string", length=50, nullable=true)
      * @Assert\Url
      */
@@ -121,6 +116,11 @@ class Project
      */
     private $contributor;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Organization::class, inversedBy="projects")
+     */
+    private $organization;
+
     public function __construct()
     {
         $this->git_repo = new ArrayCollection();
@@ -168,18 +168,6 @@ class Project
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getOrganization(): ?string
-    {
-        return $this->organization;
-    }
-
-    public function setOrganization(?string $organization): self
-    {
-        $this->organization = $organization;
 
         return $this;
     }
@@ -438,6 +426,18 @@ class Project
     public function removeContributor(Contributor $contributor): self
     {
         $this->contributor->removeElement($contributor);
+
+        return $this;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): self
+    {
+        $this->organization = $organization;
 
         return $this;
     }
