@@ -42,7 +42,7 @@
       <div class="section-content">
         {% if projects_count %}
           <div class="content-notice">{{ projects_count }} project{% if projects_count > 1 %}s{% endif %} registered</div>
-          <div class="content-button"><a href="{{ path('register_project') }}" target="_blank">View Registered Projects</a></div>
+          <div class="content-button"><a href="{{ path('organization_projects', { id }) }}">View Registered Projects</a></div>
         {% else %}
           <div class="empty-content">No projects registered</div>
         {% endif %}

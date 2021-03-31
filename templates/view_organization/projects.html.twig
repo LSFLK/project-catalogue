@@ -1,0 +1,15 @@
+{% extends 'projects/index.html.twig' %}
+
+{% block title %}{{ organization.name }} | Projects{% endblock %}
+
+{% block header_top %}
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('css/my_projects/index.css') }}" rel="stylesheet"/>
+
+    <div class="row-inline">
+        <h1 class="title">{{ organization.name }} | Projects</h1>
+        {% if is_owner %}<a class="button" href="{{ path('register_project') }}">Register New Project</a>{% endif %}
+    </div>
+
+    <div class="page-description">Projects owned by {{ organization.name }}</div>
+{% endblock %}
