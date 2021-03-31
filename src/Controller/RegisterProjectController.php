@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Organization;
 use App\Entity\DomainExpertise;
 use App\Entity\TechnicalExpertise;
 use App\Service\ProjectHandler;
@@ -23,10 +24,12 @@ class RegisterProjectController extends AbstractController
      */
     public function index(): Response
     {
+        $organization_options = $this->getUser()->getOrganizations();
         $domain_expertise_options = $this->getDoctrine()->getRepository(DomainExpertise::class)->findAllOrderByName();
         $technical_expertise_options = $this->getDoctrine()->getRepository(TechnicalExpertise::class)->findAllOrderByName();
 
         return $this->render('register_project/index.html.twig', [
+            'organization_options' => $organization_options,
             'domain_expertise_options' => $domain_expertise_options,
             'technical_expertise_options' => $technical_expertise_options
         ]);

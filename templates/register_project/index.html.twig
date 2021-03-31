@@ -51,12 +51,15 @@
 
       <div class="row input-group">
         <div class="col">
-          {% include 'register_project/input.html.twig' with {
-            'id': 'organization',
-            'icon': 'fas fa-building',
-            'label': 'Organization',
-            'helperText': 'Name of the organization (if any).'
-          } %}
+          <div class="flex-fill filter">
+            {% include 'register_project/dropdown.html.twig' with {
+              'id': 'organization',
+              'icon': 'fas fa-building',
+              'name': 'Organization',
+              'options': organization_options,
+              'helperText': 'Name of the organization (if any).'
+            } %}
+          </div>
         </div>
         
         <div class="col">
@@ -208,6 +211,7 @@
   <script src="{{ asset('lib/pdf-thumbnail/index.js') }}"></script>
 
   <script>
+    initiallizeDropdown('organization')
     initiallizeDropdown('domain_expertise')
     initiallizeDropdown('technical_expertise')
 
