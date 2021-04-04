@@ -8,7 +8,7 @@ The site will feature open source best practices and resources, as well as the l
 ## Setting-up the server
 To run the server, first a setup is needed:
 
-1) Copy `.env.example` file and paste to the same root directory.
+(1) Copy `.env.example` file and paste to the same root directory.
 
 (2) Change the copied file to `.env`.
 
