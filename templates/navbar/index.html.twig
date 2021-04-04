@@ -26,7 +26,7 @@
         {{ include('navbar/nav_item.html.twig', { 'name': 'Home', 'path': path('home') }) }}
         {{ include('navbar/nav_item.html.twig', { 'name': 'Projects', 'path': path('projects') }) }}
         {{ include('navbar/nav_item.html.twig', { 'name': 'Organizations', 'path': path('organizations') }) }}
-        {{ include('navbar/nav_item.html.twig', { 'name': 'About', 'path': path('projects') }) }}
+        {{ include('navbar/nav_item.html.twig', { 'name': 'About', 'path': '/#about' }) }}
 
         {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
           <div class="btn-group">
