@@ -1,0 +1,48 @@
+{% set sending = false  %}
+
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('css/send_feedback/index.css') }}" rel="stylesheet"/>
+
+    <div class="modal fade" id="send_feedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <div class="modal-title">Send feedback</div>
+                    <button type="button" class="close" style="color: #f2f2f2;" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                
+                <div id="form_section" class="modal-body">
+                    <p>
+                        Have feedback? We'd love to hear it, but
+                        <b>please don't share sensitive information.</b>
+                        Have questions? Try help and support.
+                    </p>
+
+                    <form id="feedback_form" action="{{ path('send_feedback') }}" method="POST">
+                        <textarea id="feedback" name="feedback" class="md-textarea form-control form-control-sm" style="margin-top: 10px; background-color:#ffffff;" rows="5" required></textarea>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+                
+                <div id="activity_indicator" class="modal-body" style="display: none;">
+                    <p>Sending...</p>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const feedback_form = document.getElementById("feedback_form");
+        const form_section = document.getElementById("form_section");
+        const activity_indicator = document.getElementById("activity_indicator");
+
+        feedback_form.addEventListener('submit', function() {
+            form_section.style.display = "none";
+            activity_indicator.style.display = "inline-block";
+        })
+    </script>

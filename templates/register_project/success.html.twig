@@ -1,0 +1,56 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Success{% endblock %}
+
+{% block body %}
+
+  {% set project_url = app.request.getSchemeAndHttpHost() ~ '/projects/id=' ~ project_id %}
+
+  <link href="{{ asset('css/register_project/success.css') }}" rel="stylesheet"/>
+
+  <div style="height: 25px"></div>
+
+  <div class="container">
+    <img class="success-icon" src="{{ asset('icons/success.png') }}">
+
+    <div class="thank-you">{% block success %}Thank you!{% endblock %}</div>
+
+    <div class="message">{% block message %}Your project has been successfully registered.{% endblock %}</div>
+
+    <div class="share-notice">Share the link of your project and let the people explore this project in our catalogue.</div>
+  
+    <div class="share-buttons-container">
+        <a class="share-button" style="background-color: #0e76a8" href=" http://www.linkedin.com/shareArticle?mini=true&url={{ project_url }}" target="_blank">
+            <i class="fab fa-linkedin" style="margin-right: 5px; color: #ffffff"></i>
+            <div class="share-button-text">LinkedIn</div>
+        </a>
+
+        <a class="share-button" style="background-color: #3b5998" href="http://www.facebook.com/sharer.php?u={{ project_url }}" target="_blank">
+            <i class="fab fa-facebook" style="margin-right: 5px; color: #ffffff"></i>
+            <div class="share-button-text">Facebook</div>
+        </a>
+
+        <a class="share-button" style="background-color: #00acee" href="http://twitter.com/share" data-url="{{ project_url }}" target="_blank">
+            <i class="fab fa-twitter" style="margin-right: 5px; color: #ffffff"></i>
+            <div class="share-button-text">Twitter</div>
+        </a>
+
+        <a class="share-button" style="background-color: #128C7E" href="https://api.whatsapp.com/send?text={{ project_url }}" target="_blank">
+            <i class="fab fa-whatsapp" style="margin-right: 5px; color: #ffffff"></i>
+            <div class="share-button-text">WhatsApp</div>
+        </a>
+
+        <a id="copy_link" class="share-button" style="background-color: #3399ff" link="{{ project_url }}" onclick="copyLinkToClipboard()">
+            <i class="fas fa-link" style="margin-right: 5px; color: #ffffff"></i>
+            <div class="share-button-text">Copy Link</div>
+        </a>
+    </div>
+
+    <div class="link">
+        <a href="{{ path('projects') }}">Back to Projects page</a>
+    </div>
+  </div>
+
+  <script src="{{ asset('js/register_project/success.js') }}"></script>
+  
+{% endblock %}

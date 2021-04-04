@@ -1,0 +1,51 @@
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+      <div class="user-profile">
+        {% if profile_picture is null %}
+          <img src="{{ asset('icons/default-profile-picture.png') }}" class="profile-picture" >
+        {% else %}
+          <img src="{{ profile_picture }}" class="profile-picture" >
+        {% endif %}
+
+        <div class="user">
+          <div class="name">{{ app.user.name }}</div>
+          <div class="email">{{ app.user.email }}</div>
+          <a class="manage-account" href="{{ path('manage_user_account') }}">Manage my account</a>
+        </div>
+      </div>
+
+      <div class="dropdown-section-separator"></div>
+
+      {{ include('navbar/dropdown_item.html.twig', {
+        'icon': 'fab fa-dev',
+        'name': 'My Projects',
+        'path': path('my_projects')
+      }) }}
+
+      {{ include('navbar/dropdown_item.html.twig', {
+        'icon': 'fas fa-plus-square',
+        'name': 'Register New Project',
+        'path': path('register_project'),
+      }) }}
+
+      {{ include('navbar/dropdown_item.html.twig', {
+        'icon': 'fas fa-sign-out-alt',
+        'name': 'Sign out',
+        'path': path('signout')
+      }) }}
+
+      <div class="dropdown-section-separator"></div>
+
+      {{ include('navbar/dropdown_item.html.twig', {
+        'icon': 'fas fa-question-circle',
+        'name': 'Help & Support',
+        'path': path('help_and_support')
+      }) }}
+
+      {{ include('navbar/dropdown_item.html.twig', {
+        'icon': 'fas fa-comment',
+        'name': 'Send feedback',
+        'data_target': '#send_feedback'
+      }) }}
+
+    </div>

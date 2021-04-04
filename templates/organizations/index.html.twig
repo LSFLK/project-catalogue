@@ -1,0 +1,47 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Organizations{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/organizations/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/organizations/search.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/organizations/card.css') }}" rel="stylesheet"/>
+
+  <!-- Page Heading -->
+  <div class="header">
+    {% block header_top %}
+      <div class="row-inline">
+        <h1 class="flex-fill title">Organizations</h1>
+        <div class="flex-fill filter">{% include 'organizations/search.html.twig' %}</div>
+      </div>
+    {% endblock %}
+  </div>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div id="search-results-count" class="search-results-count">
+      <div class="count"></div>
+      <div class="text"></div>
+      <div class="search"></div>
+    </div>
+
+    <div id="organization-cards-container" class="row organization-cards-container">
+      {% for organization in organizations %}
+        {{ include('organizations/card.html.twig') }}
+      {% endfor %}
+    </div>
+
+    <div class="no-organizations-container">
+      <div id="no-organizations" class="no-organizations" style="display: {% if organizations|length %}none{% else %}inline{% endif %}">No organizations to display</div>
+    </div>
+  </div>
+
+  <script src="{{ asset('js/organizations/index.js') }}"></script>
+  <script src="{{ asset('js/organizations/search.js') }}"></script>
+
+  <script>
+    initiallizeSearch()
+  </script>
+
+{% endblock %}

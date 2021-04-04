@@ -1,0 +1,36 @@
+::-webkit-scrollbar {
+    width: 10px;
+    background: #0d141f;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #363d47;
+    border-radius: 8px 8px 8px 8px;
+}
+
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    margin-top: 50px !important;
+    padding-bottom: 30px;
+}
+
+main { 
+    animation: fadeInAnimation ease 0.75s;
+    animation-iteration-count: 1; 
+    animation-fill-mode: forwards;
+    font-family: 'Montserrat';
+} 
+  
+@keyframes fadeInAnimation { 
+    0% { 
+        opacity: 0; 
+    } 
+    100% { 
+        opacity: 1; 
+    } 
+} 

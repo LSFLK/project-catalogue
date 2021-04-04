@@ -1,0 +1,27 @@
+<?php
+  return array(
+    'Ballerina',
+    'C',
+    'C#',
+    'C++',
+    'CSS',
+    'Dart',
+    'Go',
+    'Haskell',
+    'HTML',
+    'Java',
+    'Javascript',
+    'Lua',
+    'Objective-C',
+    'Perl',
+    'PHP',
+    'Python',
+    'R',
+    'Ruby',
+    'Rust',
+    'Shell',
+    'SQL',
+    'Swift',
+    'Typescript'
+  );
+?>

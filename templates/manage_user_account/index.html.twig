@@ -1,0 +1,48 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Manage Account{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/manage_user_account/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/manage_user_account/card.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="container row-inline">
+      <img class="avatar" src="{{ app.user.getProfilePicture }}" />
+      <div>
+        <div class="name">{{ app.user.getName }}</div>
+        <div class="email">{{ app.user.getEmail }}</div>
+        <div class="sub-title">Your personal account</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row cards-container">
+      
+      {{ include('manage_user_account/card.html.twig', {
+        'icon': asset('icons/projects.png'),
+        'title': 'My Projects',
+        'description': 'View the projects registered yourself',
+        'path': path('my_projects')
+      }) }}
+
+      {{ include('manage_user_account/card.html.twig', {
+        'icon': asset('icons/contributions.png'),
+        'title': 'Projects Contributed',
+        'description': 'View the projects that you have contributed',
+        'path': path('my_projects')
+      }) }}
+
+      {{ include('manage_user_account/card.html.twig', {
+        'icon': asset('icons/organizations.png'),
+        'title': 'Organizations',
+        'description': 'Manage your organizations and connected organizations',
+        'path': path('my_organizations')
+      }) }}
+
+    </div>
+  </div>
+
+{% endblock %}

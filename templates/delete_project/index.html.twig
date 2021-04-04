@@ -1,0 +1,52 @@
+{% set confirm = app.user.email ~ '/' ~ name|replace({' ':'-'}) %}
+
+{% block body %}
+    <!-- Custom styles for this template -->
+    <link href="{{ asset('css/delete_project/index.css') }}" rel="stylesheet"/>
+
+    <div class="modal fade" id="delete_project" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <div class="modal-title">Are you absolutely sure?</div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-header warning">
+                    Unexpected bad things will happen if you don’t read this!
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        This action cannot be undone.
+                        This will permanently delete the <b>{{ confirm }}</b> project from the Open Source Project Catalogue and remove all associations.
+                    </p>
+
+                    <p>
+                        Please type <b>{{ confirm }}</b> to confirm.
+                    </p>
+
+                    <form action="{{ path('delete_project') }}" method="POST">
+                        <input type="hidden" name="project_id" value="{{ id }}">
+                        <input id="confirm" name="confirm" type="text" class="form-control">
+
+                        <button type="submit" disabled>I understand the consequences, delete this project</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#confirm').on('keyup', function(e) {
+            if (e.target.value === '{{ confirm }}')
+                $('.modal-body button').attr('disabled', false);
+            else
+                $('.modal-body button').attr('disabled', true);
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+.setting-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.setting-with-border {
+    border-style: solid;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-color: #cccccc;
+    padding-bottom: 20px;
+}
+
+.setting-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.setting-message {
+    font-size: 13px;
+}
+
+.setting-action {
+    font-size: 12px;
+    font-weight: 600;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 3px;
+    border-color: #80808050;
+    background-color: #cccccc50;
+    padding: 5px 15px 5px 15px;
+}

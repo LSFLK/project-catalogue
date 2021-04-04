@@ -1,0 +1,28 @@
+  <div class="select-container" id="{{ id }}">
+    <div class="select-box">
+    
+      <div class="selected">
+        <i class="medium material-icons">search</i>
+        <dev class="text">{{ name }}</dev>
+        <i class="medium material-icons icon">arrow_drop_down</i>
+      </div>
+
+      <div class="options-container">
+        <div class="search-box">
+          <input type="text" placeholder="Search {{ name }}..." />
+        </div>
+
+        <div class="option">
+          <input type="radio" class="radio" id="All" name="category" />
+          <label>All</label>
+        </div>
+
+        {% for option in options %}
+          <div class="option">
+            <label id="{{ option.getId }}">{{ option.getName }}</label>
+          </div>
+        {% endfor %}
+        
+      </div>
+    </div>
+  </div>

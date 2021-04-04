@@ -1,0 +1,16 @@
+  <div class="input-with-postfix-icon">
+    <div for="name" style="width: 100%">
+      <div class="input-container">
+        <div class="md-form form-sm">
+          <i class="fas fa-registered prefix"></i>
+          <input type="text" id="name" name="name" value="{{ _context['name']|default(null) }}" class="form-control form-control-sm" style="margin-top: 20px">
+          <label for="name">Project Name</label>
+        </div>
+      </div>
+
+      <span id="name-helper" class="helper-text">Name of the project</span>
+    </div>
+
+    <i id="valid-icon" class="fas fa-check-square postfix-icon" style="color: #009900"></i>
+    <i id="invalid-icon" class="fas fa-window-close postfix-icon" style="color: #ff0000"></i>
+  </div>

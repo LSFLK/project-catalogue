@@ -1,0 +1,175 @@
+{% extends 'project/data.html.twig' %}
+
+{% block title %}{{ name }} - Project Catalogue{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/view_project/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/view_project/actions.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="row">
+      <div class="container">
+        <img class="project-image" src="{{ asset('img/project-card-background.png') }}">
+
+        <div>
+          <h1 class="title">{{ name }}</h1>
+
+          {% if organization %}
+            <div class="organization">By {{ organization }}</div>
+          {% endif %}
+
+          {% if website %}
+            <a id="website" class="website" href="{{ website }}" target="_blank"></a>
+          {% endif %}
+        </div>
+          
+        {% if project_logo %}
+          {% if 'http' in project_logo %}
+            <img class="project-icon" src="{{ project_logo }}">
+          {% else %}
+            <img class="project-icon" src="{{ asset(project_logo) }}">
+          {% endif %}
+        {% else %}
+          <img class="project-icon" src="{{ asset('icons/project-icon-default.png') }}">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {{ include('view_project/actions.html.twig') }}
+
+  <div class="container">
+    <div class="body-container">
+        <div class="main-info">
+          <div class="section-title">{{ objective }}</div>
+          <div class="description">{{ description }}</div>
+
+          <div class="section-title">Source Code</div>
+          <table>
+            <tr>
+              <th class="table-header">Repo</th>
+              <th class="table-header">License</th>
+            </tr>
+            {% for _git_repo in git_repo %}
+              <tr>
+                <td class="link"><a href="{{ _git_repo.getUrl }}" target="_blank">{{ _git_repo.getName }}</a></td>
+                <td>{{ _git_repo.getLicenseName ? _git_repo.getLicenseName : 'N/A' }}</td>
+                <td>{{ _git_repo.getStarsCount ? _git_repo.getStarsCount : '-' }} Stars</td>
+                <td>{{ _git_repo.getForksCount ? _git_repo.getForksCount : '-' }} Forks</td>
+              </tr>
+            {% endfor %}
+          </table>
+
+          {% if mailing_list|length %}
+            <div class="section-title">Mailing List(s)</div>
+            <table>
+              <tr>
+                <th class="table-header">List</th>
+              </tr>
+              {% for _mailing_list in mailing_list %}
+                <tr>
+                  <td>{{ _mailing_list.getName }}</td>
+                  <td class="link"><a href="{{ _mailing_list.getUrl }}" target="_blank">Subscribe</a></td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endif %}
+
+          {% if (bug_tracking is not empty) or (documentation is not empty) or (project_data_file is not empty) %}
+            <div class="section-title">Other Details</div>
+            <table>
+              {% if bug_tracking %}
+                <tr><td class="link"><a href="{{ bug_tracking }}" target="_blank">Bug Tracking</a></td></tr>
+              {% endif %}
+              {% if documentation %}
+                <tr><td class="link"><a href="{{ documentation }}" target="_blank">Documentation</a></td></tr>
+              {% endif %}
+              {% if project_data_file %}
+                <tr><td class="link"><a href="{{ asset(project_data_file) }}" target="_blank">Project Data</a></td></tr>
+              {% endif %}
+            </table>
+          {% endif %}
+
+          {% if more_info|length %}
+            <div class="section-title">More Info</div>
+            <div class="description">
+              <ul>
+                {% for _more_info in more_info %}
+                  <li class="link"><a href="{{ _more_info.getUrl }}" target="_blank">{{ _more_info.getName }}</a></li>
+                {% endfor %}
+              </ul>  
+            </div>
+          {% endif %}
+
+          <div class="contributions-section">
+            <div class="section-title">Want to contribute to this open source project?</div>
+            <p>Checkout the open issues and current contrubutors here...</p>
+            <table style="margin-bottom: 0px;">
+              <tr>
+                <th class="table-header">Repo</th>
+              </tr>
+              {% for _git_repo in git_repo %}
+                {% set gitRepoUrl = _git_repo.getUrl %}
+                <tr>
+                  <td class="link"><a href="{{ gitRepoUrl }}" target="_blank">{{ _git_repo.getName }}</a></td>
+                  <td class="link"><a href="{{ gitRepoUrl ~ '/issues' }}" target="_blank">Issues</a></td>
+                  <td class="link"><a href="{{ gitRepoUrl ~ '/graphs/contributors' }}" target="_blank">Contributors</a></td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+
+          {% block submit %}{% endblock %}
+        </div>
+
+        <div style="margin-top: -35px; width: 100%">
+          <div class="sub-container">
+            <div class="title" style="margin-top: 0px">CATEGORIES</div>
+            <div class="info-container">
+              <a class="info">{{ domain_expertise }}</a>
+              <a class="info">{{ technical_expertise }}</a>
+            </div>
+
+          {% if programming_language|length %}
+            <div class="title">LANGUAGES</div>
+            <div class="info-container">
+              {% for _programming_language in programming_language %}
+                <a class="info">{{ _programming_language }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if topic|length %}
+            <div class="title">TOPICS</div>
+            <div class="info-container">
+              {% for _topic in topic %}
+                <a class="info">{{ _topic }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          {% if contributor|length %}
+            <div class="title">CONTRIBUTORS</div>
+            <div class="info-container">
+              {% for _contributor in contributor|slice(0, 10) %}
+                <a class="contributor" href="{{ 'https://github.com/' ~ _contributor.getLogin }}" target="_blank">
+                  <img src="{{ _contributor.getAvatarUrl }}" title="{{ _contributor.getLogin }}">
+                </a>
+              {% endfor %}
+              {% if contributor|length > 10 %}
+                <span>+ {{ contributor|length - 10 }} contributors</span>
+              {% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const website = document.getElementById('website');
+    website.innerHTML = website.hostname;
+  </script
+
+{% endblock %}

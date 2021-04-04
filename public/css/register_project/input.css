@@ -1,0 +1,19 @@
+.input-container {
+    margin-bottom: -20px;
+}
+
+.helper-text {
+    color: #808080;
+    font-size: 11px;
+    font-weight: 500;
+    margin: -50px 10px 0px 32px;
+}
+
+.helper-text-no-icon {
+    margin-left: 0px;
+}
+
+.error {
+    color: #ff3300;
+    font-weight: 600;
+}

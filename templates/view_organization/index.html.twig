@@ -1,0 +1,83 @@
+{% extends 'layout.html.twig' %}
+
+{% set id = organization.getId %}
+{% set name = organization.getName %}
+{% set website = organization.website %}
+{% set description = organization.description %}
+{% set organization_logo = organization.getOrganizationLogo %}
+{% set owner = organization.getOwner %}
+
+{% block title %}{{ name }}{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/view_organization/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/view_organization/card.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="container row-inline">
+      <div style="margin-right: auto;">
+        <div class="title">{{ name }}</div>
+        {% if website %}
+          <a id="website" class="sub-title" href="{{ website }}" target="_blank"></a>
+        {% endif %}
+      </div>
+      {% if organization_logo %}
+        <img class="avatar" src="{{ asset('uploads/confirmed/' ~ organization_logo) }}">
+      {% else %}
+        <img class="avatar" src="{{ asset('icons/organizations.png') }}">
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="container">
+
+    <p class="description">{{ description }}</p>
+
+    <div class="section">
+      <div class="section-top">
+        <div class="section-title">Projects</div>
+        {% if is_owner %}<div class="section-button"><a href="{{ path('register_project') }}">Register New Project</a></div>{% endif %}
+      </div>
+      <div class="section-content">
+        {% if projects_count %}
+          <div class="content-notice">{{ projects_count }} project{% if projects_count > 1 %}s{% endif %} registered</div>
+          <div class="content-button"><a href="{{ path('organization_projects', { id }) }}">View Registered Projects</a></div>
+        {% else %}
+          <div class="empty-content">No projects registered</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-top">
+        <div class="section-title">Owner</div>
+      </div>
+      <div class="section-content">
+        <div class="owner row-inline">
+          <img class="avatar" src="{{ owner.getProfilePicture }}" />
+          <div>
+            <div class="name">{{ owner.getName }}</div>
+            <div class="email">{{ owner.getEmail }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-top">
+        <div class="section-title">Collaborators</div>
+      </div>
+      <div class="section-content">
+        <div class="empty-content">No collaborators are connected with this organization</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const website = document.getElementById('website');
+    website.innerHTML = website.hostname;
+  </script>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+  <div id="{{ id }}">
+    <div class="row input-group">
+      <div class="col-sm-4 key" id="{{ key_id }}">
+        {% include 'register_project/input.html.twig' with {
+          'id': key_id,
+          'icon': key_icon,
+          'label': key_label
+        } %}
+      </div>
+          
+      <div class="col-sm-7 value" id="{{ value_id }}">
+        {% include 'register_project/input.html.twig' with {
+          'id': value_id,
+          'label': value_label
+        } %}
+      </div>
+
+      <div class="col-sm-1 md-form form-sm button">
+        <i class="fas fa-plus-circle prefix"></i>
+      </div>
+    </div>
+  </div>

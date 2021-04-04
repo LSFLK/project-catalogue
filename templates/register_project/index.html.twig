@@ -1,0 +1,228 @@
+{% extends 'project/data.html.twig' %}
+
+{% block title %}Register Project{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/register_project/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/register_project/dropdown.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/register_project/dynamic_input.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/register_project/project_name.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/register_project/input.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="container">
+        <img class="card-img-top project-image" src="{{ asset('img/project-card-background.png') }}" alt="">
+        <img class="card-img-top project-icon" src="{{ asset('icons/register-project.png') }}" alt="">
+        <h1 class="title">
+          {% block page_title %}Register Project{% endblock %}
+        </h1>
+        <dev class="page-description">
+          {% block page_description %}Add your open source project to our catalogue!{% endblock %}
+        </dev>
+    </div>
+  </div>
+
+  <form id="registerProjectForm" class="container" action="{% block form_action %}{{ path('review_project_before_register') }}{% endblock %}" method="POST" enctype="multipart/form-data">
+    <div class="form form-single-col">
+      <h6 class="form-section-title">Project Data</h6>
+
+      {% include 'register_project/project_name.html.twig' %}
+
+      {% include 'register_project/input.html.twig' with {
+        'id': 'objective',
+        'icon': 'fas fa-check-circle',
+        'label': 'Project Objective',
+        'helperText': 'The main objective which the project is developed.'
+      } %}
+
+      {% include 'register_project/input.html.twig' with {
+        'id': 'description',
+        'icon': 'fas fa-bars',
+        'label': 'Description (500 characters)',
+        'rows': '5',
+        'helperText': 'A brief description about the project (1000 characters max).'
+      } %}
+
+    </div>
+
+    <div class="form form-multi-col">
+      <h6 class="form-section-title">Organization Data</h6>
+
+      <div class="row input-group">
+        <div class="col">
+          <div class="flex-fill filter">
+            {% include 'register_project/dropdown.html.twig' with {
+              'id': 'organization',
+              'icon': 'fas fa-building',
+              'name': 'Organization',
+              'options': organization_options,
+              'helperText': 'Name of the organization (if any).'
+            } %}
+          </div>
+        </div>
+        
+        <div class="col">
+          {% include 'register_project/input.html.twig' with {
+            'id': 'website',
+            'icon': 'fas fa-globe',
+            'label': 'Website',
+            'helperText': 'Official website (if any).'
+          } %}
+        </div>
+      </div>
+    </div>
+
+    <div class="form form-multi-col">
+      <h6 class="form-section-title">Technical Data</h6>
+
+      <div class="row input-group">
+        <div class="col">
+          <div class="flex-fill filter">
+            {% include 'register_project/dropdown.html.twig' with {
+              'id': 'domain_expertise',
+              'icon': 'fa-star',
+              'name': 'Domain Expertise',
+              'options': domain_expertise_options,
+              'helperText': 'Select an option.'
+            } %}
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="flex-fill filter">
+            {% include 'register_project/dropdown.html.twig' with {
+              'id': 'technical_expertise',
+              'icon': 'fa-cog',
+              'name': 'Technical Expertise',
+              'options': technical_expertise_options,
+              'helperText': 'Select an option.'
+            } %}
+          </div>
+        </div>
+      </div>
+
+      <div class="row input-group">
+        <div class="col">
+          {% include 'register_project/input.html.twig' with {
+            'id': 'bug_tracking',
+            'icon': 'fas fa-exclamation-circle',
+            'label': 'Bug Tracking',
+            'helperText': 'Link to project bug tracking'
+          } %}
+        </div>
+        
+        <div class="col">
+          {% include 'register_project/input.html.twig' with {
+            'id': 'documentation',
+            'icon': 'fas fa-file-code',
+            'label': 'Documentation',
+            'helperText': 'Link to project documentation'
+          } %}
+        </div>
+      </div>
+    </div>
+
+    <div class="form form-multi-col">
+      <h6 class="form-section-title">Git Repository Data</h6>
+
+      {% include 'register_project/dynamic_input.html.twig' with {
+        'id': 'git_repo',
+        'key_icon': 'fab fa-github',
+        'key_id': 'git_repo_names[]',
+        'key_label': 'Repo Name',
+        'value_id': 'git_repo_urls[]',
+        'value_label': 'Repo URL',
+        'groupHelperText': 'At least one Git Repo is required.'
+      } %}
+    </div>
+
+    <div class="form form-multi-col">
+      <h6 class="form-section-title">Mailing List(s)</h6>
+
+      {% include 'register_project/dynamic_input.html.twig' with {
+        'id': 'mailing_list',
+        'key_icon': 'fas fa-mail-bulk',
+        'key_id': 'mailing_list_names[]',
+        'key_label': 'List Name',
+        'value_id': 'mailing_list_urls[]',
+        'value_label': 'Subscribe URL',
+      } %}
+    </div>
+
+    <div class="form form-multi-col">
+      <h6 class="form-section-title">More Info</h6>
+
+      {% include 'register_project/dynamic_input.html.twig' with {
+        'id': 'more_info',
+        'key_icon': 'fas fa-angle-double-right',
+        'key_id': 'more_info_names[]',
+        'key_label': 'Title',
+        'value_id': 'more_info_urls[]',
+        'value_label': 'URL',
+      } %}
+    </div>
+
+    <div class="form form-single-col">
+      <h6 class="form-section-title">File Upload</h6>
+
+      <div class="row">
+        <div class="col" style="margin-bottom: 10px">
+          <label for="project_data_file" class="form-control-sm" style="margin-left: -8px">Project Data FIle</label>
+          <div class="custom-file">
+            <input id="project_data_file" name="project_data_file" type="file" class="custom-file-input" accept=".pdf">
+            <label id="project_data_file_label" class="custom-file-label form-control-sm">Choose file</label>
+          </div>
+          <img id="project_data_file_preview_default" class="preview" src="{{ asset('img/no-document-preview.png') }}" />
+          <canvas id="project_data_file_preview" class="preview file" pdf="{{ project_data_file|default(null) }}" style="display:none"></canvas>
+          <div id="project_data_file_remove" class="remove-file" onclick="clearInput('project_data_file')" style="display: none">Remove</div>
+          <input id="project_data_file_previously_uploaded" name="project_data_file_previously_uploaded" type="hidden" value="{{ project.getProjectDataFile|default(null) }}">
+        </div>
+        
+        <div class="col" style="margin-bottom: 10px">
+          <label for="project_logo" class="form-control-sm" style="margin-left: -8px">Project Logo</label>
+          <div class="custom-file">
+            <input id="project_logo" name="project_logo" onchange="readImage(this)" type="file" class="custom-file-input" accept=".png">
+            <label id="project_logo_label" class="custom-file-label form-control-sm">Choose file</label>
+          </div>
+          {% if project_logo is defined and 'http' in project_logo %}
+            <img id="project_logo_preview" class="preview" src="{{ project_logo }}" />
+          {% else %}
+            <img id="project_logo_preview" class="preview" src="{{ asset(project_logo|default('img/no-image-preview.png')) }}" />
+          {% endif %}
+          <div id="project_logo_remove" class="remove-file" onclick="clearInput('project_logo')" style="display: {% if project_logo is defined and 'http' not in project_logo %}flex{% else %}none{% endif %}">Remove</div>
+          <input id="project_logo_previously_uploaded" name="project_logo_previously_uploaded" type="hidden" value="{{ project.getProjectLogo|default(null) }}">
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <button class="btn btn-primary btn-md float-right" type="submit">Review Project</button>
+    </div>
+  </form>
+
+  <script src="{{ asset('js/register_project/index.js') }}"></script>
+  <script src="{{ asset('js/register_project/project_name.js') }}"></script>
+  <script src="{{ asset('js/register_project/dropdown.js') }}"></script>
+  <script src="{{ asset('js/register_project/dynamic_input.js') }}"></script>
+  <script src="{{ asset('js/register_project/file_upload.js') }}"></script>
+  <script src="{{ asset('lib/pdf-thumbnail/pdf.js') }}"></script>
+  <script src="{{ asset('lib/pdf-thumbnail/pdf.worker.js') }}"></script>
+  <script src="{{ asset('lib/pdf-thumbnail/index.js') }}"></script>
+
+  <script>
+    initiallizeDropdown('organization')
+    initiallizeDropdown('domain_expertise')
+    initiallizeDropdown('technical_expertise')
+
+    initiallizeDynamicInput('git_repo', "{{ git_repo_json | json_encode | default({}) }}", 'name', 'url')
+    initiallizeDynamicInput('mailing_list', "{{ mailing_list_json | json_encode | default({}) }}", 'name', 'url')
+    initiallizeDynamicInput('more_info', "{{ more_info_json | json_encode | default({}) }}", 'name', 'url')
+
+    initiallizePdfPreview('project_data_file', true)
+
+    function loadNoImagePreview(inputID) {
+      document.getElementById(inputID + '_preview').src = "{{ asset('img/no-image-preview.png') }}";
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign in - Project Catalogue{% endblock %}
+
+{% block body %}
+
+    <link href="{{ asset('css/signin/index.css') }}" rel="stylesheet"/>
+
+    <form>
+        <img src="{{ asset('icons/ospc-logo.png') }}" class="logo">
+
+        <div class="signin-title">Sign in to</div>
+        <div class="name">Open Source Project Catalogue</div>
+
+        <p class="notice">Sign in with your Google or Facebook account to continue with all the features available on Open Source Project Catalogue.</p>
+        <p class="notice">We do not collect or store any of your sensitive data.</p>
+
+        <a href="{{ path('google_signin') }}" class="button">
+            <img src="{{ asset('icons/google.png') }}" class="icon">
+            <div class="text">Sign in with Google</div>
+        </a>
+
+        <a href="{{ path('facebook_signin') }}" class="button">
+            <img src="{{ asset('icons/facebook.png') }}" class="icon">
+            <div class="text">Sign in with Facebook</div>
+        </a>
+
+        <a class="text-button" onclick="window.history.back()">Not now</a>
+    </form>
+
+{% endblock %}

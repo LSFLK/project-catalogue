@@ -1,0 +1,29 @@
+{% set id = project.getId %}
+{% set name = project.getName %}
+{% set project_logo = project.getProjectLogo %}
+{% set objective = project.getObjective %}
+
+  <a class="col-lg-4 col-sm-6 project-card" href="{{ path('view_project', { id: id }) }}">
+    <div class="card">
+      <div class="header">
+        <img class="card-image" src="{{ asset('img/project-card-background.png') }}">
+
+        <h4 class="card-title">{{ name }}</h4>
+
+        {% if project_logo %}
+          {% if 'http' in project_logo %}
+            <img class="card-icon" src="{{ project_logo }}">
+          {% else %}
+            <img class="card-icon" src="{{ asset('uploads/confirmed/' ~ project_logo) }}">
+          {% endif %}
+        {% else %}
+          <img class="card-icon" src="{{ asset('icons/project-icon-default.png') }}">
+        {% endif %}
+      </div>
+
+      <div class="card-body">
+        <p class="card-text">{{ objective }}</p>
+        <div class="card-btn-text">VIEW PROJECT</div>
+      </div>
+    </div>
+  </a>

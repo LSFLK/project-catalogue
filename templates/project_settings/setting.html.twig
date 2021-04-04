@@ -1,0 +1,27 @@
+<div class="setting-container {% if last is not defined %}setting-with-border{% endif %}">
+  <div class="setting-info">
+    <div class="setting-title">{{ title }}</div>
+    <div class="setting-message">{{ message }}</div>
+  </div>
+
+  {% if data_target is defined %}
+
+    <div type="button" class="setting-action"
+            style="color: {% if color is defined %}{{ color }}{% endif %}"
+            data-toggle="modal" data-target="{{ data_target }}"
+    >
+      {{ button }}
+    </div>
+
+  {% else %}
+
+    <a href="{% if action is defined %}{{ action }}{% endif %}"
+       class="setting-action"
+       style="color: {% if color is defined %}{{ color }}{% endif %}"
+    >
+       {{ button }}
+    </a>
+
+  {% endif %}
+
+</div>

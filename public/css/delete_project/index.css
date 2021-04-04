@@ -1,0 +1,60 @@
+@keyframes fadeInAnimation {}
+
+.modal {
+    font-family: Montserrat;
+}
+
+.modal-header {
+    align-items: center !important;
+    border-color: #ff8000;
+}
+
+.modal-title {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.warning {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ff8000;
+    background-color: #fff2e6;
+}
+
+.modal-body p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #4d4d4d;
+    line-height: 1.6;
+}
+
+.modal-body input {
+    font-size: 14px;
+}
+
+.modal-body button {
+    width: 100%;
+    border-radius: 3px;
+    border-color: #ff0000;
+    border-width: 1px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    padding: 5px 15px 5px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ff0000;
+    background-color: #ff000010;
+    transition: 0.3s;
+    outline: none;
+}
+
+.modal-body button:hover {
+    color: #ffffff;
+    background-color: #ff0000;
+}
+
+.modal-body button:disabled {
+    color: #ff000050;
+    border-color: #ff000050;
+    background-color: #ff000005;
+}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  {% apply inline_css(source('@css/help_and_support/email.css')) %}
+    <div class="email-container">
+      <div class="email-title">Help & Support</div>
+
+      <div style="padding: 0px 10px;">
+        <div class="email-info">
+            <div class="name">{{ name }}</div>
+            <div class="email">{{ replyTo }}</div>
+            <div class="user-type">{{ user_type }}</div>
+        </div>
+
+        <div class="email-body">
+            <div class="subject">{{ subject }}</div>
+            <p class="description">{{ description }}</p>
+        </div>
+      </div>
+    </div>
+  {% endapply %}
+
+{% endblock %}

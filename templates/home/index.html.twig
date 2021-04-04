@@ -1,0 +1,137 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Project Catalogue{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/home/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/home/aos.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/home/token.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/home/counter.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/home/card.css') }}" rel="stylesheet"/>
+
+  <section id="welcome">
+    <div class="welcome-container" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Welcome to OSPC</h1>
+      <h2>Explore the value of open source projects and the resources in Sri Lanka</h2>
+      <a href="{{ path('projects') }}" class="btn">Explore Projects</a>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about">
+      <div class="container" data-aos="fade-up">
+        <div class="row about-container">
+
+          <div class="col-lg-6 content order-lg-1 order-2">
+            <h2 class="title">Few Words About Platform</h2>
+            <p>Building a vibrant community around open source development is an important part of our work. We've launched a new website which we hope will serve as a thriving hub for the open source community and drive power open innovation in Sri Lanka.</p>
+            <p>The site will feature open source best practices and resources, as well as the latest news, events and outreach programs. You can use the site to register your open source projects, search for opportunities to contribute and search for technical and functional experts. You can even register your technical or functional expertise and connect with folks who need expert guidance.</p>
+
+            {{ include('home/token.html.twig', {
+                'icon': 'fas fa-book-open',
+                'title': "Project Directory",
+                'description': "Access a directory of open source projects initiated by the global Lankan community as well as those about Sri Lanka. Register your projects to invite contributions from the open source community."
+            }) }}
+
+            {{ include('home/token.html.twig', {
+                'icon': 'fas fa-search',
+                'title': "Opportunities to Contribute",
+                'description': "Looking for project volunteers? Post about your contribution opportunity on the site and connect with interested volunteers. Alternatively, search for opportunities to contribute to projects by technical or functional areas and start contributing today!"
+            }) }}
+
+            {{ include('home/token.html.twig', {
+                'icon': 'fas fa-users',
+                'title': "Accessible Expertise",
+                'description': "Register your area of technical and/or functional expertise and enable members of the open source community to reach out to you for advice."
+            }) }}
+
+          </div>
+
+          <div class="col-lg-6 background order-lg-2 order-1" data-aos="fade-left" data-aos-delay="100"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Facts Section ======= -->
+    <section id="facts">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h3 class="section-title">Facts</h3>
+          <p class="section-description"></p>
+        </div>
+        <div class="row counters">
+          
+          {{ include('home/counter.html.twig', { 'name': 'Projects', 'value': projects_count }) }}
+          {{ include('home/counter.html.twig', { 'name': 'Users', 'value': users_count }) }}
+          {{ include('home/counter.html.twig', { 'name': 'Volunteers', 'value': volunteers_count }) }}
+          {{ include('home/counter.html.twig', { 'name': 'Expertise Areas', 'value': expertise_areas_count }) }}
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Services Section ======= -->
+    <section id="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-header">
+          <h3 class="section-title">Everyone Benefits</h3>
+          <p class="section-description">Because open source software is open and freely available, it benefits everyone and helps solve real world problems. Learn more about how you can drive open innovation today.</p>
+        </div>
+        <div class="row">
+          {{ include('home/card.html.twig', {
+            'icon': 'fas fa-code',
+            'title': "Use",
+            'description': "Use our extensive directory of open source projects and serve as a powerful force for open technology innovation."
+          }) }}
+
+          {{ include('home/card.html.twig', {
+            'icon': 'fas fa-expand-arrows-alt',
+            'title': "Contribute",
+            'description': "Use, contribute to, and release open source software for the benefit of the community as well as the wider public."
+          }) }}
+
+          {{ include('home/card.html.twig', {
+            'icon': 'fas fa-hands-helping',
+            'title': "Support",
+            'description': "Develop and be part of a thriving community, vital for the sustainability of open source for all."
+          }) }}
+          
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======= Call To Action Section ======= -->
+    <section id="call-to-action">
+      <div class="container">
+        <div class="row" data-aos="zoom-in">
+          <div class="col-lg-9 text-center text-lg-start">
+            <h3 class="cta-title">Contact Us</h3>
+            <p class="cta-text">Feel free to connect with us for any inquiries. Our team can help and support you always.</p>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" href="{{ path('help_and_support') }}">Help & Support</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></a>
+
+  
+  <script src="{{ asset('js/home/aos.js') }}"></script>
+  <script src="{{ asset('js/home/glightbox.min.js') }}"></script>
+  <script src="{{ asset('js/home/purecounter.js') }}"></script>
+  <script src="{{ asset('js/home/swiper-bundle.min.js') }}"></script>
+
+  <script src="{{ asset('js/home/index.js') }}"></script>
+
+{% endblock %}

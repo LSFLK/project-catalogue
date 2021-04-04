@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Projects{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/projects/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/projects/dropdown.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/projects/search.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/projects/card.css') }}" rel="stylesheet"/>
+
+  <!-- Page Heading -->
+  <div class="header">
+    {% block header_top %}
+      <div class="row-inline">
+        <h1 class="title">Projects</h1>
+      </div>
+    {% endblock %}
+
+    <div class="d-flex filters-container row">
+      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'domain', 'name': 'Domain Expertise', 'options': domain_expertise} %}</div>
+      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'technical', 'name': 'Technical Expertise', 'options': technical_expertise} %}</div>
+      <div class="flex-fill filter">{% include 'projects/dropdown.html.twig' with {'id': 'language', 'name': 'Programming Language', 'options': programming_language} %}</div>
+      <div class="flex-fill filter">{% include 'projects/search.html.twig' %}</div>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div id="search-results-count" class="search-results-count">
+      <div class="count"></div>
+      <div class="text"></div>
+      <div class="search"></div>
+    </div>
+
+    <div id="project-cards-container" class="row project-cards-container">
+      {% for project in projects %}
+        {{ include('projects/card.html.twig') }}
+      {% endfor %}
+    </div>
+
+    <div class="no-projects-container">
+      <div id="no-projects" class="no-projects" style="display: {% if projects|length %}none{% else %}inline{% endif %}">No projects to display</div>
+    </div>
+  </div>
+
+  <script src="{{ asset('js/projects/index.js') }}"></script>
+  <script src="{{ asset('js/projects/dropdown.js') }}"></script>
+  <script src="{{ asset('js/projects/search.js') }}"></script>
+
+  <script>
+    initiallizeDropdown('domain')
+    initiallizeDropdown('technical')
+    initiallizeDropdown('language')
+    initiallizeSearch()
+  </script>
+
+{% endblock %}

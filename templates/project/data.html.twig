@@ -1,0 +1,57 @@
+{% extends 'layout.html.twig' %}
+
+{% set project_url = app.request.uri %}
+{% set project_token = project_token|default('') %}
+{% set dir = dir|default(null) %}
+
+{% if project is not defined %}
+    {% set project = app.session.get(project_token)|default(null) %}
+{% endif %}
+
+{% set git_repo_json = [] %}
+{% set mailing_list_json = [] %}
+{% set more_info_json = [] %}
+
+
+{% if project is not null %}
+
+    {% set id = id|default(project.getId) %}
+    {% set name = project.getName %}
+    {% set objective = project.getObjective %}
+    {% set description = project.getDescription %}
+    {% set organization = project.getOrganization %}
+    {% set website = project.getWebsite %}
+    {% set bug_tracking = project.getBugTracking %}
+    {% set documentation = project.getDocumentation %}
+    {% set git_repo = project.getGitRepo %}
+    {% set domain_expertise = project.getDomainExpertise %}
+    {% set technical_expertise = project.getTechnicalExpertise %}
+    {% set mailing_list = project.getMailingList %}
+    {% set more_info = project.getMoreInfo %}
+    {% set project_data_file = project.getProjectDataFile %}
+    {% set project_logo = project.getProjectLogo %}
+    {% set programming_language = project.getProgrammingLanguage %}
+    {% set topic = project.getTopic %}
+    {% set contributor = project.getContributor %}
+
+    {% for _git_repo in git_repo %}
+        {% set git_repo_json = git_repo_json|merge([_git_repo.jsonSerialize]) %}
+    {% endfor %}
+
+    {% for _mailing_list in mailing_list %}
+        {% set mailing_list_json = mailing_list_json|merge([_mailing_list.jsonSerialize]) %}
+    {% endfor %}
+
+    {% for _more_info in more_info %}
+        {% set more_info_json = more_info_json|merge([_more_info.jsonSerialize]) %}
+    {% endfor %}
+
+    {% if project_data_file is not null  %}
+        {% set project_data_file = dir ~ project_data_file %}
+    {% endif %}
+
+    {% if 'http' not in project_logo  %}
+        {% set project_logo = dir ~ project_logo %}
+    {% endif %}
+
+{% endif %}

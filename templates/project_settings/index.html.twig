@@ -1,0 +1,51 @@
+{% extends 'project/data.html.twig' %}
+
+{% block title %}{{ name }} | Settings{% endblock %}
+
+{% block body %}
+  <!-- Custom styles for this template -->
+  <link href="{{ asset('css/project_settings/index.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('css/project_settings/setting.css') }}" rel="stylesheet"/>
+
+  <div class="header">
+    <div class="row">
+      <div class="container">
+        <img class="project-image" src="{{ asset('img/project-card-background.png') }}">
+
+        <div>
+          <h1 class="project-name">{{ name }}</h1>
+          <div class="settings">Project Settings</div>
+        </div>
+          
+        {% if project_logo %}
+          {% if 'http' in project_logo %}
+            <img class="project-icon" src="{{ project_logo }}">
+          {% else %}
+            <img class="project-icon" src="{{ asset(project_logo) }}">
+          {% endif %}
+        {% else %}
+          <img class="project-icon" src="{{ asset('icons/project-icon-default.png') }}">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="container main-container">
+    
+    <div class="section-title">Danger Zone</div>
+
+    <div class="sub-container" style="border-color: #ff0000">
+      {% include 'project_settings/setting.html.twig' with {
+        'title': 'Delete this project',
+        'message': 'Once you delete a project, there is no going back. Please be certain.',
+        'button': 'Delete this project',
+        'data_target': '#delete_project',
+        'color': '#ff0000',
+        'last': true,
+      } %}
+    </div>
+    
+  </div>
+
+  {{ include('delete_project/index.html.twig') }}
+{% endblock %}

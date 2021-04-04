@@ -1,0 +1,70 @@
+.header {
+    position: relative;
+    width: 100%;
+    font-family: 'Montserrat';
+    background-image: linear-gradient(to right, #e6e6e640, #cccccc65);
+    margin-bottom: 20px;
+    padding: 80px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    overflow: hidden;
+}
+
+.page-image {
+    position: absolute;
+    height: 500px;
+    object-fit: contain;
+    left: 35%;
+    top: -40%;
+}
+
+.page-icon {
+    height: 120px;
+    position: absolute;
+    object-fit: contain;
+    left: 35%;
+    top: 20%
+}
+
+.title {
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.page-description {
+    font-size: 16px;
+    color: #0066ff;
+    font-weight: 500;
+    margin-top: 10px;
+    letter-spacing: 1px;
+    margin-left: 3px;
+}
+
+main .container {
+    justify-content: center;
+    font-family: 'Montserrat';
+    color: #404040;
+    font-weight: 400;
+}
+
+.form-section-title {
+    color: #1a1a1a;
+    font-weight: 500;
+    margin-top: 15px;
+    margin-bottom: -15px;
+}
+
+.form {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    margin: 0px 20% 20px 20%;
+}
+
+.form-single-col {
+    padding: 10px 25px 10px 25px;
+}
+
+.btn-container {
+    margin: 10px 20% 130px 20%;
+}
